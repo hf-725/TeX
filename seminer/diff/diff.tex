@@ -1,4 +1,7 @@
 \documentclass[uplatex]{jsarticle}
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL diff/./good_covering.tex   Sun Nov 29 15:21:23 2020
+%DIF ADD ./good_covering.tex        Sun Nov 29 15:20:50 2020
 \usepackage{MAstandard, appendix, cleveref}
 \DeclareMathOperator{\Int}{Int}
 \newcommand{\smooth}{C^{\infty}}
@@ -10,6 +13,44 @@
 \title{good coveringについて}
 \author{みつば(@mittlear1)}
 \date{2020年9月24日}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF LISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -17,7 +58,7 @@
 \end{abstract}
 
 \section{good coveringの存在}
-以下，多様体は第二可算で$C^\infty$級なものを考える．
+以下，多様体は第二可算で$C^\infty$\DIFaddbegin \DIFadd{級}\DIFaddend なものを考える．
 
 
 \begin{definition}
@@ -49,7 +90,7 @@
   $0\in T_pM$の近傍$V$を小さくとって，$\map{\exp=\exp_p}{V}{M}$が像への微分同相になり，かつ
   任意の$V$の2点についてそれらを結ぶ最短測地線が$M$内でただ一つ存在するようにする．
   さらに$\setR^n$と$T_p M$との間の線型同型写像を一つとることで$p$まわりのチャート$(\exp(V), \varphi)$
-  ができる．以下では，$\exp(V)$に含まれ，$p$を含む測地的に凸な開集合を構成する．
+  ができる．\DIFaddbegin \DIFadd{以下では，}\DIFaddend $\exp(V)$に含まれ，$p$を含む測地的に凸な開集合を構成する．
   $x^i(p)\Gamma_{ij}^k(p) = 0$であり，$i, j, k$の動く範囲は有限だから，$V$に含まれる
   0の近傍$V^\prime$が存在して，任意の$i, j, k$に対して$\exp(V^\prime)$上
     \[\abs{x^k\Gamma_{ij}^k} < 1 / n^2 \]
@@ -76,7 +117,7 @@
     &\geq \sum_k \parenlr{\frac{d\gamma^k}{dt}}^2 - n^2\sum_k\frac{1}{n^2}\parenlr{\frac{d\gamma^k}{dt}}^2  = 0
   \end{align*}
   となる．したがって$r\circ \gamma$は極大値を持たないことが分かった．
-  
+
   $a>0$に対して
     \[B_a = \set{v\in T_p M}{\norm{v} < a} \]
   と書くことにする．$\varepsilon>0$を$B_{3\varepsilon} \subset V^\prime$となるようにとり，
@@ -163,7 +204,7 @@ $U$を$\setR^n$の開集合とすると，$C^\infty$級関数$\map{h}{\setR^n}{\
     =\frac{1}{ct}\log\frac{A(x)}{A(x)-t}\xrightarrow{t\to A(x)} \infty
   \end{align*}
   なので
-    \[\lim_{t\to A(x)} \norm{f(tx)}=\infty \]
+    \[\lim\DIFdelbegin \DIFdel{_{t\to A(X)} }\DIFdelend \DIFaddbegin \DIFadd{_{t\to A(x)} }\DIFaddend \norm{f(tx)}=\infty \]
   となる．以上より$f$が全単射であることが分かった．
 
   最後に$f$の微分がどの点でも正則であることを示す．もしそうでないとすると，$x\in U$と
@@ -214,7 +255,7 @@ good coveringの存在定理は，次のbootstap lemmaと組み合わせるこ�
   帰納法の仮定と(ii)から
   $V_1\cup\dots\cup V_{k-1},\ V_k$および$(V_1\cap V_k)\cup\dots \cup (V_{k-1}\cap V_k)$
   は$\mfrakA$の元である．したがって$(2)$より$\bigcup_{i=1}^k V_i\in\mfrakA$である．
-  
+
   $M$は局所コンパクトHausdorff空間だから，コンパクト集合の増大列$\{K_n\}_{n\in \setN}$
   であって
   \begin{enumerate}
@@ -254,7 +295,7 @@ $\mfrakB$としてgood coverをとる．この時点でbootstrap lemmaの$\mfrak
 
 \begin{theorem}[de RhamコホモロジーのPoincar\'{e}双対]
   向きづけられた$n$次元多様体$M$と非負整数$k$について，
-    \[([\omega],[\eta])=\int_M \omega\wedge \eta\]
+    \[([\omega],\DIFaddbegin [\DIFaddend \eta\DIFaddbegin ]\DIFaddend )=\int_M \omega\wedge \eta\]
   で定まるペアリング$\map{(\ ,\ )}{H^{n-k}(M)\times H^k_c(M)}{\setR}$は同型である．
   ただし，$H^\ast_c(M)$はコンパクト台のde Rhamコホモロジーを表す．
 \end{theorem}
@@ -263,23 +304,48 @@ $\mfrakB$としてgood coverをとる．この時点でbootstrap lemmaの$\mfrak
   $M,\ N$を多様体とし，さらに$N$のde Rhamコホモロジー$H^\ast(N)$が有限生成であるとする．
   このとき
     \[H^\ast(M\times N)=H^\ast(M)\otimes H^\ast(N)\]
-  が成立する．
+  \DIFdelbegin \DIFdel{である}\DIFdelend \DIFaddbegin \DIFadd{が成立する}\DIFaddend ．
 \end{theorem}
 
-これらの定理の証明は，有限個の元からなるgood coveringをもつ場合には\cite{Bott--Tu}で証明されている．
+これらの定理の証明は，有限個の元からなるgood coveringをもつ場合には\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{Bott-Tu}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{Bott--Tu}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend で証明されている．
 実際にはその仮定は上で書いたように弱められるのであるが，2節の最後に書いた手法を用いれば
-\cite{Bott--Tu}の証明で実質的な部分の証明はほぼ終了している．
+\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{Bott-Tu}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{Bott--Tu}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend の証明で実質的な部分の証明はほぼ終了している．
 
 \begin{theorem}
   $H_{dR}^\ast$をde Rhamコホモロジーを与える関手，$H_{sing}^\ast$を特異コホモロジーを与える関手
   とする．このとき，$H_{dR}^\ast$と$H_{sing}^\ast$は自然同値である．
 \end{theorem}
 
-この定理は\cite{LeeSmooth}に証明がある．
+この定理は\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{Lee}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{LeeSmooth}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend に証明がある．
 
-\bibliographystyle{MA}
+\DIFdelbegin %DIFDELCMD < \begin{thebibliography}{10}
+%DIFDELCMD <   \bibitem{Bott-Tu} %%%
+\DIFdel{Bott, R. and Tu, L., 
+    }\textit{\DIFdel{Differential Forms in Algebraic Topology}}%DIFAUXCMD
+\DIFdel{, Springer, 1982.
+  }%DIFDELCMD < \bibitem{Lee} %%%
+\DIFdel{Lee, J. M., 
+    }\textit{\DIFdel{Introduction to Topological Manifolds}}%DIFAUXCMD
+\DIFdel{, Springer, 2000.
+  }\DIFdelend \DIFaddbegin \bibliographystyle{MA}
+\DIFaddend 
 
-\bibliography{data}
+\DIFdelbegin %DIFDELCMD < \end{thebibliography}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \bibliography{data}
+\DIFaddend 
 
 \end{document}
 good cover全体が開被覆全体のなす有向集合上共終であること
