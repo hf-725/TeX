@@ -1,0 +1,206 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{tosuustd2019}
+\usepackage{type1cm}
+
+\DeclareMathOperator{\capp}{cap}
+
+\begin{document}
+
+\title{球面幾何の世界}
+\author{みつば(@mittlear1)}
+\date{2017年9月4日}
+\maketitle
+\begin{abstract}
+球面幾何学は非ユークリッド幾何学の代表例で、平行線公準を満たさないモデルとして知られている．主な研究対象は球面上の領域の面積であり，球面上の三角形の面積公式や三角形の「等積変形」の原理などユークリッド幾何学とは似ても似つかない結果が多く存在する．ここでは，これらの話題を中心に球面幾何学の世界を紹介する．
+\end{abstract}
+
+
+
+\section{球面上の多角形}
+以下，考える球は全て半径1の単位球であるとする．この節では球面幾何の基礎的概念を定義し，球面上の三角形の面積公式を導出する．
+
+\begin{definition} 
+\begin{enumerate}[label=(\arabic*)]
+\item 球の中心を通る平面での切り口の円を大円という．
+\item 球面上の点$A$と球の中心$O$を通る$\mathbb{R}^3$内の直線と球の$A$でない方の交点を点$A$の対心点といい，$A^*$で
+表す．
+\item 球面上の点$A$，$B$を結ぶ直線とは，点$A$，$B$を通る大円のこと．点$A$から点$B$までの球面距離とは，大円
+上の点$A$から点$B$までの線分の長さのうち短い方のこと．
+\item 球面距離が$\pi$の点$A$，$B$を通る二つの線分によって囲まれる領域を月形という．
+\item 球$S$とそれに外接する円筒$\Gamma$を用意する．円筒の中心を通る直線を$l$とする．$S$から極$S\cap l$を除いたもの
+を$\check{S}$とする．点$X\in\check{S}$に対して，直線$l$から点$X$に向かい$l$に垂直な半直線と$\Gamma$との交点を$\varphi(X)$とする
+とき，$\varphi:\check{S}→\Gamma$を円柱投影という．
+\end{enumerate}
+\end{definition}
+
+円柱投影について，次の定理が成り立つ．
+
+\begin{theorem}[アルキメデス・ランバートの円柱投影定理] 円柱投影は面積を保存する．つまり，領域$W\subset\check{S}$，$\varphi(W)$ともに面積が定義できるとき$W$と$\varphi(W)$の面積は等しい．
+\end{theorem}
+\begin{proof}
+$A(X)$で領域$X$の面積を表す．球面上の図形$W$のパラメータ表示を
+\[ f(\theta,\psi)=\begin{pmatrix} \cos \theta \cos \psi\\\cos \theta \sin \psi\\\sin \theta \end{pmatrix}  ((\theta,\psi)\in U)\]
+とすると，曲面積の定義から
+\[ A(W)=\iint_U |f_{\theta}\times f_{\psi}|d\theta d\psi \]
+となる．同様に
+\[ g=\varphi \circ f \]
+と定義すると
+\[ A(\varphi(W))=\iint_U |g_{\theta}\times g_{\psi}|d\theta d\psi \]
+であるから，
+\[ |f_{\theta}\times f_{\psi}|=|g_{\theta}\times g_{\psi}| \]
+がすべての$(\theta,\psi)$で成立することを示せばよい．まず，
+\[ f_{\theta}=\begin{pmatrix}-\sin \theta \cos \psi \\-\sin \theta \sin \psi \\\cos \theta \end{pmatrix},f_{\psi}=\begin{pmatrix}-\cos \theta \sin \psi \\\cos \theta \cos \psi \\0 \end{pmatrix} .\]
+したがって
+\[ f_{\theta} \times f_{\psi}=\begin{pmatrix}-\cos ^2 \theta \cos \psi\\-\cos ^2 \theta \sin \psi\\-\sin \theta \cos \theta \end{pmatrix}=-\cos \theta f(\theta,\psi) \]
+である．また，
+\[ g(\theta,\psi)=\begin{pmatrix}  \cos \psi\\ \sin \psi\\\sin \theta \end{pmatrix} \]
+であるから
+\[ g_\theta=\begin{pmatrix}0 \\ 0 \\ \cos \theta \end{pmatrix},g_\psi=\begin{pmatrix}-\sin\psi\\ \cos \psi \\0 \end{pmatrix}. \]
+したがって
+\[ g_{\theta}\times g_{\psi}=\begin{pmatrix} -\cos \theta \cos \psi\\ -\cos \theta \sin \psi \\ 0 \end{pmatrix} \]
+以上より
+\[ |f_{\theta}\times f_{\psi}|=|g_{\theta}\times g_{\psi}| \]
+となることが確かめられる．
+\end{proof}
+
+\begin{corollary}
+半径1の球の表面積は$4\pi$である．
+\end{corollary}
+
+次に，球面上の角を定義する．
+
+\begin{definition}
+球面上の異なる3点$A，B，C$において，$\angle ABC$を「直線$AB$の点$B$における$\mathbb{R}^3$内での接線と直線$CB$の点$B$における$\mathbb{R}^3$内での接線のなす角」と定義する．また，球面上の凸$n$角形とは，隣り合う3点が同一直線上にない$n$個の角を持つ凸領域のこと．
+\end{definition}
+
+球面上の多角形の面積を$[ABC]$などと表すことにする．次に示すのが球面上の三角形の面積公式である．
+
+\begin{theorem}[ジラールの公式]球面上の三角形の面積は
+\[ [ABC]=\angle A+\angle B+\angle C-\pi \]
+で与えられる．
+\end{theorem}
+\begin{center}
+\input{sphere1.tex}
+\end{center}
+\begin{proof}
+まず，角度$\alpha$の月形$L$の面積が$2\alpha$であることを示す．$\varphi$を円柱投影とすると，$\varphi(L)$は，円柱の側面を展開したときに幅$\alpha$，高さ2の長方形になる．よってその面積は$2\alpha$となる．
+
+次に，球面三角形の面積公式を示す．図のように点をとる．また，$\Delta=[ABC]$とおく．点$A$，$A^*$は互いに極の位置にあるから，図の斜線部は月形となる．点$B，C$についても同様．このとき
+\[ 2\angle A+2\angle A+2\angle B+2\angle B+2\angle C+2\angle C=4\pi+4\Delta. \]
+よって
+\[ \Delta=\angle A+\angle B+\angle C-\pi \]
+となる．
+\end{proof}
+
+\begin{corollary}球面上の　凸$n$角形の面積は，$n$個の角度を$\alpha_i(1\le i\le n)$として
+\[ \sum_{i=1}^n \alpha_i -(n-2)\pi \]
+で表される．\end{corollary}
+\begin{proof}任意の2頂点を結ぶ線分が常に領域の内部にあることに注意すればよい．\end{proof}
+
+\begin{corollary}球面上の凸$n$角形の内角の和は$(n-2)\pi$より大きい．\end{corollary}
+
+\section{点の位置関係と面積}
+前章では，球面三角形の面積が角度によって定まることを見た．この章では，三角形の等積変形の原理を示すレクセルの定理を紹介する．
+\begin{definition}
+\begin{enumerate}[label=(\arabic*)]
+\item 球面三角形$ABC$に対して，点$A$，$B$，$C$を通る$\mathbb{R}^3$内の円で切ったときの，三角形$ABC$を含む側を三角形$ABC$の外接キャップといい，$cap(ABC)$で表す．
+\item 点$A，B$を両端とし点$C$を通る円弧を$\widehat{ACB}$で表し，半円より大きいとき優弧，小さいとき劣弧という．
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}[球面上の円周角の定理]
+
+三角形$ABC$に対して，$X\in\widehat{ACB}$ならば
+\[ \angle AXB-(\angle XAB+\angle XBA)=一定 \]
+となる．
+\end{proposition}
+\begin{proof}
+図を参照．
+\end{proof}
+\begin{center}
+\input{sphere2.tex}
+\end{center}
+\begin{corollary}
+\[ \text{$\widehat{ACB}$が半円}\Leftrightarrow \angle C=\angle A+\angle B, \]
+\[ \text{$\widehat{ACB}$が優弧}\Leftrightarrow \angle C<\angle A+\angle B, \]
+\[ \text{$\widehat{ACB}$が劣弧}\Leftrightarrow \angle C>\angle A+\angle B. \]
+\end{corollary}
+
+
+\begin{theorem}[レクセルの定理]球面三角形$ABC$に対して，$X$を大円$ABA^*$の$C$側にある点とする．このとき
+\[ X\in \widehat{A^*CB^*}\Leftrightarrow [ABX]=[ABC] \]
+\[ \text{$X$が$\capp(A^*CB^*)$の外側}\Leftrightarrow [ABX]<[ABC], \]
+\[ \text{$X$が$\capp(A^*CB^*)$の内側}\Leftrightarrow [ABC]>[ABC] \]
+が成立する．ただし，$\capp(A^*CB^*)$の内側とは，キャップによって分けられる二つの領域のうち三角形$A^*CB^*$を含む方のこととする．\end{theorem}
+\begin{center}
+\input{sphere3.tex}\input{sphere4.tex}
+\end{center}
+
+
+\begin{proof}
+左図を参照して，$X\in \widehat{A^*CB^*}$のとき円周角の定理より$\theta-\alpha^*-\beta^*$は一定．また，
+\[ \alpha+\alpha^*=\pi, \]
+\[ \beta+\beta^*=\pi \]
+より
+\[ \theta+\alpha+\beta-\pi=\text{一定}.\]
+よって$[ABX]=[ABC]$．
+$X$が$\capp(A^*CB^*)$の外側にあるとき，右図より
+\[ [ABX]<[ABX^{\prime}]=[ABC] \]
+となる．$X$が内側にあるときも同様．
+\end{proof}
+
+\section{球面上の等周定理}
+これまで見てきたように，球面幾何学とユークリッド幾何学ではかなり様子が違う．しかし，一方で類似の定理も存在する．最後にそれを紹介しよう．
+\begin{theorem}[球面上の四角形の等周定理]\label{toushuu}
+  球面上の四辺形$ABCD$で$AB=a$，$BC=b$，$CD=c$，$DA=d$ ($a+b+c+d<2\pi$)と定まっているもののうち面積最大のものはキャップに内接する．\end{theorem}
+証明のためにいくつかの補題を用意する．
+
+\begin{lemma}$\widehat{ABC}$が半円のとき，$AC$の長さを変えると$[ABC]$は減少する．\end{lemma}
+\begin{proof}
+まず，$\widehat{ABC}が半円なら\widehat{B^*A^*C}が半円$となる．なぜなら，系9より
+\begin{align*}
+\widehat{ABC} が半円 &\Leftrightarrow \angle B=\angle A+\angle C \\
+&\Leftrightarrow \pi-\angle CB^*A^*=\pi-\angle CA^*B^*+\angle C \\
+&\Leftrightarrow \angle CB^*A^*=\angle CA^*B^*+\angle C \\
+&\Leftrightarrow \widehat{B^*A^*C} が半円
+\end{align*}
+となるからである．よって$B^*C$は$\capp(B^*A^*C)$の直径となる．そこで，中心$B$で$C$を通るキャップは$\capp(B^*A^*C)$に接する．$AB，BC$の長さを変えずに$AC$の長さを変えると$C$は$\capp(B^*A^*C)$の外側に行き，レクセルの定理から面積は減少する．
+\end{proof}
+
+\begin{corollary}$AB$，$BC$の長さが一定でその和が$\pi$未満の三角形は$\widehat{ABC}$が半円のときに限り面積最大になる．\end{corollary}
+
+\begin{lemma}$a+b+c<\pi$となる3つの正実数$a,b,c$に対して$AB=a,BC=b,CD=c$と定まっている四辺形$ABCD$の面積が最大となるのは四角形$ABCD$が直径$AD$のキャップに内接するときであり，またそのときに限る．\end{lemma}
+\begin{proof}
+まず，面積最大のものが存在することを示す．$x=AD，y=AC$とおくと，
+\[ x_0\le x\le a+b+c   \    (x_0はxがとりうる最小の値) \]
+\[ \max\{|a-b|,|c-x|\}\le y\le \min\{a+b,c+x\} \]
+が表す領域はコンパクトだから，$[ABCD]$は最大値を持つ．
+
+次に，面積最大となるのが命題の条件を満たすときに限ることを示す．$ABCD$は凸であるとしてよい．$ABCD$が直径$AD$のキャップ上にないと仮定する．このとき，$\widehat{ABD}$または$\widehat{ACD}$は半円ではない．たとえば$\widehat{ABD}$が半円でないとすると，系14より$AD$の長さのみを変えて$\widehat{ABD}$を半円にすることで$[ABD]$は増加する．
+\end{proof}
+
+\begin{lemma}\label{naisetsu}周の長さが$2\pi$より小さい$n$辺形に対して，この$n$辺形と同じ順に同じ長さの辺を持つ$n$辺形でキャップに内接するものが存在する．\end{lemma}
+\begin{proof}
+辺の長さを順に$a_i(1\le i\le n)$とする．大円上に点$A_i$を，$|A_iA_{i+1}|=a_i$となるように置く．このとき
+\[ |A_nA_0|>a_n \]
+だから，大円を徐々に小さいキャップに変形することで$|A_nA_0|=a_n$となる瞬間がある．
+\end{proof}
+
+
+\vspace{5 ex}
+\begin{proof}\cref{toushuu}の証明] \cref{naisetsu}によりキャップに内接する四辺形の存在は示されているから，その状態から図形を変形すると必ず面積が減少することを示せばよい．$c$が長さ最大の辺で，$b\le d$であるとしてよい．$A$とキャップの中心を結ぶ直線とキャップが再び交わる点を$P$とする．ここで，$AP$は$CD$と交わっていることに注意する．$C，D，P$を固定し，変形で$A,B$が移った先を$A^{\prime}，B^{\prime}$とすると$[A^{\prime}B^{\prime}CP]<[ABCD]$かつ$[A^{\prime}DP]<[ADP]$が成り立つから
+\[ [A^{\prime}B^{\prime}CD]<[ABCD] \]
+となる．\end{proof}
+\begin{center}
+\input{sphere5.tex}
+\end{center}
+
+\vspace{10 ex}
+\noindent 参考文献
+
+[1]前原濶，桑田孝泰，『数学のかんどころ3 知っておきたい幾何の定理』，共立出版，2011．
+
+[2]前原濶，『円と球面の幾何学』，朝倉書店，1998．
+
+[3]杉浦光夫，『解析入門II』，東京大学出版会，1985．
+\end{document}

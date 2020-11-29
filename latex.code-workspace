@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "C:\\texlive"
+		},
+		{
+			"path": "C:\\Users\\Mitsuba\\texmf"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "TeX",
+		"liveServer.settings.port": 5501,
+		"editor.tabSize": 2
+	}
+}

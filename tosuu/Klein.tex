@@ -1,0 +1,221 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{tosuustd2019}
+\usepackage{type1cm}
+
+\def\maprestriction#1#2{\left.#1\right|_{#2}}
+
+\begin{document}
+
+\title{叩き割ってクライン・ボトル}
+\author{みつば(@mittlear1)}
+\date{2019年2月1日}
+\maketitle
+\begin{abstract}
+  TrySailの楽曲『CODING』の歌詞の中で麻倉ももさんが「叩き割ってクライン・ボトル」と歌うところがある．そこで今回はKleinの壺の諸性質を紹介する．
+\end{abstract}
+\section{諸性質}
+以下，多様体と言えば第二可算で$C^\infty$級であることを仮定する．
+まず，Kleinの壺の作り方を述べる．
+\begin{center}
+  \begin{tikzpicture}
+    \draw (0,0) -- (4,0);
+    \draw (0,0) -- (0,4);
+    \draw (4,0) -- (4,4);
+    \draw (0,4) -- (4,4);
+    \draw[line width=0.3mm] (0,2.1) -- (-0.15,1.8);
+    \draw[line width=0.3mm] (0,2.1) -- (0.15,1.8);
+    \draw[line width=0.3mm] (4,2.1) -- (3.85,1.8);
+    \draw[line width=0.3mm] (4,2.1) -- (4.15,1.8);
+    \draw[line width=0.3mm] (2.1,0) -- (1.8,0.15);
+    \draw[line width=0.3mm] (2.1,0) -- (1.8,-0.15);
+    \draw[line width=0.3mm] (1.9,4) -- (2.2,3.85);
+    \draw[line width=0.3mm] (1.9,4) -- (2.2,4.15);
+  \end{tikzpicture}
+\end{center}
+
+図の正方形で，縦の辺をくっつけると円柱の側面が出てくるが，ここで上下の円周をねじらないで貼りつけるとトーラス(ドーナツの表面)になる．一方で，上下の円周をねじって貼りつけることによって得られるのがKleinの壺である．
+
+本稿では，Kleinの壺に多様体構造が入ることが容易に証明できるよう見かけの異なる定義を採用した．
+\begin{definition}\label{Klein}
+  Euclid平面$\mathbb{R}^2$上の同値関係$\sim$を次のように定義する．
+  \[ (x_1,y_1)\sim (x_2,y_2)\overset{\mathrm{def}}{\Leftrightarrow}\ \exists (m,n)\in \mathbb{Z}^2\ \ x_1=(-1)^nx_2+m,\ y_1=y_2+n.  \]
+  商空間$K:=\mathbb{R}^2/\mathord{\sim}$をKleinの壺(Klein bottle)という．
+\end{definition}
+
+$\mathbb{R}^2$から$K$への自然な射影を$p\colon \mathbb{R}^2\to K$とする．
+
+\begin{proposition}
+  Kleinの壺には多様体構造が入る．
+\end{proposition}
+\begin{proof}
+  まず，$\mathbb{R}$の開集合$U$をとったとき，制限写像$\left.p\right|_{U}\colon U\to p(U)$が単射ならば$p(U)$は$K$の開集合であり，しかも$\left.p\right|_{U}$は同相であることに注意する．
+
+  $K$がHausdorffであることを示す．$k,l\in K$を任意にとったとき$x\in p^{-1}(k)$と$y\in p^{-1}(l)$をその2点間の距離が最も短くなるようにとる．これら2つの点はある一辺の長さ1の正方形の内部に含まれるので，$x,y$の交わらない開近傍$V,W$をこの正方形に収まるようにとれる．$p$の$V,W$への制限は単射なので，$p(V),p(W)$は$k,l$を分離する$K$の開集合である．
+
+  次に，$K$の座標近傍系の存在を示す．各$k\in K$に対して，$x\in p^{-1}(k)$と$十分小さいx$の開近傍$V$をとれば，$\left.p\right|_{V}\colon V\to p(V)$は同相写像である．したがって，$(p(V),(\left.p\right|_{V})^{-1})$は$k$まわりの座標近傍となる．また，座標変換は単に$\mathbb{R}^2$の合同変換となるので以上の定義は確かに$K$の$C^{\infty}$級座標近傍系を定めている．
+
+  最後に第二可算性についてはこの後に述べる$K$のコンパクト性から従う．
+\end{proof}
+次に述べる命題により，定義\ref{Klein}によるKleinの壺の定義が初めに説明したものと同じであることが分かる．
+\begin{proposition}\label{prop1}
+  $\mathbb{R}^2$の部分空間$S$を
+  \[ S:=\{(x,y)\in\mathbb{R}^2\mid 0\leq x\leq 1,\ 0\leq y\leq 1\} \]
+  で定める．このとき，定義\ref{Klein}における$\mathbb{R}^2$上の同値関係$\sim$が定める$S$上の同値関係$\sim$による商空間$S/\mathord{\sim}$は$K$に同相である．特に，$K$はコンパクトである．
+\end{proposition}
+\begin{proof}
+  $f\colon S\to K$を射影$p$の$S$への制限とする．商空間の普遍性から，$f$は連続写像$\tilde{f}\colon S/\mathord{\sim}\to K$を誘導する．$\tilde{f}$はコンパクト空間からHausdorff空間への連続全単射であるから同相写像である．
+\end{proof}
+以下，Kleinの壺の商をとる前の空間は命題\ref{prop1}における$S$であるとする．また，このときの射影も$p\colon S\to K$で表す．
+
+本稿で紹介するKleinの壺の性質は次の3つである．
+\begin{quote}
+  \begin{enumerate}[label=(\arabic*)]
+    \item 整係数ホモロジー群．
+    \item de Rhamコホモロジー群．
+    \item 向き付け可能性．
+  \end{enumerate}
+\end{quote}
+\begin{theorem}\label{singular}
+  Kleinの壺の整係数特異ホモロジー群は
+  \begin{eqnarray*}
+    H_n(K)=
+    \begin{cases}
+      \mathbb{Z},\ n=0                             \\
+      \mathbb{Z}\oplus\mathbb{Z}/2\mathbb{Z},\ n=1 \\
+      0,\ n\neq 0,1
+    \end{cases}
+  \end{eqnarray*}
+  となる．
+\end{theorem}
+\begin{proof}
+  $S$の部分集合$A$，$B$を
+  \begin{align*}
+    A:=\left\{(x,y)\in S\mid 1/8< x< 7/8\right\},\ B:=\left\{(x,y)\in S\mid 0\leq x<3/8,\ 5/8<x\leq 1 \right\}
+  \end{align*}
+  とおくと，$\{p(A),p(B)\}$は$K$の開被覆である．$p(A)$，$p(B)$，$p(A)\cap p(B)$は全て円周$S^1$とホモトピー同値であることに注意する．このことから，Mayer-Vietoris完全列を考えれば$n\geq 3$のとき$H_n(K)=0$であることが分かる．今，$K$は弧状連結だから
+  \[ H_0(K)=\mathbb{Z} \]
+  である．
+
+  $H_1(p(A))，H_1(p(B))，H_1(p(A)\cap p(B))$の生成元を
+  \begin{align*}
+     & \sigma\colon [0,1]\to p(A);\ t\mapsto p(1/2,t),\ \tau\colon [0,1]\to p(B);\ t\mapsto p(0,t), \\
+     & \eta\colon [0,1]\to p(A)\cap p(B);\ t\mapsto
+    \begin{cases}
+      p(1/4,2t), \ 0\leq t\leq 1/2 \\
+      p(3/4,2t-1), \ 1/2\leq t\leq 1
+    \end{cases}
+  \end{align*}
+  の定めるホモロジー類$[\sigma]，[\tau]，[\eta]$にとる．$\eta$を$[0,1]$から$p(A)$への写像と見なしたとき，この写像は
+  \begin{align*}
+    \omega\colon [0,1]\to p(A);\ t\mapsto
+    \begin{cases}
+      p(1/2,2t),\ 0\leq x \leq 1/2 \\
+      p(1/2,2t-1),\ 1/2\leq t\leq 1
+    \end{cases}
+  \end{align*}
+  とホモトピックである．よって$H_1(p(A))$において
+  \[ [\eta]=[\omega]=2[\sigma] \]
+  である．同様にして$H_1(p(B))$において$[\eta]=2[\tau]$である．
+
+  ここで，Mayer-Vietoris完全列
+  \[ H_2(p(A))\oplus H_2(p(B))\to H_2(K)\to H_1(p(A)\cap p(B))\stackrel{f}{\to}  H_1(p(A))\oplus H_1(p(B))\to H_1(K)\to 0 \]
+  を考える．ただし，$H_1(K)$における完全性は$p(A)\cap p(B)$が弧状連結であることによる．$[\eta]，[\sigma]，[\tau]$によって
+  \[ H_1(p(A)\cap p(B))=\mathbb{Z},\  H_1(p(A))\oplus H_1(p(B))=\mathbb{Z}^2 \]
+  と見なしたとき，
+  \[ f(k)=(2k,2k), k\in \mathbb{Z} \]
+  となる．このことから
+  \[ H_1(K)\cong\Cok f=\mathbb{Z}\oplus \mathbb{Z}/2\mathbb{Z} \]
+  であることが分かる．また，特に$f$は単射であるから，$H_2(p(A))\oplus H_2(p(B))=0$と合わせて
+  \[ H_2(K)\cong\Ker f=0 \]
+  となる．
+\end{proof}
+\begin{theorem}\label{de Rham}
+  Kleinの壺のde Rhamコホモロジー群は
+  \begin{eqnarray*}
+    H^n(K)=
+    \begin{cases}
+      \mathbb{R},\ n=0,1 \\
+      0, \ n\neq 0,1
+    \end{cases}
+  \end{eqnarray*}
+  と計算される．
+\end{theorem}
+\begin{proof}
+  定理\ref{singular}と同じ開被覆$\{p(A),p(B)\}$をとる．この場合も$p(A)，p(B)，p(A)\cap p(B)$が$S^1$とホモトピー同値であることに注意すれば$n\geq 3$のとき$H^n(K)=0$となる．また，$K$が弧状連結であることからやはり$H^0(K)=\mathbb{R}$である．
+
+  $\hat{f}\colon A\to S^1$を
+  \[ \hat{f}(x,y):=e^{2\pi iy} \]
+  で定め，これが商空間に誘導する写像を$f\colon p(A)\to S^1$と書く．$f$は$C^{\infty}$級写像で，ホモトピー同値写像になっている．したがって，$H^1(S^1)$の生成元$\omega$をとると$H^1(p(A))$の生成元は$f^*\omega$と書ける．
+  さらに，$g\colon S^1\to p(A)\cap p(B)$を
+  \begin{eqnarray*}
+    g(e^{2\pi i\theta}):=
+    \begin{cases}
+      p(1/4,2\theta),\ 0\leq \theta \leq 1/2 \\
+      p(3/4,2\theta-1),\ 1/2 \leq \theta \leq 1
+    \end{cases}
+  \end{eqnarray*}
+  で定める．$\iota\colon p(A)\cap p(B)\to p(A)$を包含とするとき，$\iota^*f^*\omega$が0でないことを示せば
+  \[ H^1(p(A))\oplus H^1(p(B))\to H^1(p(A)\cap p(B)) \]
+  が全射であることが分かり，Mayer-Vietoris完全列から$H^2(K)=0$となる．実際，
+  \[ \int_{S^1}g^*\iota^*f^*\omega=2\int_{S^1}\omega\neq 0 \]
+  だから，Stokesの定理より$\iota^*f^*\omega\neq 0$である．
+
+  最後に，Mayer-Vietoris完全列において，各ベクトル空間の次元の交代和をとれば0になるから
+  \[ H^1(K)=\mathbb{R} \]
+  となる．
+\end{proof}
+\begin{corollary}
+  Kleinの壺は向き付け不可能である．
+\end{corollary}
+\begin{proof}
+  もし$K$が向き付け可能なら，$K$はコンパクトだからPoincar\'e双対定理から
+  \[ H^2(K)\cong H^0(K)=\mathbb{R} \]
+  となる．これは定理\ref{de Rham}に反する．
+\end{proof}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,692 @@
+%%% Declaration
+
+\NeedsTeXFormat{pLaTeX2e}
+\ProvidesPackage{tosuustd2019}[2019/03/09]
+
+%%% Options
+
+\newif\if@tosuustd@slantedGreek
+\DeclareOption{uprightGreek}{\@tosuustd@slantedGreekfalse}
+\DeclareOption{slantedGreek}{\@tosuustd@slantedGreektrue}
+\ExecuteOptions{uprightGreek}
+\ProcessOptions\relax
+
+%%% Font
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{textcomp}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}
+\RequirePackage{tgheros}
+\renewcommand{\bfdefault}{bx}
+
+\renewcommand{\emph}[1]{{\sffamily\gtfamily #1}}
+
+%%% Math
+
+\RequirePackage{mathtools}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{bm}
+% `bm` should be loaded AFTER packages which affect math fonts
+% `bm` should be loaded BEFORE `otf`
+\RequirePackage{mathrsfs}
+\RequirePackage{mathcomp}
+
+\newtheoremstyle{tosuustdtheoremstyle}%
+  {0.5\baselineskip}%
+  {0.5\baselineskip}%
+  {\normalfont}%
+  {}%
+  {\headfont}%
+  {}%
+  {1zw}%
+  {\thmname{#1}\thmnumber{\ #2}\thmnote{（#3）\inhibitglue}}
+\theoremstyle{tosuustdtheoremstyle}
+
+%%% Japanese Font
+
+\RequirePackage[jis2004]{otf}
+
+%%% Itemization
+
+\RequirePackage{enumitem}
+\setlist[itemize]{labelsep=0.5zw}   % jsclasses default: 0.5zw (l. 1814)
+\setlist[enumerate]{labelsep=0.5zw} % jsclasses default: 0.5zw (l. 1814)
+\setlist[description]{labelsep=1zw} % jsclasses default: 1zw   (l. 1864)
+
+\newlist{enumarabic}{enumerate}{5}
+\setlist[enumarabic]{label=\arabic*,labelsep=0.5zw}
+\newlist{enumarabicd}{enumerate}{5}
+\setlist[enumarabicd]{label=\arabic*.,labelsep=0.5zw}
+\newlist{enumarabicp}{enumerate}{5}
+\setlist[enumarabicp]{label=(\arabic*),labelsep=0.5zw}
+
+\newlist{enumAlph}{enumerate}{5}
+\setlist[enumAlph]{label=\Alph*,labelsep=0.5zw}
+\newlist{enumAlphd}{enumerate}{5}
+\setlist[enumAlphd]{label=\Alph*.,labelsep=0.5zw}
+\newlist{enumAlphp}{enumerate}{5}
+\setlist[enumAlphp]{label=(\Alph*),labelsep=0.5zw}
+
+\newlist{enumalph}{enumerate}{5}
+\setlist[enumalph]{label=\alph*,labelsep=0.5zw}
+\newlist{enumalphd}{enumerate}{5}
+\setlist[enumalphd]{label=\alph*.,labelsep=0.5zw}
+\newlist{enumalphp}{enumerate}{5}
+\setlist[enumalphp]{label=(\alph*),labelsep=0.5zw}
+
+\newlist{enumRoman}{enumerate}{5}
+\setlist[enumRoman]{label=\Roman*,labelsep=0.5zw}
+\newlist{enumRomand}{enumerate}{5}
+\setlist[enumRomand]{label=\Roman*.,labelsep=0.5zw}
+\newlist{enumRomanp}{enumerate}{5}
+\setlist[enumRomanp]{label=(\Roman*),labelsep=0.5zw}
+
+\newlist{enumroman}{enumerate}{5}
+\setlist[enumroman]{label=\roman*,labelsep=0.5zw}
+\newlist{enumromand}{enumerate}{5}
+\setlist[enumromand]{label=\roman*.,labelsep=0.5zw}
+\newlist{enumromanp}{enumerate}{5}
+\setlist[enumromanp]{label=(\roman*),labelsep=0.5zw}
+
+%%% Graphic
+
+\RequirePackage[dvipdfmx]{graphicx}
+\RequirePackage[dvipsnames,table]{xcolor}
+
+%%% Floating Objects (Table)
+
+\RequirePackage{float}
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+\RequirePackage{multirow}
+
+%%% TikZ
+
+\RequirePackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+\usetikzlibrary{quotes}
+\usetikzlibrary{shapes}
+\usetikzlibrary{through}
+\RequirePackage{tikz-cd}
+\RequirePackage{mdframed}
+
+%%% Hyperlink
+
+\RequirePackage[dvipdfmx,%
+  bookmarks=true,%
+  bookmarksnumbered=true,%
+  setpagesize=false%
+  ]{hyperref}
+\RequirePackage{pxjahyper}
+% `pxjahyper` should be loaded AFTER `hyperref`
+
+%%% Cross-reference
+
+\RequirePackage{cleveref}
+% `cleverref` should be loaded AFTER `hypreref`
+% `cleverref` should be loaded AFTER `amsthm`, and BEFORE the definition of
+% theorem environments.
+
+\newcommand{\crefrangeconjunction}{--}  % \crefrange{a}{b} -> [a]\crefrangeconjunction[b]
+\newcommand{\crefpairconjunction}{, }   % \cref{a,b}       -> [a]\crefpairconjunction[b]
+\newcommand{\crefmiddleconjunction}{, } % \cref{a,b,c,d}   -> [a]\crefmiddleconjunction[b]\crefmiddleconjunction[c]\creflastconjunction[d]
+\newcommand{\creflastconjunction}{, }
+\newcommand{\crefpairgroupconjunction}{，}
+\newcommand{\crefmiddlegroupconjunction}{，}
+\newcommand{\creflastgroupconjunction}{，}
+
+\newcommand{\crefpreandpostname}[5]{%
+  \crefformat{#1}{#2##2##1##3#3}%
+  \crefrangeformat{#1}{#4##3##1##4\crefrangeconjunction##5##2##6#5}%
+  \crefmultiformat{#1}{#4##2##1##3}{\crefpairconjunction##2##1##3#5}{\crefmiddleconjunction##2##1##3}{\creflastconjunction##2#1#3#5}%
+  \crefmultiformat{#1}{#4##2##1##3}{\crefpairconjunction##2##1##3#5}{\crefmiddleconjunction##2##1##3}{\creflastconjunction##2#1#3#5}%
+}
+\newcommand{\Crefpreandpostname}[5]{%
+  \Crefformat{#1}{#2##2##1##3#3}%
+  \Crefrangeformat{#1}{#4##3##1##4\crefrangeconjunction##5##2##6#5}%
+  \Crefmultiformat{#1}{#4##2##1##3}{\crefpairconjunction##2##1##3#5}{\crefmiddleconjunction##2##1##3}{\creflastconjunction##2#1#3#5}%
+  \Crefmultiformat{#1}{#4##2##1##3}{\crefpairconjunction##2##1##3#5}{\crefmiddleconjunction##2##1##3}{\creflastconjunction##2#1#3#5}%
+}
+
+% \crefpreandpostname{chapter}{第}{章}{第}{章}
+% \Crefpreandpostname{chapter}{第}{章}{第}{章}
+\crefpreandpostname{section}{}{節}{}{節}
+\Crefpreandpostname{section}{}{節}{}{節}
+\crefpreandpostname{subsection}{}{節}{}{節}
+\Crefpreandpostname{subsection}{}{節}{}{節}
+\crefpreandpostname{subsubsection}{}{節}{}{節}
+\Crefpreandpostname{subsubsection}{}{節}{}{節}
+\crefname{appendix}{}{} % `\theappendix` contains `\appendixname` ("付録")
+\Crefname{appendix}{}{}
+\crefpreandpostname{subappendix}{}{節}{}{節}
+\Crefpreandpostname{subappendix}{}{節}{}{節}
+\crefpreandpostname{subsubappendix}{}{節}{}{節}
+\Crefpreandpostname{subsubappendix}{}{節}{}{節}
+\crefpreandpostname{equation}{(}{)}{(}{)}
+\Crefpreandpostname{equation}{(}{)}{(}{)}
+\crefname{figure}{\figurename}{\figurename}
+\Crefname{figure}{\figurename}{\figurename}
+\crefname{table}{\tablename}{\tablename}
+\Crefname{table}{\tablename}{\tablename}
+
+\crefpreandpostname{enumarabici}{}{}{}{}
+\crefpreandpostname{enumarabicii}{}{}{}{}
+\crefpreandpostname{enumarabiciii}{}{}{}{}
+\crefpreandpostname{enumarabiciv}{}{}{}{}
+\crefpreandpostname{enumarabicv}{}{}{}{}
+%
+\crefpreandpostname{enumarabicdi}{}{}{}{}
+\crefpreandpostname{enumarabicdii}{}{}{}{}
+\crefpreandpostname{enumarabicdiii}{}{}{}{}
+\crefpreandpostname{enumarabicdiv}{}{}{}{}
+\crefpreandpostname{enumarabicdv}{}{}{}{}
+%
+\crefpreandpostname{enumarabicpi}{}{}{}{}
+\crefpreandpostname{enumarabicpii}{}{}{}{}
+\crefpreandpostname{enumarabicpiii}{}{}{}{}
+\crefpreandpostname{enumarabicpiv}{}{}{}{}
+\crefpreandpostname{enumarabicpv}{}{}{}{}
+%
+\crefpreandpostname{enumAlphi}{}{}{}{}
+\crefpreandpostname{enumAlphii}{}{}{}{}
+\crefpreandpostname{enumAlphiii}{}{}{}{}
+\crefpreandpostname{enumAlphiv}{}{}{}{}
+\crefpreandpostname{enumAlphv}{}{}{}{}
+%
+\crefpreandpostname{enumAlphdi}{}{}{}{}
+\crefpreandpostname{enumAlphdii}{}{}{}{}
+\crefpreandpostname{enumAlphdiii}{}{}{}{}
+\crefpreandpostname{enumAlphdiv}{}{}{}{}
+\crefpreandpostname{enumAlphdv}{}{}{}{}
+%
+\crefpreandpostname{enumAlphpi}{}{}{}{}
+\crefpreandpostname{enumAlphpii}{}{}{}{}
+\crefpreandpostname{enumAlphpiii}{}{}{}{}
+\crefpreandpostname{enumAlphpiv}{}{}{}{}
+\crefpreandpostname{enumAlphpv}{}{}{}{}
+%
+\crefpreandpostname{enumalphi}{}{}{}{}
+\crefpreandpostname{enumalphii}{}{}{}{}
+\crefpreandpostname{enumalphiii}{}{}{}{}
+\crefpreandpostname{enumalphiv}{}{}{}{}
+\crefpreandpostname{enumalphv}{}{}{}{}
+%
+\crefpreandpostname{enumalphdi}{}{}{}{}
+\crefpreandpostname{enumalphdii}{}{}{}{}
+\crefpreandpostname{enumalphdiii}{}{}{}{}
+\crefpreandpostname{enumalphdiv}{}{}{}{}
+\crefpreandpostname{enumalphdv}{}{}{}{}
+%
+\crefpreandpostname{enumalphpi}{}{}{}{}
+\crefpreandpostname{enumalphpii}{}{}{}{}
+\crefpreandpostname{enumalphpiii}{}{}{}{}
+\crefpreandpostname{enumalphpiv}{}{}{}{}
+\crefpreandpostname{enumalphpv}{}{}{}{}
+%
+\crefpreandpostname{enumRomani}{}{}{}{}
+\crefpreandpostname{enumRomanii}{}{}{}{}
+\crefpreandpostname{enumRomaniii}{}{}{}{}
+\crefpreandpostname{enumRomaniv}{}{}{}{}
+\crefpreandpostname{enumRomanv}{}{}{}{}
+%
+\crefpreandpostname{enumRomandi}{}{}{}{}
+\crefpreandpostname{enumRomandii}{}{}{}{}
+\crefpreandpostname{enumRomandiii}{}{}{}{}
+\crefpreandpostname{enumRomandiv}{}{}{}{}
+\crefpreandpostname{enumRomandv}{}{}{}{}
+%
+\crefpreandpostname{enumRomanpi}{}{}{}{}
+\crefpreandpostname{enumRomanpii}{}{}{}{}
+\crefpreandpostname{enumRomanpiii}{}{}{}{}
+\crefpreandpostname{enumRomanpiv}{}{}{}{}
+\crefpreandpostname{enumRomanpv}{}{}{}{}
+%
+\crefpreandpostname{enumromani}{}{}{}{}
+\crefpreandpostname{enumromanii}{}{}{}{}
+\crefpreandpostname{enumromaniii}{}{}{}{}
+\crefpreandpostname{enumromaniv}{}{}{}{}
+\crefpreandpostname{enumromanv}{}{}{}{}
+%
+\crefpreandpostname{enumromandi}{}{}{}{}
+\crefpreandpostname{enumromandii}{}{}{}{}
+\crefpreandpostname{enumromandiii}{}{}{}{}
+\crefpreandpostname{enumromandiv}{}{}{}{}
+\crefpreandpostname{enumromandv}{}{}{}{}
+%
+\crefpreandpostname{enumromanpi}{}{}{}{}
+\crefpreandpostname{enumromanpii}{}{}{}{}
+\crefpreandpostname{enumromanpiii}{}{}{}{}
+\crefpreandpostname{enumromanpiv}{}{}{}{}
+\crefpreandpostname{enumromanpv}{}{}{}{}
+
+%%% Theorem and Proof Environments
+
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{corollary}[theorem]{系}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{claim}[theorem]{主張}
+\newtheorem{fact}[theorem]{事実}
+\newtheorem{definition}[theorem]{定義}
+\newtheorem{notation}[theorem]{記法}
+\newtheorem{remark}[theorem]{注意}
+\newtheorem{example}[theorem]{例}
+\newtheorem{problem}[theorem]{問題}
+\newtheorem{answer}[theorem]{解答}
+
+\newtheorem*{theorem*}{定理}
+\newtheorem*{proposition*}{命題}
+\newtheorem*{corollary*}{系}
+\newtheorem*{lemma*}{補題}
+\newtheorem*{claim*}{主張}
+\newtheorem*{fact*}{事実}
+\newtheorem*{definition*}{定義}
+\newtheorem*{notation*}{記法}
+\newtheorem*{remark*}{注意}
+\newtheorem*{example*}{例}
+\newtheorem*{problem*}{問題}
+\newtheorem*{answer*}{解答}
+
+\crefname{theorem}{定理}{定理}
+\Crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\Crefname{proposition}{命題}{命題}
+\crefname{corollary}{系}{系}
+\Crefname{corollary}{系}{系}
+\crefname{lemma}{補題}{補題}
+\Crefname{lemma}{補題}{補題}
+\crefname{claim}{主張}{主張}
+\Crefname{claim}{主張}{主張}
+\crefname{fact}{事実}{事実}
+\Crefname{fact}{事実}{事実}
+\crefname{definition}{定義}{定義}
+\Crefname{definition}{定義}{定義}
+\crefname{notation}{記法}{記法}
+\Crefname{notation}{記法}{記法}
+\crefname{remark}{注意}{注意}
+\Crefname{remark}{注意}{注意}
+\crefname{example}{例}{例}
+\Crefname{example}{例}{例}
+\crefname{problem}{問題}{問題}
+\Crefname{problem}{問題}{問題}
+\crefname{answer}{解答}{解答}
+\Crefname{answer}{解答}{解答}
+
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont
+  \pushQED{\qed}%
+  \topsep0.5\baselineskip
+  \labelsep1zw
+  \trivlist
+  \item[\hskip\labelsep{\headfont #1}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\renewcommand{\proofname}{証明}
+
+\newenvironment{subproof}[1]{#1\hspace{1zw}\ignorespaces}{}
+
+%%% Bibliography Environment
+
+\def\tosuustd@textbeforebib{}
+\newcommand{\insertbeforebib}[1]{\long\def\tosuustd@textbeforebib{\ignorespaces #1}}
+
+\renewenvironment{thebibliography}[1]{%
+  \global\let\presectionname\relax
+  \global\let\postsectionname\relax
+  \section*{\refname}\@mkboth{\refname}{\refname}%
+  \tosuustd@textbeforebib
+   \list{\@biblabel{\@arabic\c@enumiv}}%
+        {\settowidth\labelwidth{\@biblabel{#1}}%
+         \leftmargin\labelwidth
+         \advance\leftmargin\labelsep
+         \@openbib@code
+         \usecounter{enumiv}%
+         \let\p@enumiv\@empty
+         \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+   \sloppy
+   \clubpenalty4000
+   \@clubpenalty\clubpenalty
+   \widowpenalty4000%
+   \sfcode`\.\@m}
+  {\def\@noitemerr
+    {\@latex@warning{Empty `thebibliography' environment}}%
+   \endlist}
+
+%%%  Parentheses etc.
+
+\newcommand{\parenlr}[1]{\left(#1\right)}
+\newcommand{\bracketlr}[1]{\left[#1\right]}
+\newcommand{\bracelr}[1]{\left\{#1\right\}}
+\newcommand{\abracket}[1]{\langle#1\rangle}
+\newcommand{\abracketlr}[1]{\left\langle#1\right\rangle}
+\newcommand{\floor}[1]{\lfloor#1\rfloor}
+\newcommand{\floorlr}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\lceil#1\rceil}
+\newcommand{\ceillr}[1]{\left\lceil#1\right\rceil}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\abslr}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\normlr}[1]{\left\lVert#1\right\rVert}
+
+\newcommand{\relmiddle}[1]{\mathrel{}\middle#1\mathrel{}}
+\newcommand{\set}[2]{\{#1\mid#2\mbox{}\}}
+\newcommand{\setlr}[2]{\left\{#1\relmiddle|#2\mbox{}\right\}}
+\newcommand{\map}[3]{#1\colon#2\to#3}
+\newcommand{\restr}[2]{#1|_{#2}}
+\newcommand{\restrlr}[2]{\left.#1\right|_{#2}}
+
+\newcommand{\id}{\mathrm{id}}
+
+%%% Logic Symbols
+
+\newcommand{\IFF}[2]{\ensuremath{\text{#1}\Longleftrightarrow\text{#2}}}
+\newcommand{\IMPLIES}[2]{\ensuremath{\text{#1}\Longrightarrow\text{#2}}}
+\newcommand{\IMPLIEDBY}[2]{\ensuremath{\text{#1}\Longleftarrow\text{#2}}}
+
+%%% log-like Functions
+
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Coim}{Coim}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\Cok}{Cok}
+\DeclareMathOperator{\cok}{cok}
+\DeclareMathOperator{\Coker}{Coker}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator*{\colim}{colim}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Image}{Im} % \Im is already defined
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\ImPart}{Im} % \Im is already defined
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\RePart}{Re} % \Re is already defined
+\DeclareMathOperator{\tr}{tr}
+
+%%% Math Characters
+
+\newcommand{\omicron}{o}
+
+\let\tosuustd@mitGamma\varGamma
+\let\tosuustd@mitDelta\varDelta
+\let\tosuustd@mitTheta\varTheta
+\let\tosuustd@mitLambda\varLambda
+\let\tosuustd@mitXi\varXi
+\let\tosuustd@mitPi\varPi
+\let\tosuustd@mitSigma\varSigma
+\let\tosuustd@mitUpsilon\varUpsilon
+\let\tosuustd@mitPhi\varPhi
+\let\tosuustd@mitPsi\varPsi
+\let\tosuustd@mitOmega\varOmega
+
+\if@tosuustd@slantedGreek
+  \newcommand{\Alpha}{A}
+  \newcommand{\Beta}{B}
+  \newcommand{\Epsilon}{E}
+  \newcommand{\Zeta}{Z}
+  \newcommand{\Eta}{H}
+  \newcommand{\Iota}{I}
+  \newcommand{\Kappa}{K}
+  \newcommand{\Mu}{M}
+  \newcommand{\Nu}{N}
+  \newcommand{\Omicron}{O}
+  \newcommand{\Rho}{P}
+  \newcommand{\Tau}{T}
+  \newcommand{\Chi}{X}
+  %
+  \renewcommand{\Gamma}{\tosuustd@mitGamma}
+  \renewcommand{\Delta}{\tosuustd@mitDelta}
+  \renewcommand{\Theta}{\tosuustd@mitTheta}
+  \renewcommand{\Lambda}{\tosuustd@mitLambda}
+  \renewcommand{\Xi}{\tosuustd@mitXi}
+  \renewcommand{\Pi}{\tosuustd@mitPi}
+  \renewcommand{\Sigma}{\tosuustd@mitSigma}
+  \renewcommand{\Upsilon}{\tosuustd@mitUpsilon}
+  \renewcommand{\Phi}{\tosuustd@mitPhi}
+  \renewcommand{\Psi}{\tosuustd@mitPsi}
+  \renewcommand{\Omega}{\tosuustd@mitOmega}
+\else
+  \newcommand{\Alpha}{\mathrm{A}}
+  \newcommand{\Beta}{\mathrm{B}}
+  \newcommand{\Epsilon}{\mathrm{E}}
+  \newcommand{\Zeta}{\mathrm{Z}}
+  \newcommand{\Eta}{\mathrm{H}}
+  \newcommand{\Iota}{\mathrm{I}}
+  \newcommand{\Kappa}{\mathrm{K}}
+  \newcommand{\Mu}{\mathrm{M}}
+  \newcommand{\Nu}{\mathrm{N}}
+  \newcommand{\Omicron}{\mathrm{O}}
+  \newcommand{\Rho}{\mathrm{P}}
+  \newcommand{\Tau}{\mathrm{T}}
+  \newcommand{\Chi}{\mathrm{X}}
+\fi
+
+\newcommand{\mbfA}{\mathbf{A}}
+\newcommand{\mbfB}{\mathbf{B}}
+\newcommand{\mbfC}{\mathbf{C}}
+\newcommand{\mbfD}{\mathbf{D}}
+\newcommand{\mbfE}{\mathbf{E}}
+\newcommand{\mbfF}{\mathbf{F}}
+\newcommand{\mbfG}{\mathbf{G}}
+\newcommand{\mbfH}{\mathbf{H}}
+\newcommand{\mbfI}{\mathbf{I}}
+\newcommand{\mbfJ}{\mathbf{J}}
+\newcommand{\mbfK}{\mathbf{K}}
+\newcommand{\mbfL}{\mathbf{L}}
+\newcommand{\mbfM}{\mathbf{M}}
+\newcommand{\mbfN}{\mathbf{N}}
+\newcommand{\mbfO}{\mathbf{O}}
+\newcommand{\mbfP}{\mathbf{P}}
+\newcommand{\mbfQ}{\mathbf{Q}}
+\newcommand{\mbfR}{\mathbf{R}}
+\newcommand{\mbfS}{\mathbf{S}}
+\newcommand{\mbfT}{\mathbf{T}}
+\newcommand{\mbfU}{\mathbf{U}}
+\newcommand{\mbfV}{\mathbf{V}}
+\newcommand{\mbfW}{\mathbf{W}}
+\newcommand{\mbfX}{\mathbf{X}}
+\newcommand{\mbfY}{\mathbf{Y}}
+\newcommand{\mbfZ}{\mathbf{Z}}
+\newcommand{\mbfa}{\mathbf{a}}
+\newcommand{\mbfb}{\mathbf{b}}
+\newcommand{\mbfc}{\mathbf{c}}
+\newcommand{\mbfd}{\mathbf{d}}
+\newcommand{\mbfe}{\mathbf{e}}
+\newcommand{\mbff}{\mathbf{f}}
+\newcommand{\mbfg}{\mathbf{g}}
+\newcommand{\mbfh}{\mathbf{h}}
+\newcommand{\mbfi}{\mathbf{i}}
+\newcommand{\mbfj}{\mathbf{j}}
+\newcommand{\mbfk}{\mathbf{k}}
+\newcommand{\mbfl}{\mathbf{l}}
+\newcommand{\mbfm}{\mathbf{m}}
+\newcommand{\mbfn}{\mathbf{n}}
+\newcommand{\mbfo}{\mathbf{o}}
+\newcommand{\mbfp}{\mathbf{p}}
+\newcommand{\mbfq}{\mathbf{q}}
+\newcommand{\mbfr}{\mathbf{r}}
+\newcommand{\mbfs}{\mathbf{s}}
+\newcommand{\mbft}{\mathbf{t}}
+\newcommand{\mbfu}{\mathbf{u}}
+\newcommand{\mbfv}{\mathbf{v}}
+\newcommand{\mbfw}{\mathbf{w}}
+\newcommand{\mbfx}{\mathbf{x}}
+\newcommand{\mbfy}{\mathbf{y}}
+\newcommand{\mbfz}{\mathbf{z}}
+
+\newcommand{\mbfitA}{\bm{A}}
+\newcommand{\mbfitB}{\bm{B}}
+\newcommand{\mbfitC}{\bm{C}}
+\newcommand{\mbfitD}{\bm{D}}
+\newcommand{\mbfitE}{\bm{E}}
+\newcommand{\mbfitF}{\bm{F}}
+\newcommand{\mbfitG}{\bm{G}}
+\newcommand{\mbfitH}{\bm{H}}
+\newcommand{\mbfitI}{\bm{I}}
+\newcommand{\mbfitJ}{\bm{J}}
+\newcommand{\mbfitK}{\bm{K}}
+\newcommand{\mbfitL}{\bm{L}}
+\newcommand{\mbfitM}{\bm{M}}
+\newcommand{\mbfitN}{\bm{N}}
+\newcommand{\mbfitO}{\bm{O}}
+\newcommand{\mbfitP}{\bm{P}}
+\newcommand{\mbfitQ}{\bm{Q}}
+\newcommand{\mbfitR}{\bm{R}}
+\newcommand{\mbfitS}{\bm{S}}
+\newcommand{\mbfitT}{\bm{T}}
+\newcommand{\mbfitU}{\bm{U}}
+\newcommand{\mbfitV}{\bm{V}}
+\newcommand{\mbfitW}{\bm{W}}
+\newcommand{\mbfitX}{\bm{X}}
+\newcommand{\mbfitY}{\bm{Y}}
+\newcommand{\mbfitZ}{\bm{Z}}
+\newcommand{\mbfita}{\bm{a}}
+\newcommand{\mbfitb}{\bm{b}}
+\newcommand{\mbfitc}{\bm{c}}
+\newcommand{\mbfitd}{\bm{d}}
+\newcommand{\mbfite}{\bm{e}}
+\newcommand{\mbfitf}{\bm{f}}
+\newcommand{\mbfitg}{\bm{g}}
+\newcommand{\mbfith}{\bm{h}}
+\newcommand{\mbfiti}{\bm{i}}
+\newcommand{\mbfitj}{\bm{j}}
+\newcommand{\mbfitk}{\bm{k}}
+\newcommand{\mbfitl}{\bm{l}}
+\newcommand{\mbfitm}{\bm{m}}
+\newcommand{\mbfitn}{\bm{n}}
+\newcommand{\mbfito}{\bm{o}}
+\newcommand{\mbfitp}{\bm{p}}
+\newcommand{\mbfitq}{\bm{q}}
+\newcommand{\mbfitr}{\bm{r}}
+\newcommand{\mbfits}{\bm{s}}
+\newcommand{\mbfitt}{\bm{t}}
+\newcommand{\mbfitu}{\bm{u}}
+\newcommand{\mbfitv}{\bm{v}}
+\newcommand{\mbfitw}{\bm{w}}
+\newcommand{\mbfitx}{\bm{x}}
+\newcommand{\mbfity}{\bm{y}}
+\newcommand{\mbfitz}{\bm{z}}
+
+\newcommand{\mcalA}{\mathcal{A}}
+\newcommand{\mcalB}{\mathcal{B}}
+\newcommand{\mcalC}{\mathcal{C}}
+\newcommand{\mcalD}{\mathcal{D}}
+\newcommand{\mcalE}{\mathcal{E}}
+\newcommand{\mcalF}{\mathcal{F}}
+\newcommand{\mcalG}{\mathcal{G}}
+\newcommand{\mcalH}{\mathcal{H}}
+\newcommand{\mcalI}{\mathcal{I}}
+\newcommand{\mcalJ}{\mathcal{J}}
+\newcommand{\mcalK}{\mathcal{K}}
+\newcommand{\mcalL}{\mathcal{L}}
+\newcommand{\mcalM}{\mathcal{M}}
+\newcommand{\mcalN}{\mathcal{N}}
+\newcommand{\mcalO}{\mathcal{O}}
+\newcommand{\mcalP}{\mathcal{P}}
+\newcommand{\mcalQ}{\mathcal{Q}}
+\newcommand{\mcalR}{\mathcal{R}}
+\newcommand{\mcalS}{\mathcal{S}}
+\newcommand{\mcalT}{\mathcal{T}}
+\newcommand{\mcalU}{\mathcal{U}}
+\newcommand{\mcalV}{\mathcal{V}}
+\newcommand{\mcalW}{\mathcal{W}}
+\newcommand{\mcalX}{\mathcal{X}}
+\newcommand{\mcalY}{\mathcal{Y}}
+\newcommand{\mcalZ}{\mathcal{Z}}
+
+\newcommand{\mscrA}{\mathscr{A}}
+\newcommand{\mscrB}{\mathscr{B}}
+\newcommand{\mscrC}{\mathscr{C}}
+\newcommand{\mscrD}{\mathscr{D}}
+\newcommand{\mscrE}{\mathscr{E}}
+\newcommand{\mscrF}{\mathscr{F}}
+\newcommand{\mscrG}{\mathscr{G}}
+\newcommand{\mscrH}{\mathscr{H}}
+\newcommand{\mscrI}{\mathscr{I}}
+\newcommand{\mscrJ}{\mathscr{J}}
+\newcommand{\mscrK}{\mathscr{K}}
+\newcommand{\mscrL}{\mathscr{L}}
+\newcommand{\mscrM}{\mathscr{M}}
+\newcommand{\mscrN}{\mathscr{N}}
+\newcommand{\mscrO}{\mathscr{O}}
+\newcommand{\mscrP}{\mathscr{P}}
+\newcommand{\mscrQ}{\mathscr{Q}}
+\newcommand{\mscrR}{\mathscr{R}}
+\newcommand{\mscrS}{\mathscr{S}}
+\newcommand{\mscrT}{\mathscr{T}}
+\newcommand{\mscrU}{\mathscr{U}}
+\newcommand{\mscrV}{\mathscr{V}}
+\newcommand{\mscrW}{\mathscr{W}}
+\newcommand{\mscrX}{\mathscr{X}}
+\newcommand{\mscrY}{\mathscr{Y}}
+\newcommand{\mscrZ}{\mathscr{Z}}
+
+\newcommand{\mfrakA}{\mathfrak{A}}
+\newcommand{\mfrakB}{\mathfrak{B}}
+\newcommand{\mfrakC}{\mathfrak{C}}
+\newcommand{\mfrakD}{\mathfrak{D}}
+\newcommand{\mfrakE}{\mathfrak{E}}
+\newcommand{\mfrakF}{\mathfrak{F}}
+\newcommand{\mfrakG}{\mathfrak{G}}
+\newcommand{\mfrakH}{\mathfrak{H}}
+\newcommand{\mfrakI}{\mathfrak{I}}
+\newcommand{\mfrakJ}{\mathfrak{J}}
+\newcommand{\mfrakK}{\mathfrak{K}}
+\newcommand{\mfrakL}{\mathfrak{L}}
+\newcommand{\mfrakM}{\mathfrak{M}}
+\newcommand{\mfrakN}{\mathfrak{N}}
+\newcommand{\mfrakO}{\mathfrak{O}}
+\newcommand{\mfrakP}{\mathfrak{P}}
+\newcommand{\mfrakQ}{\mathfrak{Q}}
+\newcommand{\mfrakR}{\mathfrak{R}}
+\newcommand{\mfrakS}{\mathfrak{S}}
+\newcommand{\mfrakT}{\mathfrak{T}}
+\newcommand{\mfrakU}{\mathfrak{U}}
+\newcommand{\mfrakV}{\mathfrak{V}}
+\newcommand{\mfrakW}{\mathfrak{W}}
+\newcommand{\mfrakX}{\mathfrak{X}}
+\newcommand{\mfrakY}{\mathfrak{Y}}
+\newcommand{\mfrakZ}{\mathfrak{Z}}
+\newcommand{\mfraka}{\mathfrak{a}}
+\newcommand{\mfrakb}{\mathfrak{b}}
+\newcommand{\mfrakc}{\mathfrak{c}}
+\newcommand{\mfrakd}{\mathfrak{d}}
+\newcommand{\mfrake}{\mathfrak{e}}
+\newcommand{\mfrakf}{\mathfrak{f}}
+\newcommand{\mfrakg}{\mathfrak{g}}
+\newcommand{\mfrakh}{\mathfrak{h}}
+\newcommand{\mfraki}{\mathfrak{i}}
+\newcommand{\mfrakj}{\mathfrak{j}}
+\newcommand{\mfrakk}{\mathfrak{k}}
+\newcommand{\mfrakl}{\mathfrak{l}}
+\newcommand{\mfrakm}{\mathfrak{m}}
+\newcommand{\mfrakn}{\mathfrak{n}}
+\newcommand{\mfrako}{\mathfrak{o}}
+\newcommand{\mfrakp}{\mathfrak{p}}
+\newcommand{\mfrakq}{\mathfrak{q}}
+\newcommand{\mfrakr}{\mathfrak{r}}
+\newcommand{\mfraks}{\mathfrak{s}}
+\newcommand{\mfrakt}{\mathfrak{t}}
+\newcommand{\mfraku}{\mathfrak{u}}
+\newcommand{\mfrakv}{\mathfrak{v}}
+\newcommand{\mfrakw}{\mathfrak{w}}
+\newcommand{\mfrakx}{\mathfrak{x}}
+\newcommand{\mfraky}{\mathfrak{y}}
+\newcommand{\mfrakz}{\mathfrak{z}}
+
+\newcommand{\setN}{\mathbb{N}}
+\newcommand{\setZ}{\mathbb{Z}}
+\newcommand{\setQ}{\mathbb{Q}}
+\newcommand{\setR}{\mathbb{R}}
+\newcommand{\setC}{\mathbb{C}}
+\newcommand{\setH}{\mathbb{H}}
+\newcommand{\setK}{\mathbb{K}}

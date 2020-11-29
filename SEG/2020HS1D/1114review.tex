@@ -1,0 +1,58 @@
+\documentclass[dvipdfmx,uplatex,b5paper]{jsarticle}
+\usepackage{MAstandard}
+\usepackage[top=10mm,bottom=10mm]{geometry}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\sign}{sign}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\Vector}[1]{\overrightarrow{\text{#1}}}
+
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注}{注}
+
+\begin{document}
+
+\section*{高1D 第11週復習問題}
+$\abs{\overrightarrow{a}}=2,\ \abs{\overrightarrow{b}}=3,\ \overrightarrow{a}\cdot \overrightarrow{b}=4$
+とする．
+\begin{enumarabicp}
+  \item $(\overrightarrow{a}-\overrightarrow{b})\cdot (\overrightarrow{a}+3\overrightarrow{b})$を求めよ．
+  \item $\abs{\overrightarrow{a}-\overrightarrow{b}}^2$を求めよ．
+  \item $\abs{\overrightarrow{a}-\overrightarrow{b}}$を求めよ．
+\end{enumarabicp}
+
+\newpage
+\section*{(405)の残りの解答}
+\begin{enumarabicp}
+  \item[(3)] 
+  \begin{enumarabicp}
+    \item[(あ)] 
+      \begin{align*}
+        \abs{\overrightarrow{a}+2\overrightarrow{b}}^2&=(\overrightarrow{a}+2\overrightarrow{b})\cdot (\overrightarrow{a}+2\overrightarrow{b}) \\
+        &=\abs{\overrightarrow{a}}^2+4\overrightarrow{a}\cdot \overrightarrow{b}+\abs{\overrightarrow{b}}^2 \\
+        &=4+4\times 1+4\times 9= \boxed{44}
+      \end{align*} 
+    \item[(い)] (あ)より$\abs{\overrightarrow{a}+2\overrightarrow{b}}=\boxed{2\sqrt{11}}$
+    \vspace{1mm}
+    \item[(う)]
+      \begin{align*}
+        \abs{3\overrightarrow{a}+\overrightarrow{b}}^2&=(3\overrightarrow{a}+\overrightarrow{b})\cdot (3\overrightarrow{a}+\overrightarrow{b}) \\
+        &=9\abs{\overrightarrow{a}}^2+6\overrightarrow{a}\cdot \overrightarrow{b}+\abs{\overrightarrow{b}}^2 \\
+        &=9\times 4+6\times 1+9=51
+      \end{align*}  
+    なので$\abs{3\overrightarrow{a}+\overrightarrow{b}}=\boxed{\sqrt{51}}$
+  \end{enumarabicp} 
+  \vspace{3mm}
+  \item[(4)] $\Vector{AC}=\Vector{AB}+\Vector{BC},\ \Vector{BD}=-\Vector{AB}+\Vector{BC}$なので
+    \begin{align*}
+      \text{AC}^2+\text{BD}^2&=\abs{\Vector{AB}+\Vector{BC}}^2+\abs{-\Vector{AB}+\Vector{BC}}^2 \\
+      &=(\abs{\Vector{AB}}^2+2\Vector{AB}\cdot\Vector{BC}+\abs{\Vector{BC}}^2)+(\abs{\Vector{AB}}^2-2\Vector{AB}\cdot\Vector{BC}+\abs{\Vector{BC}}^2) \\
+      &=2(\abs{\Vector{AB}}^2+\abs{\Vector{BC}}^2)=2\times (4+9)=\boxed{26}
+    \end{align*} 
+\end{enumarabicp}
+
+\end{document}

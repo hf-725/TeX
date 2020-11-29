@@ -1,0 +1,414 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{tosuustd2019}
+\usepackage{type1cm}
+
+\begin{document}
+\title{de Rhamコホモロジーと幾何学}
+\author{みつば(@mittlear1)}
+\date{2018年9月10日}
+\maketitle
+
+\section{de Rhamコホモロジーの定義}
+この章では種々の基本概念を紹介し，de Rhamコホモロジーを定義する．$\mathbb{R}^n$の座標を$(x_1,x_2,\cdots,x_n)$と書き，$U$を$\mathbb{R}^n$の開集合とする．
+\begin{definition}[微分形式]
+$C^{\infty}(U)$を$U$上の$C^{\infty}$級関数のなす環とする．
+\begin{enumerate}[label=(\arabic*)]
+\item $U$上の0次微分形式とは$C^{\infty}$級関数$f\colon U\rightarrow\mathbb{R}$のことである．0次微分形式全体の集合を$\Omega^0(U)$と書く．これは$C^{\infty}(U)$加群の構造を持つ．
+\item $1\le k\le n$とする．$U$上の$k$次微分形式を，次の性質を満たす$C^{\infty}(U)$加群$\Omega^k(U)$の元のこととする．
+  \begin{enumerate}
+  \item $\Omega^k(U)$は
+  \[ \{dx_{i_1} \wedge dx_{i_2} \wedge \cdots \wedge dx_{i_k}\mid 1\le i_1, \cdots, i_k\le n\} \]
+  によって形式的に生成される．
+  \item $\mathfrak{S}_k$を$k$次対称群とする．任意の$\sigma\in \mathfrak{S}_k$に対し関係式
+  \[ dx_{i_{\sigma(1)}}\wedge\cdots\wedge dx_{i_{\sigma(k)}}= \operatorname{sgn}(\sigma)dx_{i_1}\wedge\cdots\wedge dx_{i_k} \]
+  がある．
+  \end{enumerate}
+\item $0\le k\le n$でないとき，$\Omega^k(U):=0$ (一元集合)と定める．
+\end{enumerate}
+\end{definition}
+堅苦しい定義になってしまったが，要するに微分形式とは
+\begin{enumerate}
+\item $f$を$C^{\infty}$級関数として$fdx_{i_1}\wedge\cdots\wedge dx_{i_k}$の形をしたものを足し合わせたものであり，
+\item $dx_i$の部分を入れ替えると符号が変わる
+\end{enumerate}
+ようなもののことである．具体的に計算方法を見ていこう．
+\begin{example}
+$n=3$のとき
+\begin{enumerate}[label=(\arabic*)]
+\item 1次微分形式： $fdx_1+gdx_2+hdx_3.$
+\item 2次微分形式： $fdx_1\wedge dx_2+gdx_2\wedge dx_3+hdx_3\wedge dx_1.$
+\item 3次微分形式： $fdx_1\wedge dx_2\wedge dx_3.$
+\end{enumerate}
+また，
+\begin{gather*}
+ dx_i\wedge dx_i=0 \left(i=1,2,3\right), \\
+ dx_2\wedge dx_1\wedge dx_3=-dx_1\wedge dx_2\wedge dx_3
+\end{gather*}
+である．
+\end{example}
+$k\in\mathbb{Z}$について$\Omega^k(U)$は自然に$\mathbb{R}$上のベクトル空間の構造を持つ．また，$1\le k \le n$のとき$\Omega^k(U)$は$C^{\infty}(U)$上
+\[ \{dx_{i_1}\wedge\cdots\wedge dx_{i_k}\mid 1\le i_1<\cdots<i_k\le n \} \]
+を基底に持つ．
+\begin{definition}[外微分]
+外微分$d$を次のように定義する．
+\begin{enumerate}[label=(\arabic*)]
+\item $f\in\Omega ^0(U)$のとき
+\[ df:=\sum_{i=1}^n \frac{\partial f}{\partial x_i}dx_i . \]
+\item $1\le k\le n$，$\omega=fdx_{i_1}\wedge\cdots\wedge dx_{i_k}\in\Omega^k(U)$のとき
+\[ d\omega:=df\wedge dx_{i_1}\wedge\cdots\wedge dx_{i_k}=\sum^n_{i=1}\frac{\partial f}{\partial x_i}dx_i\wedge dx_{i_1}\wedge\cdots\wedge dx_{i_k} \]
+と定め，これを線型に拡張する．
+\item $\omega\in\Omega^n(U)$のとき
+\[ d\omega :=0. \]
+\end{enumerate}
+\end{definition}
+$k\ge 0$に対し，外微分は$\mathbb{R}$上のベクトル空間の間の線形写像
+\[ d\colon \Omega^k(U)\rightarrow\Omega^{k+1}(U) \]
+とみなすことができる．さらに次の性質が成り立つ．
+\begin{proposition}\label{prop1}
+すべての$k\geq 0$に対して
+\[ dd=0\colon \Omega^k(U)\rightarrow\Omega^{k+2}(U) \]
+が成立する．
+\end{proposition}
+\begin{proof}
+ここでは$n=3$，$k=1$のときにのみ証明する(一般の場合でも本質は変わらない)．$\omega:=fdx_i\in\Omega^1(U)$ ($i=1,2,3$)のとき
+\begin{align*}
+dd\omega &= d\left(\frac{\partial f}{\partial x_1}dx_1\wedge dx_i+\frac{\partial f}{\partial x_2}dx_2\wedge dx_i+\frac{\partial f}{\partial x_3}dx_3\wedge dx_i\right)   \\
+&= \left(\frac{\partial^2 f}{\partial x_2 \partial x_1}dx_2\wedge dx_1\wedge dx_i+\frac{\partial^2 f}{\partial x_3\partial x_1}dx_3\wedge dx_1\wedge dx_i\right)  \\
+&\quad + \left(\frac{\partial^2 f}{\partial x_1\partial x_2}dx_1\wedge dx_2\wedge dx_i+\frac{\partial^2 f}{\partial x_3\partial x_2}dx_3\wedge dx_2\wedge dx_i\right)  \\
+&\qquad +\left(\frac{\partial^2 f}{\partial x_1\partial x_3}dx_1\wedge dx_3\wedge dx_i+\frac{\partial^2 f}{\partial x_2 \partial x_3}dx_2\wedge dx_3\wedge dx_i\right)   =0 
+\end{align*}
+となる．
+\end{proof}
+\begin{example}
+$n=3$とする．
+
+$f\in\Omega^0(U)$のとき
+\[ df=\frac{\partial f}{\partial x_1}dx_1+\frac{\partial f}{\partial x_2}dx_2+\frac{\partial f}{\partial x_3}dx_3, \]
+$\omega = fdx_1+gdx_2+hdx_3\in\Omega^1(U)$のとき
+\[ d\omega = \left(\frac{\partial h}{\partial x_2}-\frac{\partial g}{\partial x_3}\right)dx_2\wedge dx_3+\left(\frac{\partial f}{\partial x_3}-\frac{\partial h}{\partial x_1}\right)dx_3\wedge dx_1+\left(\frac{\partial g}{\partial x_1}-\frac{\partial f}{\partial x_2}\right)dx_1\wedge dx_2, \]
+$\eta = fdx_2\wedge dx_3+gdx_3\wedge dx_1+hdx_1\wedge dx_2$のとき
+\[ d\eta = \left(\frac{\partial f}{\partial x_1}+\frac{\partial g}{\partial x_2}+\frac{\partial h}{\partial x_3}\right)dx_1\wedge dx_2\wedge dx_3. \]
+すなわち外微分は
+\[ \Omega^0(U)\stackrel{\operatorname{grad}}{\to}\Omega^1(U)\stackrel{\operatorname{rot}}{\to}\Omega^2(U)\stackrel{\operatorname{div}}{\to}\Omega^3(U) \]
+であり，命題\ref{prop1}は
+\[ \operatorname{rot}(\operatorname{grad}f)=0, \operatorname{div}(\operatorname{rot}\mathbf{F})=0 \]
+を意味する．
+\end{example}
+
+\begin{definition}
+\begin{enumerate}[label=(\arabic*)]
+\item $\mathbb{R}$上のベクトル空間とその間の線形写像が作る図式
+\[ \cdots \stackrel{d^{-k-1}}{\to}M^{-k}\stackrel{d^{-k}}{\to}M^{-k+1}\stackrel{d^{-k+1}}{\to}\cdots\stackrel{d^{-2}}{\to}M^{-1}\stackrel{d^{-1}}{\to}M^0\stackrel{d^0}{\to}M^1\stackrel{d^1}{\to}\cdots \stackrel{d^{k-1}}{\to}M^k\stackrel{d^k}{\to}M^{k+1}\stackrel{d^{k+1}}{\to} \cdots \]
+がコチェイン複体であるとは，すべての$k\in\mathbb{Z}$に対して
+\[ d^{k+1}\circ d^k=0 \]
+が成立することである．この図式を$(M^*,d^*)$または単に$M^*$と書く．
+\item 命題\ref{prop1}により
+\[ \stackrel{d}{\to}\Omega^{-k}(U)\stackrel{d}{\to}\cdots\stackrel{d}{\to}\Omega^0(U)\stackrel{d}{\to}\Omega^1(U)\stackrel{d}{\to}\cdots\stackrel{d}{\to}\Omega^k(U)\stackrel{d}{\to}\cdots \]
+はコチェイン複体となる．これをde Rham複体といい，$(\Omega^*(U),d)$または単に$\Omega^*(U)$と書く．
+\end{enumerate}
+\end{definition}
+\begin{definition}
+$(M^*,d^*)$をコチェイン複体とする．すべての$k\in \mathbb{Z}$に対して$\Ker d^k\supset\Image d^{k-1}$であるから商ベクトル空間
+\[ H^k(M^*):=\Ker d^k/\Image d^{k-1} \]
+が定まる．これをコチェイン複体$(M^*,d^*)$の$k$次コホモロジーという．さらに
+\[ H^*(M^*):=\{H^k(M^*)\}_{k\in\mathbb{Z}} \]
+と書く．
+\end{definition}
+\begin{definition}
+de Rham複体$(\Omega^*(U),d)$の$k$次コホモロジー
+\[ H^k(U):=H^k(\Omega^*(U)) \]
+を$k$次de Rhamコホモロジーという．
+\end{definition}
+\begin{example}
+$n=3$とする．
+\begin{gather*}
+ H^1(U)=\Ker (\operatorname{rot})/\Image (\operatorname{grad}), \\
+ H^2(U)=\Ker (\operatorname{div})/\Image (\operatorname{rot})
+\end{gather*}
+である．よって，$H^1(U)$，$H^2(U)$は「スカラーポテンシャル・ベクトルポテンシャルを持たないベクトル場がどのくらいあるか」を測る解析的な量と思える．
+\end{example}
+\begin{example}
+$U=\mathbb{R}^1$のときのde Rhamコホモロジーを計算する．$H^0(U)$について，
+\[ df=0 \Leftrightarrow \frac{df}{dx}=0 \Leftrightarrow f=\mathrm{const} .\]
+したがって$H^0(U)\cong \mathbb{R}$である．
+
+次に$H^1(U)$を計算する．$fdx\in \Ker d=\Omega^1(\mathbb{R}^1)$に対し$F\colon \mathbb{R}^1\to\mathbb{R}$を
+\[ F(x):=\int^x_0 f(t)dt \]
+で定めると，微分積分学の基本定理から
+\[ dF=\frac{dF}{dx}dx=fdx. \]
+よって$H^1(\mathbb{R}^1)=0$となる．
+
+実は，より一般に
+\begin{eqnarray*}
+  H^k(\mathbb{R}^n)=
+  \begin{cases}
+    \mathbb{R} & (k=0) \\
+    0\ & (k\neq 0)
+  \end{cases}
+\end{eqnarray*}
+が成立する．
+\end{example}
+\begin{remark}
+上の例からの類推で，$U$が連結であるとき0次de Rhamコホモロジーは$\mathbb{R}$に同型であることが分かる．
+\end{remark}
+\section{de Rhamコホモロジーの幾何学的意味}
+この章では，de Rhamコホモロジーの持つ幾何学的意味を解説する．結論から言うと，$U$が単純な図形であれば，de Rhamコホモロジーは「空間内の穴の数を数えている」と考えられる．これを詳しく見ていく\footnote{この章では，厳密性よりもイメージをつかむことを重視した．曖昧なところが多いのは許してほしい．}．
+
+空間の穴の個数を数える別の道具として特異ホモロジー群があるが，大雑把に言うと，特異ホモロジーは空間内の穴を包む「非自明な$k$次元球」がいくつあるか，を表現している．これに対してde Rhamコホモロジーは少し複雑で，空間内に球が置かれているとき，それが穴を含む「非自明な$k$次元球」か，穴を含まない「自明な$k$次元球」かを選り分ける機械のようなものである．この解釈を正当化してくれる定理としてStokesの定理を紹介する．簡単のため，考える空間は2次元空間であるとする．
+
+\begin{definition}[微分形式の積分]
+$U$を$\mathbb{R}^2$の開集合とする．
+\begin{enumerate}[label=(\arabic*)]
+\item $D\subset U$を向きづけられた有界閉領域，$\omega:=fdx_1\wedge dx_2\in \Omega^2(U)$とする．$\omega$の$D$上での積分を
+\[ \int_D \omega :=\int_D fdx_1\wedge dx_2 \]
+で定める．
+\item $C\subset U$を向きづけられた閉曲線とし，$\eta=fdx_1+gdx_2\in \Omega^1(U)$とする．$\eta$の$C$上での積分を
+\[ \int_C \eta := \int_C (fdx_1+gdx_2) \]
+で定める．
+\end{enumerate}
+\end{definition}
+\begin{theorem}[Stokesの定理]
+$U\subset \mathbb{R}^2$を開集合，$D\subset U$を向きづけられた有界閉領域とする．このとき，任意の$\eta\in \Omega^1(U)$に対して
+\[ \int_D d\eta = \int_{\partial D} \eta \]
+が成立する．
+\end{theorem}
+これを基に$U=\mathbb{R}^2\setminus \{0\}$の1次de Rhamコホモロジーについて考える．$U$上の1次微分形式
+\[ \omega:=\frac{-ydx+xdy}{x^2+y^2} \]
+をとる．計算により，$d\omega=0$となるので
+\[ [\omega]\in H^1(U) \]
+が定まる．
+
+$U=\mathbb{R}^2\setminus \{0\}$は$0\in U$に「穴」を持ち，したがってその穴を取り囲む「非自明なループ」が存在する．$\omega$はちょうど，この「非自明なループ」を検出する機械の役割を果たしている．2つのループ
+\begin{align*}
+  C_1&:=\{(x,y)\in U\mid x^2+y^2=1\}, \\
+  C_2&:=\{(x,y)\in U\mid (x-2)^2+y^2=1\} 
+\end{align*}
+を考える．$C_1$は「非自明なループ」，$C_2$は「自明なループ」である．直接計算により
+\[ \int_{C_1} \omega=2\pi, \quad \int_{C_2} \omega=0 \]
+となることが分かる．さらに，$D_1$，$D_2$として別の「非自明なループ」，「自明なループ」をとると，これらを境界に持つ閉領域$E_1$，$E_2$\footnote{もちろんこのような都合のよい領域の存在は非自明であるが，だいたいこのようなイメージでよい．}に対してストークスの定理を適用することにより
+\[ \int_{\partial E_1} \omega = \int_{E_1} d\omega=0,\quad  \int_{\partial E_2} \omega = \int_{E_2} d\omega=0, \]
+すなわち
+\[ \int_{D_1} \omega = 2\pi,\quad  \int_{D_2} \omega = 0 \]
+となる．この結果は，
+\begin{quotation}
+$\omega$は「非自明なループ」だけをもれなく検出する
+\end{quotation}
+と標語化することができる．
+
+実は，次の命題が成り立つ．
+\begin{proposition}
+$U$，$\omega$を上の通りとする．$U$上の1次微分形式$\eta$が$d\eta=0$を満たすとき，$c\in \mathbb{R}$と$f\in \Omega^0(U)$が存在して
+\[ \eta=c\omega+df \]
+と書ける．
+\end{proposition}
+\begin{proof}[略証]
+\[ c:=\frac{1}{2\pi}\int_{C_1} \eta \]
+ととる．また，$f$は次のように定める．$p\in U$を固定する．$p$と原点を結んだ線と$C_1$との交点を$p^{\prime}$とする．$l_p\colon [0,1]\to U$を，$(1,0)$を出発して$C_1$上を反時計回りに$p^{\prime}$まで進み，$p^{\prime}$から$p$までまっすぐ進むような曲線とする．そして
+\[ f(p):=\int_{l_p} (\eta-c\omega) \]
+とおく．これが条件を満たしていることを示せばよい．
+\end{proof}
+\begin{corollary}\label{cor1}
+$U=\mathbb{R}^2\setminus \{0\}$とすると，$H^1(U)=\mathbb{R}$．
+\end{corollary}
+次に，$\mathbb{R}^2$から穴を$m$個取り除いた空間$V$を考える．このとき，「非自明なループ」は各々の穴に対応して存在し，本質的には全部で$m$個あると考えられる．そしてそのループそれぞれに，それを検出する1次微分形式があるはずである．したがって，
+\[ H^1(V)=\mathbb{R}^m \]
+が成立すると予想される．これが正しいことは次章で見る．
+\section{Mayer-Vietoris完全列}
+前章のような，やや複雑な空間のde Rhamコホモロジーはどのようにして計算すればよいのだろうか．この問いに答える道具の一つがMayer-Vietoris完全列である．以下，断らない限り$U$を$\mathbb{R}^n$の開集合とする．
+\begin{definition}
+\begin{enumerate}[label=(\arabic*)]
+\item $\mathbb{R}$上のベクトル空間の列
+\[ L\stackrel{f}{\to}M\stackrel{g}{\to}N \]
+が完全であるとは，
+\[ \Image f=\Ker g \]
+が成立することである．
+\item $\mathbb{R}$上のベクトル空間の列
+\[ \cdots\to M^{-k}\to M^{-k+1}\to\cdots\to M^0\to M^1\to\cdots\to M^{k}\to M^{k+1}\to\cdots \]
+が完全であるとは，すべての$l\in \mathbb{Z}$で
+\[ M^{l-1}\to M^l\to M^{l+1} \]
+が完全であることである．
+\end{enumerate}
+\end{definition}
+\begin{theorem}[Mayer-Vietoris完全列]\label{thm1}
+$\{V,W\}$を$U$の開被覆とする．このとき完全列
+\begin{align*}
+\cdots&\to H^k(U)\to H^k(V)\oplus H^k(W)\to H^k(V\cap W) \\
+&\to H^{k+1}(U)\to H^{k+1}(V)\oplus H^{k+1}(W)\to H^{k+1}(V\cap W)\to\cdots
+\end{align*}
+が存在する．
+\end{theorem}
+証明のためには，まずコホモロジーの間の準同型の構成から始めなければならない．
+\begin{definition}
+$U$を$\mathbb{R}^n$の開集合，$V$を$\mathbb{R}^m$の開集合とする．写像$p_i\colon V\to \mathbb{R}$ ($i=1,2,\cdots m$)を第$i$成分への射影とする．また，$C^{\infty}$級写像$f\colon U\to V$に対して$f_i:=p_i\circ f\colon U\to\mathbb{R}$とする．$f^*\colon \Omega^k(V)\to\Omega^k(U)$を，$\omega=gdy_{i_1}\wedge dy_{i_2}\wedge\cdots\wedge dy_{i_k}\in\Omega^k(V)$に対し
+\[ f^*\omega:=\left(g\circ f\right)df_{i_1}\wedge df_{i_2}\wedge\cdots\wedge df_{i_k} \]
+で定め，これを線型に拡張する．$\eta\in\Omega^k(V)$に対し，$f^*\eta$を$\eta$の$f$による引き戻しという．
+\end{definition}
+引き戻しの簡単な性質を述べる．
+\begin{proposition}
+$U$を$\mathbb{R}^n$の開集合，$V$を$\mathbb{R}^m$の開集合，$W$を$\mathbb{R}^l$の開集合とする．
+\begin{enumerate}[label=(\arabic*)]
+\item $\mathrm{id}_U\colon U\to U$について，すべての$k\in\mathbb{Z}$に対し
+\[ \mathrm{id}^*_U=\mathrm{id}_{\Omega^k(U)}\colon \Omega^k(U)\to \Omega^k(U). \]
+\item $f\colon U\to V$，$g\colon V\to W$を$C^{\infty}$級写像とすると，
+\[ \left(g\circ f\right)^*=f^*g^*\colon \Omega^k(W)\to \Omega^k(U). \]
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+どちらも定義から明らか．
+\end{proof}
+\begin{definition}
+$(M^*,d^*_M)$，$(N^*,d^*_N)$をコチェイン複体とする．
+$\varphi^*=\{\varphi^k\colon M^k\to N^k\}_{k\in\mathbb{Z}}$がコチェイン写像であるとは，すべての$k\in\mathbb{Z}$で
+\[ d^k_N\circ \varphi^k=\varphi^{k+1}\circ d^k_M \]
+が成立していることをいう．このとき$\varphi^*\colon(M^*,d^*_M)\to(N^*,d^*_N)$と書く．
+\end{definition}
+\begin{proposition}
+$f^*:=\{f^k\colon \Omega^k(V)\to \Omega^k(U) \}_{k\in\mathbb{Z}}$はコチェイン写像である．
+\end{proposition}
+\begin{proof}
+\begin{align*}
+&\phantom{=}\mathrel{}f^*d\left(gdy_{i_1}\wedge dy_{i_2}\wedge\cdots\wedge dy_{i_k}\right) \\
+&=f^*\left(\sum^m_{i=1} \frac{\partial g}{\partial y_i} dy_i\wedge dy_{i_1}\wedge\cdots\wedge dy_{i_k}\right) \\
+&=\sum^m_{i=1}\left(\frac{\partial g}{\partial y_i}\circ f\right)df_i\wedge df_{i_1}\wedge\cdots\wedge df_{i_k} \\
+&=\sum^m_{i=1}\left(\frac{\partial g}{\partial y_i}\circ f\right)\left(\sum^n_{j=1}\frac{\partial f_i}{\partial x_j}dx_j\right)\wedge df_{i_1}\wedge\cdots\wedge df_{i_k} \\
+&=\sum^n_{j=1}\left(\sum^m_{i=1}\left(\frac{\partial g}{\partial y_i}\circ f\right)\frac{\partial f_i}{\partial x_j}dx_j\right)\wedge df_{i_1}\wedge\cdots\wedge df_{i_k} \\
+&=\sum^n_{j=1}\frac{\partial(g\circ f)}{\partial x_j}dx_j\wedge\cdots\wedge df_{i_k} \\
+&=d\left(\left(g\circ f\right)df_{i_1}\wedge\cdots\wedge df_{i_k}\right) \\
+&=df^*\left(gdy_{i_1}\wedge\cdots\wedge dx_{i_k}\right). \qedhere
+\end{align*}
+\end{proof}
+コチェイン写像の重要性は，それがコホモロジーの間の準同型を誘導することにある．
+\begin{proposition}
+$(L^*,d^*_L)$，$(M^*,d^*_M)$をコチェイン複体とし，$f^*\colon(L^*,d^*_L)\to(M^*,d^*_M)$をコチェイン写像とする．$f^*$はすべての$k\in\mathbb{Z}$で
+\[ H^k(f^*)\colon H^k(L^*)\to H^k(M^*);[l]\mapsto [f^k(l)] \]
+を満たす線型写像を誘導する．さらに，$(N^*,d^*_N)$をコチェイン複体，$g^*\colon (M^*,d^*_M)\to (N^*,d^*_N)$をコチェイン写像とすると，すべての$k\in\mathbb{Z}$で
+\begin{gather*}
+  H^k(\mathrm{id}^*_L)=\mathrm{id}_{H^k(L^*)}, \\
+  H^k(g^*\circ f^*)=H^k(g^*)\circ H^k(f^*)\colon H^k(L^*)\to H^k(N^*) 
+\end{gather*}
+が成立する．
+\end{proposition}
+証明は省略する．$H^k(f^*)$のことを$f^*$と略記することがある．
+\begin{definition}
+複体の図式
+\[ (L^*,d^*_L)\stackrel{f^*}{\to}(M^*,d^*_M)\stackrel{g^*}{\to}(N^*,d^*_N) \]
+が完全であるとは，すべての$k\in\mathbb{Z}$で
+\[ L^k\stackrel{f^k}{\to}M^k\stackrel{g^k}{\to}N^k \]
+が完全であることである．
+\end{definition}
+\begin{proposition}
+複体の完全列
+\[ 0\to (L^*,d^*_L)\stackrel{f^*}{\to}(M^*,d^*_M)\stackrel{g^*}{\to}(N^*,d^*_N)\to 0 \]
+は完全列
+\begin{align*}
+\cdots&\to H^k(L^*)\stackrel{f^*}{\to}H^k(M^*)\stackrel{g^*}{\to}H^k(N^*) \\
+&\to H^{k+1}(L^*)\stackrel{f^*}{\to}H^{k+1}(M^*)\stackrel{g^*}{\to}H^{k+1}(N^*)\to\cdots
+\end{align*}
+を誘導する．これをコホモロジー長完全列という．
+\end{proposition}
+この命題は(コ)ホモロジー論において非常に重要である．証明はたとえば\cite{枡田}にある．
+
+この命題により，次の補題を示せばよいことが分かる．
+\begin{lemma}\label{lem1}
+記号を定理\ref{thm1}の通りとし，
+\[ i_V\colon V\to U,  i_W\colon W\to U,  \iota_V\colon V\cap W\to V, \iota_W\colon V\cap W\to W \]
+を包含とする．このとき
+\[ 0\to\Omega^*(U)\stackrel{(i^*_V,i^*_W)}{\to}\Omega^*(V)\oplus\Omega^*(W)\stackrel{-\iota^*_V+\iota^*_W}{\to}\Omega^*(V\cap W)\to 0 \]
+は完全である．
+ただし，$\omega\in\Omega^k(U)$，$(\eta,\tau)\in\Omega^k(V)\oplus\Omega^k(W)$に対して
+\begin{gather*}
+ (i^*_V,i^*_W)(\omega)=(i^*_V\omega,i^*_W\omega), \\
+ (-\iota^*_V+\iota^*_W)(\eta,\tau)=-\iota^*_V \eta+\iota^*_W \tau
+\end{gather*}
+である．
+\end{lemma}
+準備として，次の事実を認める．証明は\cite{松本}を参照．
+\begin{proposition}
+記号を定理\ref{thm1}の通りとする．このとき，$C^{\infty}$級関数$\rho_V,\rho_W\colon U\to \mathbb{R}$が存在して次が成り立つ．
+\begin{enumerate}[label=(\roman*)]
+\item $0 \leq \rho_V\leq 1, 0\leq \rho_W\leq 1.$
+\item $\operatorname{supp}(\rho_V)\subset V, \operatorname{supp}(\rho_W)\subset W$．ただし，$f\colon U\to\mathbb{R}$に対し$\operatorname{supp}(f)$は$\{p\in U\mid f(p)\neq 0\}$の閉包である．
+\item すべての$p\in U$で$\rho_V(p)+\rho_W(p)=1.$
+\end{enumerate}
+$\{\rho_V,\rho_W\}$のことを$\{V,W\}$に従属する1の分割という．
+\end{proposition}
+\begin{proof}[補題\ref{lem1}の証明]
+$-\iota^*_V+\iota^*_W$の全射性だけ示す．$\{\rho_V,\rho_W\}$を$\{V,W\}$に従属する1の分割とする．$\alpha\in\Omega^k(V\cap W)$を任意にとると，
+\[ -\rho_W\alpha\in\Omega^k(V),\quad \rho_V\alpha\in\Omega^k(W) \]
+と見なせる．さらにこのとき，
+\[ (-\iota^*_V+\iota^*_W)(-\rho_W\alpha,\rho_V\alpha)=\alpha \]
+となる．
+\end{proof}
+これで定理\ref{thm1}の証明が完了した．これを用いて2章の予想を証明する．
+\begin{theorem}
+$\mathbb{R}^2$から$m$個の点を取り除いた空間を$U_m$とする．このとき
+\begin{eqnarray*}
+H^k(U_m)=
+  \begin{cases}
+    \mathbb{R} & (k=0)  \\
+    \mathbb{R}^m &(k=1) \\
+    0 & (k\neq 0,1)
+  \end{cases}
+\end{eqnarray*}
+\end{theorem}
+\begin{proof}
+$m$についての帰納法で示す．$m=1$のときは系\ref{cor1}で示されている．$l\leq m$で正しいとき$l=m+1$で正しいことを示す．$U_m$の開被覆$\{V,W\}$を，$V$が穴を1個，$W$が穴を$m$個含み，さらに$V\cap W$が$\mathbb{R}^2$と微分同相になるようにとる．すると，定理\ref{thm1}から完全列
+\[ H^0(V)\oplus H^0(W)\to H^0(V\cap W)\to H^1(U_{m+1})\to H^1(V)\oplus H^1(W) \]
+がある．
+\[ \Ker (H^0(V\cap W)\to H^1(U_{m+1}))=\Image(H^0(V)\oplus H^0(W)\to H^0(V\cap W))=\mathbb{R} \]
+であるから，
+\[ \Ker(H^1(U_{m+1})\to H^1(V)\oplus H^1(W))= \Image(H^0(V\cap W)\to H^1(U_{m+1}))=0 \]
+となり，$H^1(U_{m+1})\to H^1(V)\oplus H^1(W)$の単射性が分かる．再び定理\ref{thm1}から
+\[ H^1(U_{m+1})\to H^1(V)\oplus H^1(W)\to H^1(V\cap W)=0 \]
+は完全なので$H^1(U_{m+1})\to H^1(V)\oplus H^1(W)$は全射でもある．以上より
+\[ H^1(U_{m+1})=\mathbb{R}^{m+1} \]
+となる．他の$k$についても同様にできる．
+\end{proof}
+\begin{thebibliography}{9}
+\bibitem{Bott-Tu}
+  Bott, R., and Tu, L., 
+  \textit{Differential Forms in Algebraic Topology},
+  Springer, 1982.
+\bibitem{松本}
+  松本幸夫，『多様体の基礎』，
+  東京大学出版会，1998．
+\bibitem{枡田}
+  枡田幹也，『代数的トポロジー』，
+  朝倉出版，2002．
+\bibitem{小林}
+  小林昭七，『曲線と曲面の微分幾何』，
+  裳華房，1995．
+\end{thebibliography}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{MAstandard}
+\DeclareMathOperator{\Int}{Int}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\setinverse}[2]{#1 ^{-1}(#2)}
+\DeclareMathOperator{\sign}{sign}
+
+
+\title{写像度}
+\author{hf\_725}
+\date{2019年8月19日}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    写像度には等価な異なる定義が多くある．これらをまとめるのが本稿の目的である．
+\end{abstract}
+
+\section{予備知識}
+写像度の定義を理解するための最低限の知識を証明なしで紹介する．
+
+\begin{theorem}\label{orientability}
+$n$次元多様体$M$について，次の4つの条件は同値である．
+\begin{enumarabicp}
+\item 各$p\in M$での接空間$T_p M$の向きを次の意味で整合的につけることができる．$M$のアトラス$\{(U_i,\varphi_i)\}_{i\in I}$が存在して，すべての$i\in I$とすべての$p\in U_i$について
+\[ \map{(d\varphi_i)_p}{T_p M}{T_{\varphi_i(p)} \setR^n\cong \setR^n} \]
+が向きを保つ写像になる．ただし，$\setR^n$には標準基底から定まる向きを入れておく．
+
+\item $n$次微分形式$\omega$であって，すべての$p\in M$で$\omega_p\neq 0$となるものが存在する．
+
+\item $M$のアトラス$\{(U_i,\varphi_i)\}_{i\in I}$をうまくとって，すべての$i,j\in I$に対して座標変換$\map{\varphi_j\circ \varphi_i^{-1}}{\varphi_i(U_i\cap U_j)}{\varphi_j(U_i\cap U_j)}$の各点でのJacobi行列式が常に正になるようにできる．
+
+\item 各$p\in M$での局所ホモロジー群$H_n(M,M\setminus p)$の生成元の族$\{\mu_p\}_{p\in M}$を次の意味で整合的にとることができる．$M$のアトラス$\{(U_i,\varphi_i)\}_{i\in I}$が存在して，すべての$i\in I$とすべての$p\in U_i$について，同型
+\begin{align*}
+    H_n(M,M\setminus p) &\cong H_n(U_i,U_i\setminus p) \cong H_n(\varphi_i(U_i),\varphi_i(U_i)\setminus \varphi_i(p)) \\
+    &\cong H_n(\setR^n,\setR^n\setminus \varphi_i(p)) \cong H_n(\setR^n,\setR^n\setminus 0)
+\end{align*}
+によって$\mu_p$は標準的な$H_n(\setR^n,\setR^n\setminus 0)$の生成元に移る．
+\end{enumarabicp}
+\end{theorem}
+
+\begin{definition}
+多様体$M$が定理\ref{orientability}のいずれかの条件(したがってすべての条件)をみたすとき，$M$は向きづけ可能であるという．
+\end{definition}
+
+\begin{theorem}
+向きづけ可能な$n$次元閉多様体$M$に対して，$n$次de Rhamコホモロジー群は
+\[ H_{dR}^n(M) \cong \setR \]
+である．
+\end{theorem}
+
+\begin{theorem}
+向きづけ可能な閉多様体$M$について$n$次整数係数ホモロジー群は
+\[ H_n(M) \cong \setZ \]
+である．
+\end{theorem}
+
+\section{写像度の3つの定義}
+本節では$M$を向きづけられた$n$次元閉多様体，$N$を向きづけられた$n$次元連結閉多様体とする．
+
+\begin{definition}
+$\map{f}{M}{N}$を$\smooth$級関数とする．$q\in N$を$f$の正則値とするとき，$f$の写像度$\deg_1 f$を
+\[ \deg_1 f = \sum_{p \in \setinverse{f}{q}} \sign df_p \]
+で定める．ただし，$\sign df_p$は$df_p$が接空間の向きを保つとき1，保たないとき$-1$とする．
+\end{definition}
+
+\begin{lemma}
+$\deg_1 f$の定義は正則値$q\in N$のとり方によらない．
+\end{lemma}
+
+\begin{definition}
+$\omega$を$H^n(N)$の生成元すなわち
+\[ \int_N \omega = 1 \]
+をみたす$n$次微分形式とする．$f$の写像度$\deg_2 f$を
+\[ \deg_2 f = \int_M f^*\omega \]
+で定義する．
+\end{definition}
+
+\begin{definition}
+整数係数特異ホモロジー群$H_n(M),H_n(M)$の基本ホモロジー類を$\mu_M,\mu_N$と書く．このとき，$\deg_3 f$を
+\[ f_\ast (\mu_M) = (\deg_3 f) \mu_N \]
+をみたす整数として定義する．
+\end{definition}
+\end{document}

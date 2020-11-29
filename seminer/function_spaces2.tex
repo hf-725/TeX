@@ -1,0 +1,186 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{MAstandard}
+\DeclareMathOperator{\Int}{Int}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\setinverse}[2]{#1 ^{-1}(#2)}
+\DeclareMathOperator{\sign}{sign}
+
+\title{関数空間の定理}
+\author{hf\_725}
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+
+\end{abstract}
+
+\section{Ascoli-Arzel\`{a}の定理}
+
+本節では$K$を空でない位相空間，$(X,d)$を空でない完備距離空間とする．$C(K,X)$を$K$から$X$への連続写像全体の集合とする．
+
+\subsection{}
+
+\begin{definition}
+    $\mscrA\subset C(K,X)$が同程度連続であるとは，すべての$y\in K$と$\varepsilon > 0$に対して$y$の開近傍$U$が存在し，
+    \[ \sup_{(f,y^\prime)\in \mscrA\times U} d(f(y),f(y^\prime)) < \varepsilon \]
+    が成立することをいう．
+\end{definition}
+
+\begin{definition}
+    $\mscrA\subset C(K,X)$が各点有界であるとは，すべての$y\in K$で
+    \[ \mscrA_y = \set{f(y)}{f\in \mscrA} \]
+    が$X$の有界集合であることをいう．また，ある$M > 0$が存在して
+    \[ \sup_{f,g\in \mscrA} \sup_{y\in K} d(f(y),g(y)) < M \]
+    が成立するとき，$\mscrA$は一様有界であるという．
+\end{definition}
+
+\begin{theorem}[Ascoli-Arzel\`{a}の定理]\label{AA1}
+    $K$がコンパクト空間であるとする．このとき$C(K,X)$に距離$\rho$を
+    \[ \rho(f,g) = \max_{y\in K} d(f(y),g(y)) \]
+    で定めることができる．これによって$C(K,X)$を距離空間と考えたとき，$\mscrA\subset C(K,X)$について以下は同値である．
+    \begin{enumarabicp}
+        \item $\mscrA$は相対コンパクトである．
+        \item $\mscrA$は同程度連続かつ各点有界である．
+        \item $\mscrA$は同程度連続かつ一様有界である．
+    \end{enumarabicp}
+\end{theorem}
+
+\begin{lemma}\label{bdd}
+    定理\ref{AA1}の仮定の下で，$\mscrA$が同程度連続であるとする．このとき，$\mscrA$が各点有界であることと一様有界であることは同値である．
+\end{lemma}
+\begin{proof}
+    $\mscrA$が一様有界なら各点有界であることは明らかである．逆を示すため，$\mscrA$が各点有界であるとする．$\mscrA$が同程度連続であることから，各$y\in K$についてその近傍$U_y$を十分小さくとるとすべての$f\in \mscrA$と$y^\prime\in U_y$について$d(f(y),f(y^\prime)) < 1$が成立するようにできる．$\{U_y\}_{y\in K}$は$K$の開被覆なので，$K$のコンパクト性から$y_1,\dots , y_n\in K$が存在して$\{U_{y_i}\}_{1\leq i\leq n}$が$K$の開被覆になる．$\mscrA$の各点有界性から$M > 0$が存在して，すべての$1\leq i \leq n$と$f,g\in \mscrA$に対して
+    \[ d(f(y_i),g(y_i)) < M \]
+    が成立する．このとき
+    \[ \sup_{f,g\in \mscrA} \sup_{y\in k} d(f(y),g(y)) \leq M+2 \]
+    が成立することを示す．任意に$y_0\in K$をとったとき，ある$1\leq i\leq n$が存在して$y\in U_{y_i}$が成立する．したがってすべての$f,g\in \mscrA$について
+    \begin{align*}
+        d(f(y_0),g(y_0)) & \leq d(f(y_0),f(y_i)) + d(f(y_i),g(y_i)) + d(g(y_i),g(y_0)) \\
+                         & < 1 + M + 1 = M+2
+    \end{align*}
+    がとなる．以上より$\mscrA$は一様有界である．
+\end{proof}
+
+\begin{proof}[定理\ref{AA1}の証明]
+    (2)と(3)が同値であることは補題\ref{bdd}で証明されている．また，$C(K,X)$が完備距離空間であることから$\mscrA$が相対コンパクトであることと全有界であることは同値である．
+
+    \begin{subproof}{\IMPLIES{(1)}{(2)}}
+        $\mscrA$が相対コンパクトであるとする．まず$\mscrA$が各点有界であることを示す．$\mscrA$の全有界性から$\mscrA$の有限個の元$f_1,\dots f_n$が存在して
+        \[ \mscrA \subset \bigcup_{i=1}^n B_1(f_i) \]
+        が成立する．ただし$f\in C(K,X)$と$r > 0$について
+        \[ B_r(f) = \set{g\in C(K,X)}{\rho(f,g) < r} \]
+        である．
+        \[ M = \max \set{\rho(f_i,f_j)}{1\leq i < j \leq n} \]
+        とおく．このとき任意の$f,g\in \mscrA$について$f\in B_1(f_i),g\in B_1(f_j)$をみたす$i,j$がとれて，
+        \[ \rho(f,g) \leq \rho(f,f_i) + \rho(f_i.f_j) + \rho(f_j,g) \leq M+2 \]
+        が成立する．これは$\mscrA$が各点有界であることを示している．
+
+        次に$\mscrA$が同程度連続であることを示す．$\varepsilon>0$を任意にとる．$\mscrA$の全有界性より$f_1,\dots ,f_k\in \mscrA$をうまくとって
+        \[ \mscrA \subset \bigcup_{i=1}^k B_{\frac{\varepsilon}{4}} (f_i) \]
+        をみたすようにできる．$y\in K$を任意にとる．$y$の開近傍$U$を，$y^\prime\in U$ならすべての$1\leq i \leq k$で$d(f_i(y),f_i(y^\prime))<\varepsilon/4$となるようにとる．このとき任意に$f\in \mscrA$をとると$f\in B_{\varepsilon/4}(f_i)$となる$i$が存在するので，任意の$y^\prime\in U$に対して
+        \begin{align*}
+            d(f(y),f(y^\prime)) & \leq d(f(y),f_i(y)) + d(f_i(y),f_i(y^\prime)) + d(f_i(y^\prime),f(y))                               \\
+                                & \leq \frac{\varepsilon}{4} + \frac{\varepsilon}{4} + \frac{\varepsilon}{4} = \frac{3\varepsilon}{4}
+        \end{align*}
+        である．したがって，
+        \[ \sup_{(f,y^\prime)\in \mscrA\times U} d(f(y),f(y^\prime))\leq \frac{3\varepsilon}{4} < \varepsilon \]
+        が成立し，これは$\mscrA$が全有界であることを示している．
+    \end{subproof}
+
+    \begin{subproof}{\IMPLIEDBY{(3)}{(1)}}
+
+    \end{subproof}
+\end{proof}
+
+\subsection{}
+
+\begin{theorem}[Ascoli-Arzel\`{a}の定理]
+    $K$が可分であるとし，$S$を$K$の可算稠密部分集合とする．$\mscrA$を同程度連続な$C(K,X)$の部分集合で任意の$y\in S$で$\mscrA_{y}$が相対コンパクトであるとする．このとき，任意の$\mscrA$内の点列$\{f_n\}_n$に
+    ついて，その部分列$\{g_n\}_n$を$K$上広義一様収束するようにとれる．
+\end{theorem}
+\begin{proof}
+    $S$の元を$y_1,y_2,\dots$と番号づけしておく．$\{f_n(y_1)\}_n$が相対コンパクトであることから，$\{f_n\}_n$の部分列$\{f_{1,n}\}_n$を$\{f_{1,n}(y_1)\}_n$が収束するようにとれる．この操作を続けることで，任意の正整数$k$について$\{f_{k,n}\}_n$の部分列$\{f_{k+1,n}\}_n$を$\{f_{k+1,n}(y_{k+1})\}_n$が収束するようにとれる．そこで$g_n=f_{n,n}$とおくと，$\{g_n\}_n$は$\{f_n\}_n$の部分列であり任意の$k\in \setZ_{>0}$で$\{g_n(y_k)\}_n$は収束する．
+
+    この$\{g_n\}_n$が$K$上広義一様収束することを示す．$L$を任意の$K$のコンパクト集合とする．任意に$\varepsilon>0$をとる．$\mscrA$の同程度連続性より，各$k\in \setZ_{>0}$で$y_k$の開近傍$U_k$を任意の$y\in U_k$に対して
+    \[ \sup_{f\in \mscrA} d(f(y_k),f(y)) < \frac{\varepsilon}{3} \]
+    が成立するようにとれる．$L$はコンパクトだから，ある$N_1\in \setZ_{>0}$が存在して
+    \[ L \subset \bigcup_{k=1}^{N_1} U_k \]
+    が成立する．このとき$N_2\in \setZ_{>0}$を十分大きくとると任意の$m,n>N_2$と$1\leq k\leq N_1$に対して
+    \[ d(g_m(y_k),g_n(y_k)) < \frac{\varepsilon}{3} \]
+    となる．したがって$m,n\in N_2$のとき，$y\in L$ならば$y\in U_k$となる$1\leq k \leq N_1$を選ぶことができて
+    \begin{align*}
+        d(g_m(y),g_n(y)) \leq d(g_m(y),g_m(y_k)) + d(g_m(y_k),g_n(y_k)) + d(g_n(y_k),g_n(y)) < \varepsilon
+    \end{align*}
+    が成立する．よって$\{g_n\}_n$は$L$上一様収束する．
+\end{proof}
+
+\section{Stone-Weierstrassの定理}
+$K$で$\setR$または$\setC$を表すことにする．$X$をコンパクト空間とし，$C(X,K)$は$\sup$ノルムでBanach空間になっているとする．
+
+\begin{definition}
+    $\mscrA\subset C(X,K)$が$C(X,K)$の非単位的部分代数であるとは，次の条件が成り立つことをいう．
+    \begin{enumarabicp}
+        \item $f,g\in \mscrA$ならば$f+g\in \mscrA.$
+        \item $f\in \mscrA,\alpha\in K$ならば$\alpha f\in \mscrA.$
+    \end{enumarabicp}
+    さらに$1\in \mscrA$であるならば$\mscrA$は$C(X,K)$の部分代数であるという．
+\end{definition}
+
+\begin{theorem}[Stone-Weierstrassの定理]\label{SWR}
+    $C(X,\setR)$の非単位的部分代数$\mscrA$が$C(X,\setR)$の中で稠密であるための必要十分条件は次が成立することである．
+    \begin{enumarabicp}
+        \item 任意の$x,y\in X$に対して，ある$f\in \mscrA$で$f(x)\neq f(y)$となるものが存在する．
+        \item 任意の$x\in X$に対して，$g(x)\neq 0$となる$g\in \mscrA$が存在する．
+    \end{enumarabicp}
+\end{theorem}
+
+\begin{theorem}[Stone-Weierstrassの定理]\label{SWC}
+    $C(X,\setC)$の非単位的部分代数$\mscrA$が$C(X,\setC)$の中で稠密であるための必要十分条件は次が成立することである．
+    \begin{enumarabicp}
+        \item 任意の$x,y\in X$に対して，ある$f\in \mscrA$で$f(x)\neq f(y)$となるものが存在する．
+        \item 任意の$x\in X$に対して，$g(x)\neq 0$となる$g\in \mscrA$が存在する．
+        \item $f\in \mscrA$ならば$\Bar{f}\in \mscrA$である．
+    \end{enumarabicp}
+    ここで，$f\in C(X,\setC)$について，$\Bar{f}$は
+    \[ \Bar{f}(x) = \overline{f(x)} \]
+    で定まる$C(X,\setC)$の元である．
+\end{theorem}
+
+\begin{remark}
+    文献によっては上の定理で$X$がHausdorff空間であることを仮定している場合があるが，実はHausdorff性の仮定は$\mscrA$の条件に内包されている．実際，上の定理の仮定(1)をみたす$\mscrA$がとれるためには$X$はHausdorff空間でなければならないことが分かる．
+\end{remark}
+
+\begin{lemma}
+    $\mscrA\subset C(X,\setC)$が非単位的部分代数のとき，$\Bar{\mscrA}$は非単位的部分代数である．
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\begin{proposition}[Diniの定理]
+    $Y$をコンパクト空間とする．$C(Y,\setR)$の点列$\{f_n\}_n$について，任意の$y\in Y$で$\{f_n(y)\}_n$は広義単調増加で上に有界であるとする．このとき，$\{f_n\}_n$はある関数に一様収束する．
+\end{proposition}
+\begin{proof}
+
+\end{proof}
+
+\begin{lemma}
+    $\sqrt{t}\in C([0,1],\setR)$に収束する$t$の多項式の列$\{h_n\}_n$が存在する．
+\end{lemma}
+\begin{proof}
+    $\{h_n\}_n$を次の漸化式で定める．
+    \[ h_{n+1}(t) = h_n(t) + \frac{t-h_n(t)^2}{2},\ h_0=0. \]
+    この関数列について
+    \[ h_n(t)\leq \sqrt{t},\  h_n(t)\leq h_{n+1}(t) \]
+    が成立することが帰納法で示せる．したがってDiniの定理によって$\{h_n\}_n$はある関数に一様収束する．さらにその収束先が$\sqrt{t}$であることが分かる．
+\end{proof}
+
+\begin{proof}[定理\ref{SWR}の証明]
+
+\end{proof}
+
+\begin{proof}[定理\ref{SWC}の証明]
+
+\end{proof}
+\end{document}

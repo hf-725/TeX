@@ -1,0 +1,457 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{MAstandard, appendix, xcolor}
+\DeclareMathOperator{\Int}{Int}
+\newcommand{\smooth}{$C^{\infty}$級}
+\newcommand{\setinverse}[2]{#1 ^{-1}(#2)}
+\DeclareMathOperator{\sign}{sign}
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注意}{注意}
+
+
+
+\title{CW複体}
+\author{みつば(@mittlear1)\footnote{将来的に証明を書こうと思っている部分には暫定的に別のコメントを
+つけた．}}
+\date{2020年2月1日}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{CW複体の定義}
+\begin{definition}
+  $X$を位相空間，$n$を非負整数とする．$X$の部分集合$e$が$n$次元開円板$\Int D^n$と同相であるとき，
+  $e$は$X$の\textbf{$n$次元胞体(n-cell)}であるという．
+\end{definition}
+
+領域不変性から胞体の次元は一意的である．
+
+\begin{definition}
+  位相空間$X$の\textbf{胞体分割(cell decomposition)}あるいは\textbf{胞体構造(cell structure)}とは，
+  $X$の部分空間による分割$\mscrE$であって次の条件をみたすもののことである．
+  \begin{enumarabicp}
+
+    \item 各$e\in \mscrE$は胞体である．
+    \item 各$n$胞体$e\in \mscrE$に対して次のような連続写像$\map{\Phi}{D^n}{X}$がとれる：
+    $\Phi$の$\Int D^n$への制限は$e$との間の同相を与え，$\Phi(\partial D^n)$は$X$の次元$n$未満の胞体と
+    のみ交わる．
+  \end{enumarabicp}
+  (2)でとった$\Phi$のことを$e$の\textbf{特性写像(characteristic map)}という．
+
+  また，Hausdorff空間$X$とその胞体分割$\mscrE$の組$(X, \mscrE)$の組のことを
+  \textbf{胞体複体(cell complex)}という．
+\end{definition}
+
+上の定義では胞体分割を定義する構造に特性写像を含んでいないが，これを含む流儀もある．
+胞体複体(あるいはcell complex)という言葉はこのあと定義するCW複体と同義で使う著者もいる．
+ここでは\cite{LeeSmooth}の流儀に従った．なお，胞体複体について言及する際，胞体分割$\mscrE$を明記せず
+単に「$X$は胞体複体である」と言うこともある．
+
+$X$を胞体複体とする．次元$n$以下の胞体からなる$X$の部分集合を$X^n$と書き，$X$の
+\textbf{$n$骨格(n-skeleton)}という．$X=X^n$となる$n$が存在するとき$X$は
+\textbf{有限次元(finite-dimensional)}であるといい，そのような$n$の最小値を$X$の
+\textbf{次元(dimension)}という．$X$が有限次元でないとき，$X$は
+\textbf{無限次元(inifinite-dimensional)}であるという．
+
+$X$の胞体全体の集合$\mscrE$が有限集合であるとき，$X$は\textbf{有限胞体複体(finite cell complex)}
+であるという．$\mscrE$が局所有限な族であるとき，$X$は\textbf{局所有限(locally finite)}
+であるという．\cref{locally finite}により，これは$\Bar{\mscrE}=\set{\Bar{e}}{e\in \mscrE}$が
+局所有限であることと同値である．
+
+\begin{proposition}
+  $(X,\mscrE)$を胞体複体，$\map{\Phi}{D^n}{X}$を$e\in \mscrE$の特性写像とする．
+  このとき$\Phi(D^n)=\Bar{e}$が成り立つ．
+\end{proposition}
+
+\begin{proof}
+  $X$はHausdorff空間であるから，$\Phi(D^n)$は$e$を含む閉集合である．よって$\Bar{e}\subset \Phi(D^n)$
+  である．一方，$\setinverse{\Phi}{\Bar{e}}$は$\setinverse{\Phi}{e}=\Int D^n$を含む閉集合であるが，
+  これは$D^n$に他ならない．したがって$\Phi(D^n)\subset \Bar{e}$も成立する．
+\end{proof}
+
+\begin{example}\label{cell complex e.g.}
+  %CWな例とそうでない例を入れる
+
+  \begin{enumarabicp}
+    \item
+    $\setR^n$の中の格子は$\setR^n$の胞体分割を与える．この分割によって$\setR^n$は$n$次元胞体複体となる．
+    \item
+    $X$のすべての点を0胞体と見なしたものは$X$の胞体分割である．この分割によって$X$は0次元胞体複体となる．
+  \end{enumarabicp}
+\end{example}
+
+上の例の(2)のような胞体分割を考えても$X$の位相について得られる情報は少ない．例えば，$X$から他の空間への
+写像は各胞体に制限すると必ず連続になってしまう．$X$の位相をよく反映するよう胞体分割に条件をつけ加えた
+ものがCW複体である．その条件を記述するため，まずは言葉を用意する．
+
+\begin{definition}
+  $X$を位相空間，$\mscrB$をその部分集合族で$X$を被覆するものとする．$X$の位相が$\mscrB$と
+  \textbf{coherent}であるとは，$F\subset X$が閉集合であることと，すべての$B\in \mscrB$に対して
+  $F\cap B$が$B$の閉集合であることが同値であることをいう．
+\end{definition}
+
+$F$が$X$の閉集合であれば$F\cap B$は必ず$B$の閉集合であるから，この逆が成立するか否かが大切なことである．
+
+\begin{proposition}
+  $X$を位相空間とし，$\mscrB$を$X$とcoherentな部分集合族とする．
+  \begin{enumarabicp}
+    \item
+    $Y$を別の位相空間とするとき，写像$\map{f}{X}{Y}$が連続であることと，すべての$B\in \mscrB$に対して
+    制限写像$\map{\restr{f}{B}}{B}{Y}$が連続であることは同値である．
+    \item
+    自然な包含からできる写像
+    \[ \coprod_{B\in \mscrB} B \to X \]
+    は等化写像である．
+  \end{enumarabicp}
+\end{proposition}
+
+\begin{proof}
+  (1)を示す．任意に$Y$の閉集合$F$をとったとき，$\setinverse{f}{F}$が$X$の閉集合であればよい．
+  仮定より任意の$B\in \mscrB$について$\setinverse{f}{F}\cap B=\setinverse{(\restr{f}{B})}{F}$は
+  閉集合である．よってcoherentの定義から$\setinverse{f}{F}$は$X$の閉集合である．
+
+  (2)はcoherenceの言いかえである．
+\end{proof}
+
+\begin{definition}
+  $X$をHausdorff空間とする．$X$の胞体分割$\mscrE$が\textbf{CW分割(CW decomposition)}あるいは
+  \textbf{CW構造(CWstructure)}であるとは，次の2条件をみたすことである．
+  \begin{enumarabicp}
+    \item
+    すべての$e\in \mscrE$について，その閉包$\Bar{e}$は有限個の胞体としか交わらない．
+    \item
+    $X$の位相は$\Bar{\mscrE}=\set{\Bar{e}}{e\in \mscrE}$とcoherentである．
+  \end{enumarabicp}
+  (1)の性質を\textbf{閉包有限性(closure finiteness)}といい，(2)で記述される$X$の位相を$\mscrE$による
+  \textbf{弱位相(weak topology)}という．
+
+  また，$\mscrE$がCW分割であるような胞体複体$(X,\mscrE)$のことを\textbf{CW複体(CW complex)}という．
+\end{definition}
+
+局所有限な胞体複体に関しては，上の2条件は自動的にみたされている．
+
+\begin{proposition}
+  $X$をHausdorff空間，$\mscrE$を局所有限な胞体分割とする．このとき$(X,\mscrE)$はCW複体である．
+\end{proposition}
+
+\begin{proof}
+  まず(1)の条件を示す．$\Bar{e}\in \Bar{\mscrE}$の各点$x$は有限個の胞体としか交わらない開近傍を持つから，
+  $\Bar{e}$のコンパクト性と合わせて$\Bar{e}$は有限個の胞体のみと交わる．また，$\Bar{\mscrE}$は
+  局所有限な閉被覆であるから，\cref{locally finite closed cover}より(2)の条件もみたしている．
+\end{proof}
+
+\begin{example}
+  %CW複体の例を書く！R^nなど．S^1のウェッジはattatching constructionのところ？
+  \begin{enumarabicp}
+    \item
+    \cref{cell complex e.g.}の(1)で与えた$\setR^n$の格子による胞体分割はCW分割になっている．
+    \item
+    $S^n$の任意濃度のウェッジ和は0胞体を1つだけ持つ1次元CW複体である．
+  \end{enumarabicp}
+\end{example}
+
+上の例の(1)を一般化して，次の定理が成立する．
+
+\begin{proposition}\label{Euclidean open set CW}
+  $R^n$の開集合$U$は必ずCW分割を持つ．
+\end{proposition}
+
+あとで述べる\cref{locally compact locally finite}によって，$U$のCW分割は局所有限でなければならない．
+
+\begin{proof}
+  天ちゃんの幕張ソロライブめちゃめちゃよかったです．
+\end{proof}
+
+\begin{definition}
+  $(X,\mscrE)$をCW複体とする．$(X,\mscrE)$の部分複体とは，$(X,\mscrE)$の胞体を集めてできる部分空間
+  $Y$であって，$Y$に含まれる各々の胞体の閉包が$Y$に含まれるようなもののことをいう．
+\end{definition}
+
+$Y$に含まれる胞体全体のを$\restr{\mscrE}{Y}$と書くことにする．
+
+\begin{theorem}
+  $(X,\mscrE)$をCW複体とする．$Y$が$(X,\mscrE)$の部分複体ならば，$(Y,\restr{\mscrE}{Y})$はCW複体である．また，$Y$は$X$の閉部分空間である．
+\end{theorem}
+
+\begin{proof}
+  $Y$のHausdorff性は明らかであるから，CW複体になるための2条件を確かめる．まず，$e\in \restr{\mscrE}{Y}$
+  の$X$での閉包$\Bar{e}^X$と$Y$での閉包$\Bar{e}^Y$が一致することを示す．$\Bar{e}^X\cap Y$は$Y$の閉集合
+  なので$\Bar{e}^Y\subset \Bar{e}^X$は明らかである．$\Bar{e}^Y$は$Y$の閉集合だから
+  $\Bar{e}^Y = F\cap Y$となる$X$の閉集合$F$が存在する．すると$\Bar{e}^X \cap F$が成立し，仮定より
+  $\Bar{e}^X\subset Y$も成立しているから$\Bar{e}^X\subset \Bar{e}^Y$でもある．
+
+  以下では$\Bar{e}^X=\Bar{e}^Y$を単に$\Bar{e}$と書く．$\mscrE$の閉包有限性から$\restr{\mscrE}{Y}$の
+  閉包有限性は明らかである．$G\subset Y$と$\Bar{e}\in {\restr{\Bar{\mscrE}}{Y}}$との共通部分が常に閉で
+  あると仮定する．$\restr{\mscrE}{Y}$に入っていない$X$の胞体$e^\prime$に対しても$G\cap \Bar{e}\prime$が
+  閉集合であることを示せば，$G$は$X$の閉集合でありしたがって$Y$の閉集合であることがわかる．
+  各$e\in \restr{\mscrE}{Y}$に対して$G\cap \Bar{e} \cap \Bar{e}^\prime$はコンパクトなので
+  $\Bar{e}^\prime$の閉集合であるが，これが空にならないような$e$は有限個しかない．したがって
+  $G\cap \Bar{e}^\prime$は有限個の閉集合の合併になるので閉集合である．
+
+  $Y$が閉集合であることは，上の$G$を$Y$にとりかえて同じ議論をすればわかる．
+\end{proof}
+
+\begin{lemma}\label{subcomplex union}
+  $X$をCW複体とする．$\mscrY$を$X$の部分複体からなる族とすると，$\bigcup_{Y\in \mscrY} Y$は$X$の
+  部分複体である．
+\end{lemma}
+
+\begin{proof}
+  $\bigcup_{Y\in \mscrY} Y$のどの胞体もどれか一つの$Y\in \mscrY$に含まれている．
+  したがってその閉包も$Y$に含まれている．
+\end{proof}
+
+\section{CW複体の位相的性質}
+
+CW複体が一般に持つ位相的性質について述べる．まず，$X$に入っている位相が他の方法でも記述できることを示す．
+
+\begin{proposition}
+  $X$をCW複体とすると，$X$の位相は$\set{X^n}{n\in \setN}$とcoherentである．また，各胞体$e$に対して
+  特性写像$\map{\Phi_e}{D^n}{X}$を選んだとき，$F\subset X$が閉集合であることとすべての胞体$e$に対して
+  $\setinverse{\Phi_e}{F}$が閉集合であることは同値である．
+\end{proposition}
+
+\begin{proof}
+  $X$の部分集合が$X^n$と閉集合で交わることは，$n$次元以下のすべての胞体と閉集合で交わることを意味する．
+  $X$に胞体の集合による弱位相が入っていることから，その集合は$X$の閉集合である．
+
+  $F\subset X$の特性写像による引き戻しがすべて閉集合であるとする．$e$を任意に選んだ胞体とすると，
+  \[ F\cap \Bar{e} = \Phi(\setinverse{\Phi}{F}) \]
+  であり，右辺はコンパクトなので閉集合である．したがって$F$は閉集合である．
+\end{proof}
+
+次に，CW複体のコンパクト集合はある有限部分複体に含まれるという非常に重要な定理を証明する．
+
+\begin{lemma}\label{discrete}
+  $X$をCW複体とする．$X$の部分集合$S$がどんな胞体とも有限個の点でしか交わらないとき，$S$は離散閉集合である．特に$X^0$は離散閉集合である．
+  %逆は正しくなさそう(1/n全体)
+\end{lemma}
+
+\begin{proof}
+  まず$S$が閉であることを示す．$X$の閉包有限性から，各胞体の閉包と$S$との共通部分は有限個の点からなる集合
+  であり，閉集合である．したがって$S$は$X$の閉集合である．
+
+  次に，$x\in S$を任意にとって$S\setminus \{x\}$に上の議論を適用することで$S\setminus \{x\}$も閉集合で
+  ある．したがって$\{x\}$は$S$の中で開であり，$S$は離散集合である．
+\end{proof}
+
+\begin{lemma}\label{cell finite complex}
+  CW複体$X$の胞体$e$に対して，$e$を含む$X$の有限部分複体が存在する．
+\end{lemma}
+
+\begin{proof}
+  $e$の次元$n$に関する帰納法で示す．$n=0$のときは明らかである．$n=k$まで正しいとする．$e$が$k+1$次元胞体
+  であるとき，$\partial e$は次元$k$以下の有限個の胞体と交わる．そのような胞体各々についてそれを含む
+  有限部分複体をとり，それらの和集合に$e$を加えたものが$e$を含む有限部分複体である．
+\end{proof}
+
+\begin{theorem}\label{compact finite subcomplex}
+  $K$をCW複体$X$のコンパクト部分集合とする．このとき，$K$を含む有限部分複体が存在する．
+\end{theorem}
+
+\begin{proof}
+  $K$が有限個の胞体としか交わらないことを示せば，\cref{cell finite complex}と\cref{subcomplex union}から$K$を含む有限部分複体の存在がわかる．
+
+  $K$との共通部分が空でない胞体がある場合，$K$との交わりの中から点を1つ選んで$K$の部分集合$S$を作る．すると\cref{discrete}から$S$は離散集合かつ閉集合であり，$S\subset K$からコンパクトである．したがって$S$は有限個の点からなる集合なので，$S$の作り方から$K$は有限個の胞体としか交わらない．
+\end{proof}
+
+\begin{corollary}
+  CW複体がコンパクトであることと有限複体であることは同値である．
+\end{corollary}
+
+上の系に関連して，CW複体の局所有限性を別の位相的性質で特徴づける．
+
+\begin{proposition}\label{locally compact locally finite}
+  CW複体が局所コンパクトであることと局所有限複体であることは同値である．
+\end{proposition}
+
+\begin{proof}
+  $X$をCW複体とする．$X$が局所コンパクトであるとする．$x\in X$を任意にとったとき，$x$のコンパクト近傍$K$がとれる．\cref{compact finite subcomplex}より$K$は有限個の胞体としか交わらないことがわかる．したがって$X$は局所有限である．
+
+  逆に$X$が局所有限であるとする．任意の$x\in X$に対して，その近傍$U$を有限個の胞体とのみ交わるようにとる．すると，それらの胞体の和集合は$U$を含むコンパクト集合となる．よって$X$は局所コンパクトである．
+\end{proof}
+
+次に示す定理も非常に重要である．
+
+\begin{theorem}
+  CW複体はパラコンパクトである．
+\end{theorem}
+
+\begin{proof}
+  ナンスのソロライブに全参できてよかったです！
+\end{proof}
+
+特性写像を使うことによって構成を円板上で行う方法は他にも応用がある．
+
+\begin{proposition}
+  CW複体は局所可縮である．
+\end{proposition}
+
+\begin{proof}
+  みっく
+\end{proof}
+
+CW複体$X$とその部分複体$A$の組$(X,A)$のことを\textbf{CW pair}という．また，一般に位相空間$Y$とその部分空間$B$について，$B$を変位レトラクトに持つような$B$の近傍が存在するとき$(Y,B)$は\textbf{good pair}であるという．
+
+\begin{proposition}
+  任意のCW pairはgood pairである．
+\end{proposition}
+
+\begin{proof}
+  証明の方針は1つ前の命題とほぼ同じである．
+
+  唯ちゃん
+\end{proof}
+
+\section{CW複体のattaching construction}
+
+1節では，CW複体を胞体による位相空間の分割で定義した．一方で，これを「離散空間に1胞体を貼りつけ，次に2胞体を貼りつけ，\dots」という方法で得られる空間として定義することもできる\footnote{こちらの定義の方が直感的ではあるが，構成に使う構造も含めて明記すると非常に煩雑になる．そこで，\cite{LeeSmooth}に倣って本稿ではCW複体の定義は1節のものを採用した}．本節ではこの方法を紹介し，1節のCW複体の定義と等価であることを示す．
+
+\begin{definition}
+  位相空間$X$に次のデータが与えられているとする．
+  \begin{enumarabicp}
+    \item
+    $X$の部分空間の増大列$X^0\subset X^1 \subset X^2\subset \dots$で$X = \bigcup _{n=0}^\infty X^n$をみたすもの．
+    \item
+    $n\in \setN$に対して定まっている$\partial D^{n+1}$から$X^n$への連続写像の族$\mscrA^n$．
+    \item
+    $n\in \setN$に対して定まっている同相写像$\map{\Psi^n}{X^n\bigcup_{\Phi^n} \parenlr{\coprod_{\varphi\in \mscrA^n}D^{n+1}}}{X^{n+1}}$
+    であって，合成写像
+    \[X^n\longrightarrow X^n\sideset{}{_{\Phi^n}} \bigcup \parenlr{\coprod_{\varphi\in \mscrA^n}D^{n+1}} \stackrel{\Psi^n}{\longrightarrow} X^{n+1} \]
+    が包含写像に等しいもの($\Phi^n$は$\mscrA^n$の元からできる自然な写像$\coprod_{\varphi\in \mscrA^n}D^{n+1}\to X^n$を表す)．
+  \end{enumarabicp}
+  このとき，データ$(\{X^n\}_{n\in \setN}, \{\mscrA^n\}_{n\in \setN})$のことを$X$上の\textbf{ナンス構造(Nansu structure)}\footnote{著者によってはこれのことをCW構造と呼ぶが，ここでは1節で定義したCW構造と区別するために別の言葉を用意した．当然一般的な用語ではない．}という．
+\end{definition}
+
+\begin{proposition}
+  ナンス構造を持つ位相空間はHausdorffである．
+\end{proposition}
+\begin{proof}
+
+\end{proof}
+
+本節の残りの部分の目標は，Hausdorff空間$X$上のCW分割とナンス構造が1対1に対応する\footnote{厳密には特性写像を1つ固定したCW分割とナンス構造が対応する．}ことを示すことである．
+
+\begin{theorem}
+  $\mscrE$をHausdorff空間$X$上のCW分割とする．さらに各$e\in \mscrE$に対して特性写像$\Phi_e$を1つ選んで固定すると，データ$(\mscrE, \{\Phi_e\}_{e\in \mscrE})$から$X$上のナンス構造が自然に得られる．
+\end{theorem}
+
+\begin{theorem}
+  Hausdorff空間$X$上のナンス構造$(\{X^n\}_{n\in \setN}, \{\mscrA^n\}_{n\in \setN})$から$X$上のCW分割と各胞体の特性写像の族が自然に得られる．
+\end{theorem}
+
+\section{CW複体とホモトピー同値な空間}
+
+ホモロジー群やホモトピー群といった不変量は位相空間のホモトピー型にのみよる概念であり，
+これらはCW複体の圏においてよい性質をもつことが分かっている．したがってどのような位相空間がCW複体とホモトピー同値か
+を調べることには大きな意味がある．
+
+まずは一番簡単な\smooth 多様体のときを考える．
+
+\begin{corollary}
+  任意の\smooth 多様体$M$はあるCW複体にホモトピー同値である．
+\end{corollary}
+
+\begin{proof}
+  Whitneyの埋め込み定理によって$M$を$\setR^N$に埋め込み，管状近傍$N(M)$をとる．すると$M$は$N(M)$と
+  ホモトピー同値であり，
+  $N(M)$は$\setR^N$の開集合なので\cref{Euclidean open set CW}より$N(M)$はCW分割を持つ．
+\end{proof}
+
+\begin{definition}
+  位相空間$X$が別の空間$Y$に\textbf{支配されている(deminated)}とは，連続写像$\map{i}{X}{Y}$と$\map{r}{Y}{X}$が存在して$\map{r\circ i}{X}{X}$が恒等写像とホモトピックであることをいう．
+\end{definition}
+
+支配の概念はレトラクトの概念を拡張したものである．
+
+\begin{theorem}\label{CW dominated}
+  CW複体に支配された位相空間$X$はあるCW複体にホモトピー同値である．
+\end{theorem}
+
+$X$を支配するCW複体と，$X$とホモトピー同値なCW複体は一致するとは限らないことに注意する．
+
+\begin{proof}
+  Show me love? 証明Now!
+
+  どっちつかずの
+
+  曖昧\quad 関係
+
+  許せないから
+
+  「答えを求めよ」
+
+  繋ぐ手と手の
+
+  パラドックス
+\end{proof}
+
+\section{種々の操作とCW分割}
+
+本節では，CW複体に代数的トポロジーでよく使われる操作を施したあとの空間に自然にCW分割が入る状況を説明する．
+
+%積複体とcompactly generated
+%subcpxを一点につぶしたものはCW複体
+%同じ次元のcellを有限個ずつ貼りつけたものはCW複体
+
+%懸垂，約懸垂，スマッシュ積との関係
+
+\appendix
+
+\renewcommand{\thetheorem}{\Alph{section}.\arabic{theorem}}
+
+\section{}
+
+\begin{proposition}
+  $D$を$\setR^n$のコンパクト凸集合で内部が空でないものとすると，$D$は$D^n$と同相である．
+\end{proposition}
+
+\begin{proof}
+  もちょのソロライブ楽しみ！
+\end{proof}
+
+\begin{proposition}
+  $X$, $Y$を位相空間とする．さらに$Y$の部分集合$A$と連続写像$\map{\varphi}{A}{X}$が与えられているとき，$\varphi$による接着空間$X\cup_\varphi Y$において自然な写像$\map{\iota}{X}{X\cup_\varphi Y}$は位相埋め込みである．さらに$A$が閉集合ならば，これは閉埋め込みである．
+\end{proposition}
+
+\begin{proposition}\label{locally finite}
+  位相空間$X$の部分集合族$\mscrA$が局所有限であることと$\Bar{\mscrA}=\set{\Bar{A}}{A\in \mscrA}$が局所有限であることは同値である．
+\end{proposition}
+
+\begin{proof}
+  $U$を$X$の開集合とする．もし$A\subset X$が$U$と交わらないとすると，$A\subset X\setminus U$である．これと$X\setminus U$が閉集合であることから$\Bar{A}\subset X\setminus U$であり，$\Bar{A}$も$U$と交わらない．したがって
+  \[\set{A\in \mscrA}{A\cap U\neq \emptyset} = \set{A\in \mscrA}{\Bar{A}\cap U \neq \emptyset} \]
+  が成立する．このことから主張は明らかである．
+\end{proof}
+
+\begin{proposition}\label{closedness local}
+  $X$を位相空間とする．$X$の部分集合$F$について，$X$の開被覆$\mscrU$であって
+  \[ \forall U\in \mscrU \quad F\cap U\text{は$U$の閉集合である} \]
+  という条件をみたすものが存在するならば，$F$は$X$の閉集合である．
+\end{proposition}
+
+\begin{proof}
+  $X\setminus F$が開集合であることを示す．$x\in X\setminus F$を任意にとった点とする．$U\in \mscrU$を$x$の開近傍となるように選ぶと，$U\setminus F$は$x$を含む$U$の開集合であり，したがって$X$の開集合でもある．以上より$x$は$X\setminus F$の内点である．
+\end{proof}
+
+\begin{proposition}\label{locally finite closed cover}
+  $X$を位相空間，$\mscrA$を$X$の局所有限閉被覆とする．$F\subset X$と$\mscrA$の元との共通部分が常に閉集合であるとき，$F$自身も閉集合である．
+\end{proposition}
+
+\begin{proof}
+  \cref{closedness local}のような開被覆がとれればよい．任意に選んだ$x\in X$に対して，この点の近傍$U$を$A\cap U\neq \emptyset$となる$A\in \mscrA$が有限個になるようにとる．そのような$ \mscrA$の元を$A_1, A_2, \dots ,A_k$とする．各$A_i$に対して$F\cap A_i$は$X$の閉集合だから，$F\cap A_i \cap U$は$U$の閉集合である．したがって
+  \[ F\cap U = (F\cap A_1 \cap U)\cup (F\cap A_2 \cap U)\cap \dots \cap (F\cap A_k \cap U) \]
+  も$U$の閉集合である．
+\end{proof}
+
+\bibliographystyle{MA}
+\nocite{HatcherAT}
+\bibliography{data}
+
+\end{document}
+
+%D^nからHausdorff空間への連続写像であってInt D^n上単射なものはInt D^n上像へのhomeo

@@ -1,0 +1,311 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{MAstandard}
+\DeclareMathOperator{\Int}{Int}
+
+\title{Morse理論}
+\author{hf\_725}
+\date{2019年7月25日}
+
+
+\begin{document}
+\maketitle
+
+\section{準備}
+\begin{definition}
+$X$をHausdorff空間とし，$\{\map{\varphi_{\lambda}}{D_{\lambda}}{X}\}_{\lambda\in \Lambda}$を$n_{\lambda}$次元円板$D_{\lambda}$から$X$への連続写像の族とする．
+組$(X,\{{\varphi_{\lambda}}\}_{\lambda\in \Lambda})$がCW複体であるとは次の条件を満たすことをいう．
+\begin{enumarabicp}
+\item すべての$\lambda$に対して$\varphi_{\lambda}$の$\Int D_{\lambda}$への制限は単射であり，$X$は集合として$e_{\lambda} = \varphi_{\lambda}(\Int D_{\lambda})$たちの直和になる．
+\item 各$\varphi_{\lambda}(\partial D)$は有限個の$e_{\mu}$たちとしか交わらず，しかもそのような$\mu$に対して必ず$n_{\mu}<n_{\lambda}$が成立する．
+\item $X^n = \bigcup_{n_{\lambda}\leq n} e_{\lambda}$とおく．$F\subset X$が$X$の閉集合であることと，すべての$n\in \setZ_{\geq 0}$で$F\cap X^n$が$X^n$の閉集合であることは同値である．
+\end{enumarabicp}
+\end{definition}
+\begin{definition}\label{Hessian}
+$M$を$n$次元多様体，$\map{f}{M}{\setR}$を$C^{\infty}$級関数とする．$f$の臨界点$p\in M$に対してこの点でのHesse形式$\map{f_{\ast \ast}}{T_p M\times T_p M}{\setR}$を次のように定義する．$v,w\in T_p M$を任意にとり，$\tilde{v},\tilde{w}$を$p$の近傍で定義されたベクトル場で$\tilde{v}_p = v,\tilde{w}_p = w$をみたすものとするとき
+\[ f_{\ast \ast}(v,w) = \tilde{v}_p(\tilde{w}(f)). \]
+\end{definition}
+
+\begin{proposition}
+上の定義は$\tilde{v},\tilde{w}$のとり方によらない．また，$f_{\ast \ast}$は$T_p M$上の対称双線型形式であり，局所座標をとって行列表示すると$f$のHesse行列となる．
+\end{proposition}
+
+\begin{remark}
+Hesse形式は$f$の臨界点以外ではwell-definedにならない．
+\end{remark}
+
+\begin{definition}
+一般に対称双線型形式$\map{b}{V\times V}{\setR}$を考える．$V$の部分空間$W$であって$b$の$W$への制限が不定値になるようなもののうち極大なものの次元を$b$の指数(index)という．また，$V$の部分空間
+\[ \set{v\in V}{\forall w\in V b(v,w) = 0} \]
+を$b$のnull spaceといい，その次元を退化次数(nullity)という．
+
+また，定義\ref{Hessian}の状況で，臨界点$p\in M$でのHesse形式$f_{\ast \ast}$の指数を単に$f$の$p$での指数という．
+\end{definition}
+
+\begin{definition}
+$M$上の$C^{\infty}$級関数$f$の臨界点$p$でHesse形式が非退化であるとき，$p$は$f$の非退化臨界点であるという．すべての臨界点が非退化であるとき，$f$はMorse関数であるという．
+\end{definition}
+
+\begin{theorem}[Morseの補題]
+$\map{f}{M}{R}$を$C^{\infty}$級関数とし，$p\in M$を指数$\lambda$の非退化臨界点とする．このとき，$p$を中心とするチャート$(U;x^1,x^2,\cdots,x^n)$をうまくとると，$U$上
+\[ f = f(p)-(x^1)^2-\cdots -(x^{\lambda})^2+(x^{\lambda})^2+\cdots (x^n)^2 \]
+と表される．
+\end{theorem}
+
+$M$上の関数$f$について$M^a$で$f$の値が$a$以下の点全体の集合を表すことにする．
+
+\begin{theorem}
+$f$を$M$上の$C^{\infty}$級関数とする．$a<b$について$f^{-1}([a,b])$はコンパクトでしかもこの中に臨界点はないとする．このとき，$M^a$と$M^b$は微分同相である．また，$M^a$は$M^b$の変位レトラクトである．
+\end{theorem}
+
+\begin{theorem}
+$f$を$M$上の$C^{\infty}$級関数とする．$c$を$f$の臨界値とし，$f^{-1}(c)$に含まれる臨界点は有限個ですべて非退化であるとする．さらに，$\varepsilon$を十分小さくとれば$f^{-1}([c-\varepsilon,c+\varepsilon])$はコンパクトで$[c-\varepsilon,c+\varepsilon]$の中の臨界値は$c$だけであるようにできると仮定する．さらに各臨界点の指数を$\lambda_1,\dots,\lambda_k$とするとき，十分小さい$\varepsilon$に対して，$M^{c+\varepsilon}$は$M^{c-\varepsilon}$に$\lambda_1$次元円板,$\dots$,$\lambda_k$次元円板をつけた空間とホモトピー同値である．
+\end{theorem}
+
+\begin{theorem}\label{CW decomposition}
+$f$をMorse関数で，任意の$a\in \setR$で$M^a$がコンパクトになるようなものとする．このとき，$M$は次のようなCW複体$K$とホモトピー同値である．すなわち，$K$の$\lambda$胞体の数は指数$\lambda$の臨界点の個数に等しい．
+\end{theorem}
+
+\begin{remark}
+上の定理で指数$\lambda$の臨界点は無数にあることもあるが，その場合でも高々可算である．この場合は可算無限個の胞体があると解釈する．
+\end{remark}
+
+\begin{theorem}[Morse関数の存在]
+定理\ref{CW decomposition}の仮定をみたすようなMorse関数は存在する．
+\end{theorem}
+\begin{proof}[略証]
+Whitneyの埋め込み定理から$M$はEuclid空間に閉集合として埋め込める．$p\in \setR$に対して関数$\map{l_p}{M}{\setR}$を
+\[ l_p(q) = \norm{q-p}^2 \]
+で定義する．これがほとんどすべての$p$についてMorse関数になることが言える．$M$は閉に埋め込んであったから，この関数が定理\ref{CW decomposition}の仮定をみたすことが分かる．
+\end{proof}
+
+\section{無限次元Morse理論}
+本章では$(M,g)$を連結な$n$次元Riemann多様体とする．
+\subsection{曲線全体の空間}
+
+\begin{definition}
+$p,q \in M$とする．区分的$C^{\infty}$級写像$\map{\omega}{[0,1]}{M}$で$\omega(0) = p,\omega(1) = q$をみたすもの全体を$\Omega(M;p,q)$と書く．$\Omega(M)$や$\Omega$と書くこともある．
+\end{definition}
+
+\begin{definition}
+$0\leq a \leq b\leq 1$とする．$\map{L_a^b}{\Omega}{\setR}$を弧長汎関数すなわち
+\[ L_a^b(\omega) = \int_a^b \normlr{\frac{d\omega}{dt}}dt \]
+で定義し，特に$L=L_0^1$とおく．また，$\map{E_a^b}{\Omega}{R}$を
+\[ E_a^b(\omega) = \int_a^b \normlr{\frac{d\omega}{dt}}^2 dt \]
+で定義する．特に$E = E_0^1$とおき，これをエネルギー汎関数という．
+\end{definition}
+
+\begin{remark}
+文献によっては上の定義の$1/2$倍を$E$と定めている．$E$は$\omega$を粒子の軌跡と思ったときの作用積分のことなので，その意味ではこちらの定義の方が自然である．
+\end{remark}
+
+\begin{definition}
+$g$から定まる$M$上の距離を$\rho$で表す．すなわち
+\[ \rho(p,q) = \inf_{\omega \in \Omega(M;p,q)} L(\omega) \]
+とおく．ただし，$L(\omega)$は曲線の長さを表す．このとき，$\Omega(M;p,q)$上の距離$d$を
+\[ d(\omega_1, \omega_2) = \max_{t\in [0,1]} \rho(\omega_1, \omega_2)+\parenlr{\int_0^1 \parenlr{\normlr{\frac{d\omega_1}{dt}}-\normlr{\frac{d\omega_2}{dt}}}^2 dt }^{\frac{1}{2}} \]
+で定める．
+\end{definition}
+
+\begin{proposition}
+上の$d$は確かに$\Omega$上の距離関数である．また，この距離から定まる位相に関して$E_a^b$は連続である．
+\end{proposition}
+\begin{proof}
+$d$が距離であることは容易に示せる．後半を示す．三角不等式から
+\[\abslr{\parenlr{\int_a^b \parenlr{\normlr{\frac{d\omega_1}{dt}}}^2 dt }^{\frac{1}{2}} - \parenlr{\int_a^b \parenlr{\normlr{\frac{d\omega_2}{dt}}}^2 dt }^{\frac{1}{2}}}\leq \parenlr{\int_a^b \parenlr{\normlr{\frac{d\omega_1}{dt}}-\normlr{\frac{d\omega_2}{dt}}}^2 dt }^{\frac{1}{2}} \]
+なので$\sqrt{E_a^b}$は連続である．よって$E_a^b$も連続である．
+\end{proof}
+
+\begin{remark}
+$d$から定まる$\Omega$上の位相はそこまで不自然なものではない．実際，この空間は$p$と$q$を結ぶ連続曲線全体に$\sup$ノルムで位相を入れた空間とホモトピー同値になる(詳細は略)．
+\end{remark}
+
+こうして定まった$\Omega(M;p,q)$という空間のホモトピー型を記述するのが目標である．
+
+\subsection{変分公式}
+
+$\Omega(M;p,q)$の位相を調べるときの基本的なアイデアは，この空間を「無限次元の多様体」と思い，$E$を$\Omega$上の「Morse関数」と考えて理論を展開することである．このアイデアをそのまま使うわけではないが，この意識のもとに種々の概念を定義していく．
+
+\begin{definition}
+$\map{\pi}{TM}{M}$を自然な射影，$\omega \in \Omega$とする．
+\begin{enumarabicp}
+\item $\omega$に沿ったベクトル場とは，区分的$C^{\infty}$級写像$\map{W}{[0,1]}{TM}$であって$\pi \circ W = \omega$をみたすもののことをいう．
+\item $\omega$に沿ったベクトル場$W$が$W(0)=0,W(1)=0$をみたすとき，$W$は$\omega$に沿った変分ベクトル場であるという．$\omega$に沿った変分ベクトル場全体を$T_\omega \Omega$で表す．$T_\omega \Omega$は自然にベクトル空間の構造を持つ．
+\item $O \subset \setR^N$を$0$を含む開集合とする．$\map{\Bar{\alpha}}{O}{\Omega}$が$\omega$の$N$パラメータ変分であるとは，次の条件をみたすことをいう．
+\begin{enumromanp}
+\item $\Bar{\alpha}(0) = \omega.$
+\item $\map{\alpha}{O\times [0,1]}{M}$を$\alpha(u,t) = \Bar{\alpha}(u)(t)$で定めるとき，$[0,1]$の分割
+\[ 0 = t_0 \le t_1 \le \dots \le t_k =1 \]
+が存在して，$\alpha$は各$O\times [t_i,t_{i+1}]$上$C^{\infty}$級である．
+\end{enumromanp}
+特に1パラメータ変分のことを単に変分という．
+\end{enumarabicp}
+\end{definition}
+
+\begin{proposition}
+$\omega$の変分$\Bar{\alpha}$に対して$\map{W}{[0,1]}{\Omega}$を
+\[ W_t = \frac{d\Bar{\alpha}}{du}(0)_t = \frac{\partial \Bar{\alpha}}{\partial u}(0,t) \]
+で定めると$W \in T_\omega \Omega$である．また，任意の$W\in T_\omega \Omega$に対し，$\omega$のある変分$\Bar{\alpha}$で$W = \frac{d\Bar{\alpha}}{du}(0)$をみたすものが存在する．
+\end{proposition}
+\begin{proof}
+前半は条件をチェックすればよい．後半については$[0,1]$のコンパクト性に注意するとある$\varepsilon \geq 0$について
+\[ \alpha(u,t) = \exp_{\omega(t)}(uW(t)) \]
+が$(-\varepsilon,\varepsilon)\times [0,1]$上でwell-definedになる．この$\alpha$から定まる変分$\Bar{\alpha}$が条件をみたす．
+\end{proof}
+
+\begin{theorem}[第一変分公式]
+$\Bar{\alpha}$を$\omega \in \Omega$の変分とする．
+\[ V = \frac{d\omega}{dt},\ W = \frac{d\Bar{\alpha}}{dt},\ \Delta_{t_i} V = V(t_i+0) - V(t_i-0) \]
+とおくと，
+\begin{align*}
+    \restrlr{\frac{1}{2}\frac{d}{du}E(\Bar{\alpha}(u))}{u=0}
+    = -\sum_{i=1}^{k-1} g\parenlr{W_{t_i},\Delta_{t_i} V} - \int_0^1 g\parenlr{W,\frac{DV}{dt}}dt
+\end{align*}
+である．
+\end{theorem}
+
+\begin{definition}
+$M$上の曲線$\gamma$が測地線であるとは
+\[ \frac{D}{dt}\frac{d\gamma}{dt}=0 \]
+をみたすことをいう．
+\end{definition}
+
+\begin{proposition}
+$\gamma　\in \Omega$について，$\gamma$が測地線であることと$\gamma$が$E$の臨界点であることは同値である．ここで，$\gamma$が$E$の臨界点であるとは任意の$\gamma$の変分$\Bar{\alpha}$について
+\[ \restrlr{\frac{d}{du}E(\Bar{\alpha}(u))}{u=0} = 0 \]
+をみたすことである．
+\end{proposition}
+
+\begin{proposition}
+$\gamma \in \Omega$が最短測地線ならば，$E$は$\gamma$で最小値をとる．
+\end{proposition}
+
+次に，$E$の臨界点におけるHesse形式を定義したい．有限次元多様体のときを思い出せば，次のような定義をするのが妥当であると考えられる．
+
+\begin{definition}
+$\gamma \in \Omega$を測地線とする．$\gamma$における$E$のHesse形式$E_{\ast \ast}$を次のように定義する．$W_1,W_2\in T_\gamma \Omega$に対して2パラメータ変分$\Bar{\alpha}$を
+\[ W_1 = \frac{\partial \Bar{\alpha}}{\partial u_1}(0,0),\ W_2 = \frac{\partial \Bar{\alpha}}{\partial u_2}(0,0) \]
+をみたすようにとり，
+\[ E_{\ast \ast}(W_1,W_2) = \restrlr{\frac{\partial^2}{\partial u_1 u_2}E(\Bar{\alpha}(u))}{(u_1,u_2)=(0,0)} \]
+とおく．
+\end{definition}
+
+この定義が$\Bar{\alpha}$のとり方によらないことは，次の定理から分かる．
+
+\begin{theorem}[第二変分公式]
+$\gamma \in \Omega$を測地線，$\Bar{\alpha}$を2パラメータ変分とする．
+\[ W_1 = \frac{\partial \Bar{\alpha}}{\partial u_1}(0,0),\ W_2 = \frac{\partial \Bar{\alpha}}{\partial u_2}(0,0) \]
+とおくと
+\begin{align*}
+&\restrlr{\frac{\partial^2}{\partial u_1 \partial u_2}E(\Bar{\alpha}(u_1,u_2))}{(u_1,u_2)=(0,0)} \\ 
+= &-\sum_{i=1}^{k-1} g\parenlr{W_2(t_i),\Delta_{t_i} \frac{DW_1}{dt}}
+-\int_0^1 g\parenlr{W_2,\frac{D^2W_1}{dt^2}+R(W_1,V)V}dt
+\end{align*}
+となる．
+\end{theorem}
+
+\begin{proposition}
+$E_{\ast \ast}$の定義は変分$\Bar{\alpha}$のとり方によらない．また，$E_{\ast \ast}$は対称双線型形式である．
+\end{proposition}
+\begin{proof}
+$E_{\ast \ast}$がwell-definedであることとその双線型性は第二変分公式から分かる．また，
+\[ \frac{\partial^2 E}{\partial u_1 \partial u_2} = \frac{\partial^2 E}{\partial u_2 \partial u_1} \]
+であるから$E_{\ast \ast}$は対称である．
+\end{proof}
+
+\subsection{Jacobi場}
+
+\begin{definition}
+$\gamma$を測地線とする．$\gamma$に沿ったベクトル場$J$がJacobi場であるとは，Jacobi方程式
+\[ \frac{D^2J}{dt^2}+R\parenlr{J,\frac{d\gamma}{dt}}\frac{d\gamma}{dt} = 0 \]
+をみたすことをいう．
+\end{definition}
+
+\begin{remark}
+Jacobi方程式は二階の線型常微分方程式だから，この方程式の初期値問題の解の定義域は$\gamma$の定義域全体にとれる．また，測地線を一つ固定するときその測地線に沿ったJacobi場全体のなすベクトル空間の次元は$2n$であり，特に有限次元である．
+\end{remark}
+
+次の命題は，$E$が$\gamma$で「退化」していることを$\gamma$に沿った変分Jacobi場の存在で特徴づけられることを示している．
+
+\begin{proposition}
+$J$を測地線$\gamma$に沿った変分ベクトル場とする．このとき$J$がJacobi場であることと$J$が$E_{\ast \ast}$のnull spaceの元であることは同値である．
+\end{proposition}
+
+Jacobi場を考えることは，局所的には測地線の族による変分を考えることと同じである．これを示そう．
+
+\begin{proposition}
+$\Bar{\alpha}$を測地線$\gamma \in \Omega$の変分とする．すべての$u$で$\Bar{\alpha}(u)$が測地線ならば，
+\[ W = \frac{d\Bar{\alpha}}{du}(0) \]
+はJacobi場である．
+\end{proposition}
+\begin{proof}
+まず
+\begin{align*}
+    0 &= \frac{D}{\partial u} \frac{D}{\partial t} \frac{\partial \alpha}{\partial t} 
+      = R\parenlr{\frac{\partial \alpha}{\partial u},\frac{\partial \alpha}{\partial t}}\frac{\partial \alpha}{\partial t}+\frac{D}{\partial t}\frac{D}{\partial u}\frac{\partial \alpha}{\partial t}  
+      = R\parenlr{\frac{\partial \alpha}{\partial u},\frac{\partial \alpha}{\partial t}}\frac{\partial \alpha}{\partial t}+\frac{D}{\partial t}\frac{D}{\partial t}\frac{\partial \alpha}{\partial u}
+\end{align*}
+である．この式に$u=0$を代入して
+\[ \frac{D^2W}{dt}+R\parenlr{W,\frac{d\gamma}{dt}}\frac{d\gamma}{dt} =0 \]
+を得る．
+\end{proof}
+
+\begin{proposition}\label{Jacobi char}
+$\map{\pi}{TM}{M}$を自然な射影とする．$M$の開集合$U$と$TM$の開集合$\mscrU$を$\pi(\mscrU) = U$かつ$\map{\exp}{\mscrU}{U\times U}$が微分同相になるようにとる(以下このことを$U$上の2点を結ぶ最短測地線は端点になめらかに依存する，と表現する)．さらに$\map{\gamma}{[0,1]}{U}$を測地線とすると，$\gamma$に沿ったJacobi場全体のなすベクトル空間$\mscrJ$と$T_p M\oplus T_q M$は自然に同型である．
+\end{proposition}
+
+\subsection{接空間の有限次元近似}
+
+本節では，$E_{\ast\ast}$が負定値となる$T_\gamma \Omega$の部分空間が有限次元空間であることを示す．つまり，$T_\gamma \Omega$の元のうちほとんどは無視してもかまわないのである．この事実は，$\Omega$自体を有限次元多様体で近似できることの証明の第一歩になる．
+
+$\gamma\in \Omega$を測地線とする．各点$\gamma(t)$についてその開近傍$U$を，$U$の2
+点を結ぶ最短測地線が端点になめらかに依存するようにとれる．Lebesgueの被覆補題より$[0,1]$の分割
+\[ 0 = t_0 \leq t_1 \leq \dots \leq t_k = 1 \]
+をすべての$0 \leq i \leq k-1$について$\gamma([t_i,t_{i+1}])$がこのような$U$に含まれるようにできる．$W\in T\gamma \Omega$であって，すべての$0\leq i \leq k-1$で$\restr{W}{[t_i,t_{i+1}]}$が$\restr{\gamma}{[t_i,t_{i+1}]}$に沿ったJacobi場であるようなもの全体のなすベクトル空間を$T_\gamma \Omega(t_0,t_1,\dots ,t_k)$で表す．また，すべての$0\leq i \leq k$で$W(t_i) = 0$をみたす$W\in T_\gamma \Omega$全体のなすベクトル空間を$T^\prime$と書く．
+
+\begin{proposition}
+$T_\gamma \Omega$は$T_\gamma \Omega(t_0,t_1,\dots ,t_k)$と$T^\prime$の直和に書ける．また，この二つの部分空間は$E$について直交していて，さらに$T^\prime$上$E$は正定値である．
+\end{proposition}
+\begin{proof}
+$W \in T_\gamma \Omega$に対してJacobi場$J\in T_\gamma \Omega(t_0,t_1,\dots ,t_k)$を
+\[ J(t_i) = W(t_i) \]
+がすべての$0\leq i\leq k$で成立するようにとる．すると$W-J \in T^\prime$だから，
+\[ W = J+(W-J) \in T_\gamma \Omega(t_0,t_1,\dots ,t_k) + T^\prime \]
+となる．また，$W\in T_\gamma \Omega(t_0,t_1,\dots ,t_k) \cap T^\prime$なら，各$[t_i,t_{i+1}]$上$W$は端点で消えるJacobi場であるから恒等的に0である．結局$W = 0$となるので，
+\[ T_\gamma \Omega = T_\gamma \Omega(t_0,t_1,\dots ,t_k) \oplus T^\prime \]
+であることが分かった．
+
+$T_\gamma \Omega(t_0,t_1,\dots ,t_k)$と$T^\prime$が直交していることを示す．$W_1\in T_\gamma \Omega(t_0,t_1,\dots ,t_k),W_2\in T^\prime$とする．$[0,1]$の分割$0=\tau_0\leq \tau_1 \leq \dots \leq \tau_l$を$W_2$がなめらかでないような$t$をすべて含む$0 = t_0 \leq t_1 \leq \dots \leq t_k = 1$の細分とする．このときすべての$0\leq j\leq l$で
+\[ \Delta_{\tau_j} \frac{DW_1}{dt} = 0 \]
+または
+\[ W_2(\tau_j) = 0 \]
+が成立する．$W_1$が区分的にJacobi場であることに注意すると，第二変分公式から
+\begin{align*}
+    E_{\ast \ast}(W_1,W_2) 
+   =-\sum_{i=1}^{k-1} g\parenlr{W_2(t_i),\Delta_{t_i} \frac{DW_1}{dt}}
+      -\int_0^1 g\parenlr{W_2,\frac{D^2W_1}{dt^2}+R(W_1,V)V}dt = 0
+\end{align*}
+となる．
+
+最後に$T^\prime$上$E$が正定値であることを示そう．まずは半正定値性を示す．$W\in T^\prime$とする．$W$に対応する$\gamma$の変分$\Bar{\alpha}$を，すべての$0\leq i\leq k$で$\alpha(u.t_i)$が$u$によらず$\gamma(t_i)$となるようにとることができる．各$[t_i,t_{i+1}]$上では$\gamma$が最短線であることに注意すると
+\begin{align*}
+    E(\Bar{\alpha}(u)) &= \sum_{i=0}^{k-1} E_{t_i}^{t_{i+1}}(\Bar{\alpha}(u))
+        \geq \sum_{i=0}^{k-1} L_{t_i}^{t_{i+1}}(\Bar{\alpha}(u)) \\
+    &\geq \sum_{i=0}^{k-1} L_{t_i}^{t_{i+1}}(\gamma) = \sum_{i=0}^{k-1} E_{t_i}^{t_{i+1}}(\gamma)
+        = E(\gamma)
+\end{align*}
+であることが分かる．これの二回微分を計算すれば
+\[ E_{\ast \ast}(W,W) \geq 0 \]
+を得る．
+
+あとは$E_{\ast\ast}(W,W)=0$なら$W=0$であることを示せばよい．これには任意の$W^\prime\in T_\gamma \Omega$に対して$E_{\ast\ast}(W,W^\prime)=0$であることを示せば$W$が$\gamma$に沿ったJacobi場であることが分かり，先に示した直和分解から$W=0$となうことが分かる．再び先の直和分解と$E$の双線型性から，$W^\prime\in T_\gamma \Omega(t_0,t_1,\dots ,t_k)$のときと$W^\prime\in T^\prime$のときに場合分けして示せばよい．前者の場合はすでに示してあるので，後者の場合を考える．任意の$c\in \setR$について$W+cW^\prime \in T^\prime$であるから，すでに示した半正定値性から
+\[ E_{\ast\ast}(W+cW^\prime,W+cW^\prime) \geq 0 \]
+であり，これを展開すると
+\[ 2cE_{\ast\ast}(W,W^\prime)+c^2E_{\ast\ast}(W^\prime,W^\prime) \geq 0 \]
+が分かる．$c>0$のもとでこの式を$c$で割り，$c \to 0$とすることで
+\[ E_{\ast\ast}(W,W^\prime)\geq 0 \]
+を得る．$c<0$においても同様のことをすると
+\[ E_{\ast\ast}(W,W^\prime)\leq 0 \]
+となるから，$E_{\ast\ast}(W,W^\prime) = 0$が分かる．
+\end{proof}
+
+\end{document}

@@ -1,0 +1,240 @@
+\documentclass[dvipdfmx,twocolumn,uplatex]{jsarticle}
+\setlength{\columnsep}{3zw}
+\usepackage{latexsym,amsmath,amsthm,amssymb,enumitem,color,tikz,empheq}
+\usepackage{type1cm}
+\usepackage{pict2e}
+\usepackage{ketpic2e,ketlayer2e}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{pgf}
+
+\theoremstyle{definition}
+\newtheorem*{remark}{注}
+
+\setmargin{20}{20}{20}{20}
+
+\begin{document}
+\section*{\S 5 倍角公式とその利用}
+\subsection*{(501)}
+\begin{enumerate}[label=(\arabic*)]
+    \item 加法定理より
+    \begin{align*}
+        \cos2\theta&=\cos(\theta+\theta)\\
+        &=\cos\theta\cdot\cos\theta-\sin\theta\cdot\sin\theta\\
+        &=\cos^2\theta-\sin^2\theta,\\
+        \sin 2\theta&=\sin(\theta+\theta)\\
+        &=\cos\theta\sin\theta+\sin\theta\cos\theta\\
+        &=2\sin\theta\cos\theta
+    \end{align*}
+    である．まとめると
+    \begin{empheq}[box=\fbox]{align*}
+        \cos 2\theta&=\cos^2\theta-\sin^2\theta,\\
+        \sin 2\theta&=2\sin\theta\cos\theta
+    \end{empheq}
+    である．
+    
+    \item $\tan$の加法定理より
+    \begin{align*}
+        \tan 2\theta&=\tan(\theta+\theta)\\
+        &=\frac{\tan\theta+\tan\theta}{1-\tan\theta\cdot \tan\theta}\\
+        &=\frac{2\tan\theta}{1-\tan^2\theta}
+    \end{align*}
+    となる．まとめると
+    \[\boxed{\tan 2\theta=\frac{2\tan\theta}{1-\tan^2\theta}} \]
+    \end{enumerate}
+    である．
+    \begin{remark}
+    $\cos 2\theta$の式について，$\cos^2\theta+\sin^2\theta=1$を使うと最後の式を$\cos\theta$，または$\sin\theta$だけの式にすることができる．例えば$\cos\theta$だけの式にしたければ，$\sin^2\theta=1-\cos^2\theta$より
+    \begin{align*}
+        \cos 2\theta&=\cos^2\theta-(1-\cos^2\theta)\\
+        &=2\cos^2\theta-1
+    \end{align*}
+    となり，$\sin\theta$だけの式にしたければ$\cos^2\theta=1-\sin^2\theta$より
+    \begin{align*}
+        \cos 2\theta&=(1-\sin^2\theta)-\sin^2\theta\\
+        &=1-2\sin^2\theta
+    \end{align*}
+    となる．この形で倍角公式を使うことも多い．
+    \end{remark}
+    
+    \subsection*{(502)}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 倍角公式および上で述べた注より，
+        \begin{empheq}[box=\fbox]{align*}
+        \quad &\cos^2\theta=\frac{1+\cos 2\theta}{2}\quad \\
+        &\sin^2\theta=\frac{1-\cos 2\theta}{2}\\
+        &\sin\theta\cos\theta=\frac{\sin 2\theta}{2}
+        \end{empheq}
+        であるから，$f(\theta)$は$\cos 2\theta$と$\sin 2\theta$を使って表すことができる．実際に計算してみると
+        \begin{align*}
+            f(\theta)&=5\cos^2\theta+6\sin\theta\cos\theta-3\sin^2\theta\\
+            &=5\cdot\frac{1+\cos 2\theta}{2}+6\cdot\frac{\sin 2\theta}{2}-3\cdot\frac{1-\cos 2\theta}{2}\\
+            &=\boxed{4\cos 2\theta+3\sin 2\theta+1}
+        \end{align*}
+        となる．
+         
+        \item 三角関数の合成をする．$\alpha$を
+        \[\cos\alpha = \frac{3}{5},\ \sin\alpha=\frac{4}{5} \]
+        をみたす角とすると，$f(\theta)=5\sin(2\theta+\alpha)+1$と書ける．$\theta$が全実数を動くとき，$2\theta+\alpha$も全実数を動くから
+        \begin{align*}
+            \text{($f(\theta)$の最小値)}&=5\cdot(-1) +1=-4,\\
+            \text{($f(\theta)$の最大値)}&=5\cdot1+1=6
+        \end{align*}
+        であり，この間の値はすべてとることができる．したがって$f(\theta)$の値域は
+        \[\boxed{-4\leqq f(\theta) \leqq 6} \]
+        である．
+    \end{enumerate}
+    
+    \subsection*{(503)}
+    \begin{enumerate}[label=(\arabic*)]
+        \item (502)の(1)で求めた式
+        \[ \cos\theta=\frac{1+\cos 2\theta}{2} \]
+        に注意すると，$\cos\dfrac{\pi}{16}$を求めるには$\cos\dfrac{\pi}{8}$の値が分かればよく，$\cos\dfrac{\pi}{8}$
+        の値を求めるには$\cos\dfrac{\pi}{4}$の値が分かればよい．$\cos\dfrac{\pi}{4}=\dfrac{1}{\sqrt{2}}$
+        であることは知っているので，ここから$\cos\dfrac{\pi}{8}$の値を求めると
+        \begin{align*}
+        \cos^2\frac{\pi}{8}&=\cfrac{1+\cos\cfrac{\pi}{4}}{2} \\
+        &=\cfrac{1+\cfrac{1}{\sqrt{2}}}{2}=\frac{2+\sqrt{2}}{4}
+        \end{align*}
+        となるが，$\cos\dfrac{\pi}{8}>0$なので
+        \[\cos\frac{\pi}{8} =\frac{\sqrt{2+\sqrt{2}}}{2}\]
+        である．続けて
+        \begin{align*}
+            \cos^2\frac{\pi}{16} &= \cfrac{1+\cos\cfrac{\pi}{8}}{2} \\
+            &=\cfrac{1+\cfrac{\sqrt{2+\sqrt{2}}}{2}}{2} \\
+            &=\frac{2+\sqrt{2+\sqrt{2}}}{4}
+        \end{align*}
+        となる．$\cos\dfrac{\pi}{16}>0$なので
+        \[ \boxed{\cos\frac{\pi}{16}=\frac{\sqrt{2+\sqrt{2+\sqrt{2}}}}{2}} \]
+        である．
+        
+        \item 
+        (あ)\ $A_1=\sqrt{2}=\boxed{2\cos\dfrac{\pi}{4}}$である．
+        
+        (い)\ hintにあるように
+            \[ (A_2)^2-2= A_1 \]
+            であることに注意すると
+            \begin{align*}
+                (A_2)^2&=A_1+2\\
+                &=2\cos\frac{\pi}{4}+2\\
+                &=4\cdot \cfrac{1+\cos\cfrac{\pi}{4}}{2}=4\cos^2\frac{\pi}{8}
+            \end{align*}
+            となることが分かる．$A_2,\ \cos\dfrac{\pi}{8}$ともに正の値なので
+            \[ \boxed{A_2=2\cos\frac{\pi}{8}} \]
+            である．
+        
+        (う)\ $A_n=2\cos\dfrac{\pi}{2^{n+1}}$であることを$n$に関する数学的帰納法で示す．$n=1$のときは確かに
+        成立している．$n=k$のとき
+        \[A_k=2\cos\frac{\pi}{2^{k+1}} \]
+        が成り立つと仮定して
+        \[A_{k+1}=2\cos\frac{\pi}{2^{k+2}} \]
+        が成り立つことを示す．$(A_{k+1})^2=A_k-2$であることに注意すると，(い)と同じ計算で
+        \[ (A_{k+1})^2 = 4\cos^2\frac{\pi}{2^{k+2}} \]
+        であることが分かる．$A_{k+1},\ \cos\dfrac{\pi}{2^{k+2}}$ともに正の数だから
+        \[A_{k+1}=2\cos\frac{\pi}{2^{k+2}} \]
+        となる．したがって$n=k+1$のときも正しいことが分かり，
+        \[\boxed{A_n=2\cos\frac{\pi}{2^{n+1}}} \]
+        であることが示せた．
+    \end{enumerate}
+    
+    \subsection*{(504)}
+    \begin{enumerate}[label=(\arabic*)]
+        \item 加法定理を使って計算すると
+        \begin{align*}
+            \cos 3\theta&=\cos(\theta+2\theta)\\
+            &=\cos\theta\cos 2\theta-\sin\theta\sin 2\theta\\
+            &=\cos\theta(2\cos^2\theta-1)-\sin\theta\cdot 2\sin\theta\cos\theta\\
+            &=2\cos^3\theta-\cos\theta-2\sin^2\theta\cos\theta\\
+            &=2\cos^3\theta-\cos\theta-2(1-\cos^2\theta)\cdot\cos\theta\\
+            &=2\cos^3\theta-\cos\theta-2\cos\theta+2\cos^3\theta\\
+            &=\boxed{4\cos^3\theta-3\cos\theta}
+        \end{align*}
+        となる．
+        
+        \item $\cos^3\theta,\ \cos2\theta$をそれぞれ$\cos\theta$のみで表した式を使うと，与えられた方程式は
+        \[4\cos^3\theta-3\cos\theta=2\cos^2\theta-1 \]
+        と書き直せる．$t=\cos\theta$
+        とおくとこれは
+        \begin{align*}
+            &4t^3-3t=2t^2-1 \\
+            \iff\ &4t^3-2t^2-3t+1=0
+        \end{align*}
+        と書ける．$\theta=0$が$\cos3\theta=\cos2\theta$の解であることに注意すると，$t=1$が
+        この方程式の解の一つであることが分かる．これを使って左辺を因数分解すると
+        \[ (t-1)(4t^2+2t-1)=0 \]
+        となる．解の公式を使って$4t^2+2t-1=0$を解くと
+        \[t=\frac{-1\pm \sqrt{5}}{4} \]
+        であることが分かる．これら3つの$t$はすべて$-1\leqq t\leqq 1$をみたしているのでたしかに対応する$\theta$は存在する．よって
+        \[\boxed{\cos\theta=1,\ \frac{-1\pm\sqrt{5}}{4}} \]
+        である．
+        
+        \item $\theta=\dfrac{2}{5}\pi$とおくと，$5\theta=2\pi$なので
+        \[\cos3\theta=\cos(2\pi-2\theta)=\cos2\theta \]
+        が成立する．よって$\cos\dfrac{2}{5}\pi$の値は(1)の答えのどれかであるが，負の値ではなく，また1でも
+        ないので
+        \[\boxed{\cos\frac{2}{5}\pi=\frac{-1+\sqrt{5}}{4}} \]
+        である．
+        
+        今度は$\varphi=\dfrac{4}{5}\pi$とおくと，$5\varphi=4\pi$なのでやはり
+        \[\cos 3\varphi=\cos(4\pi-2\varphi)=\cos 2\varphi \]
+        が成立する．$\cos\dfrac{4}{5}\pi$は負なので
+        \[\boxed{\cos\frac{4}{5}\pi=\frac{-1-\sqrt{5}}{4}}\]
+        である．
+        \begin{remark}
+        $\cos\dfrac{2}{5}\pi$を求めた後は，二倍角の公式を使って$\cos\dfrac{4}{5}\pi$を求めてもよい．
+        \end{remark}
+        \end{enumerate}
+        
+\subsection*{(505)}
+ここでは一例だけ示す．$\theta$を
+\[\cos\theta=\frac{12}{13},\ \sin\theta=\frac{5}{13} \]
+をみたす鋭角とする．$\sin\theta<\sin\dfrac{\pi}{6}$だから，$10\theta<2\pi$である．特に
+\[(\cos 2\theta,\sin 2\theta),(\cos 4\theta,\sin 4\theta),\cdots,(\cos 10\theta,\sin 10\theta) \]
+はすべて異なる点であることが分かる．これら5点が条件をみたすものの一つであることが確認できる．
+
+\subsection*{(506)}
+各々の等式の左辺が$\cos 2\theta=2\cos^2\theta-1$の右辺と似ていることに注目して，$x=\cos\theta$の形に書ける
+(つまり$x$の絶対値が1以下の)解を探してみる．このとき
+\begin{align*}
+    y&=2\cos^2\theta-1=\cos2\theta,\\
+    z&=2\cos^2 2\theta-1=\cos 4\theta,\\
+    x&=2\cos^2 4\theta-1= \cos8\theta
+\end{align*}
+と計算できる．ところが$x=\cos\theta$だったから，最後の等式から
+\[\cos8\theta =\cos\theta \]
+であることが分かる．これを解くと
+\begin{align*}
+    &8\theta=\theta+2n\pi,\ 8\theta=-\theta+2n\pi\ \text{($n$は整数)} \\
+    \iff\ &\theta=\frac{2n}{7}\pi,\ \frac{2n}{9}\pi\ (\text{$n$は整数})
+\end{align*}
+となる．$x=\cos\theta$であったので，$x$の値としては
+\begin{align*}
+    x=&\cos 0,\ \cos\frac{2}{9}\pi,\ \cos\frac{2}{7}\pi,\ \cos\frac{4}{9}\pi,\\
+    &\cos\frac{4}{7}\pi,\ \cos\frac{2}{3}\pi,\ \cos\frac{6}{7}\pi,\ \cos\frac{8}{9}\pi
+\end{align*}
+で尽くされている．ここで$\cos 0=1$,\ $\cos \dfrac{2}{3}\pi=-\dfrac{1}{2}$であるから，解として
+\begin{empheq}[box=\fbox]{align*}
+    (x,y,&z)=(1,1,1),\ \left(-\frac{1}{2},-\frac{1}{2},-\frac{1}{2}\right),\quad \\
+    &\left(\cos\frac{2}{9}\pi,\cos\frac{4}{9}\pi,\cos\frac{8}{9}\pi\right), \\
+    &\left(\cos\frac{2}{7}\pi,\cos\frac{4}{7}\pi,\cos\frac{8}{7}\pi\right), \\
+    &\left(\cos\frac{4}{9}\pi,\cos\frac{8}{9}\pi,\cos\frac{16}{9}\pi\right), \\
+    &\left(\cos\frac{4}{7}\pi,\cos\frac{8}{7}\pi,\cos\frac{16}{7}\pi\right), \\
+    &\left(\cos\frac{6}{7}\pi,\cos\frac{12}{7}\pi,\cos\frac{24}{7}\pi\right), \\
+    &\left(\cos\frac{8}{9}\pi,\cos\frac{16}{9}\pi,\cos\frac{32}{9}\pi\right)
+\end{empheq}
+があることが分かる．
+
+\begin{remark}
+実は上に挙げたもので解はすべて列挙できている．
+
+実数の範囲で解が上に挙げたものですべてであることを確かめるには，たとえば$|t|>1$のとき$|2t^2-1|>|t|$であることを
+チェックすればよい．そうすれば，もし$|x|>1$となる解があるとすると
+\[|x|<|y|<|z|<|x| \]
+であることになり矛盾することが分かる．したがって方程式の解は$|x|\leqq1$であるようなものしかない．
+
+あるいは次のように確かめてもよい．与えられた方程式から$y,z$を消去すると$x$についての8次方程式ができる．
+したがって因数定理から解となる$x$は8個以下である．また，$x$が決まると$y,z$はただ一つに決まってしまうから，
+結局与えられた方程式をみたす$(x,y,z)$は8個以下である．先ほど挙げた解はちょうど8個あるので，
+方程式の解はこれで列挙できている．
+\end{remark}
+\end{document}

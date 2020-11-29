@@ -1,0 +1,134 @@
+\documentclass{jsarticle}
+\begin{document}
+
+
+{\Large J4-171051 安達 充慶}
+
+\section{レポート問題}
+
+\subsection{ファンデルワールス気体}
+1.
+
+断熱自由膨張であるから$Q=0$、$W=0$。よって熱力学第一法則より
+\[ \Delta U=0 \]
+
+したがって
+\[ cNRT_1-a\frac{N^2}{V_1}=cNRT_2-a\frac{N^2}{V_2} \]
+
+これを整理して
+\[ T_2=T_1-\frac{aN}{cR}\left( \frac{1}{V_1}-\frac{1}{V_2} \right)<T_1 \]
+
+最後の不等号は$V_1<V_2$より従う。
+
+2.
+
+断熱準静操作では、$Q=0$。このもとで、熱力学第一法則より
+\[ dU=W=-PdV=\left(-\frac{NRT}{V-bN}+a\frac{N^2}{V^2}\right)dV \]
+
+一方、ファンデルワールス気体のエネルギーの式から
+\[dU=\frac{\partial U}{\partial T} dT-\frac{\partial U}{\partial V}dV=cNRdT+a\frac{N^2}{V^2}dV \]
+
+となる(二次以上の微小量は初めから書かなかった)。これらを等号で結び、整理すると
+\[ \frac{c}{T}dT=\frac{dV}{V-bN} \]
+
+両辺を積分して
+\[ \int_{T_1}^{T_2} \frac{c}{T}dT=\int_{V_1}^{V_2} \frac{dV}{V-bN} \]
+
+したがって
+\[ T_1^c \left(V_1-bN\right)=T_2^c \left(V_2-bN\right) \]
+
+以上より、断熱線は定数$C$によって
+\[ T^c \left(V-bN\right)=C \]
+
+で表される。
+
+3.
+
+$T$が一定であることから
+\[ W=-\int_{V_1}^{V_2} PdV=-NRT\log \frac{V_2-bN}{V_1-bN} -aN^2\left(\frac{1}{V_2}-\frac{1}{V_1}\right) \]
+\[ \Delta U=-aN^2\left(\frac{1}{V_2}-\frac{1}{V_1}\right) \]
+
+したがって
+\[ Q=\Delta U-W=NRT\log \frac{V_2-bN}{V_1-bN} \]
+
+4.
+
+次の4状態を考える(温度,体積):
+
+\begin{quotation}
+$A:\left(T_1,V_A\right)$
+
+$B:\left(T_1,V_B\right)$
+
+$C:\left(T_2,V_C\right)$
+
+$D:\left(T_2,V_D\right)$
+\end{quotation}
+
+
+
+ただし、$V_A<V_B$、$V_D<V_C$で、$A$と$D$、$B$と$C$はそれぞれ同じ断熱線上にあるとする。
+
+このとき、3の結果から
+\[ Q_{A→B}=NRT_1\log \frac{V_B-bN}{V_A-bN} \]
+\[ Q_{D→C}=NRT_2\log \frac{V_C-bN}{V_D-bN} \]
+
+さらに2の結果から断熱線について
+\[ \left(\frac{T_1}{T_2}\right)^c=\frac{V_D-bN}{V_A-bN}=\frac{V_C-bN}{V_B-bN} \]
+
+すなわち
+\[ \frac{V_B-bN}{V_A-bN}=\frac{V_C-bN}{V_D-bN} \]
+
+以上より
+\[ \frac{Q_{A→B}}{T_1}=\frac{Q_{D→C}}{T_2} \]
+
+5.
+
+\[ S=S_0+NR\log\frac{\left(U+aN^2/V\right)^c\left(V-bN\right)}{U_0^c V_0} \]
+
+これをUについて解くと
+\[ U=-a\frac{N^2}{V}+U_0\left(\frac{V_0}{V-bN}\exp\left(\frac{S-S_0}{NR}\right)\right)^\frac{1}{c} \]
+
+である。
+
+ギブズの関係式から
+\[ T=\frac{\partial U}{\partial S} \]
+
+実際に微係数を計算して
+\[ T=\frac{1}{cNR}\left(U+a\frac{N^2}{V}\right) \]
+\[ ∴U=cNRT-a\frac{N^2}{V} \]
+
+
+再びギブズの関係式から
+\[ P=-\frac{\partial U}{\partial V}　\]
+
+実際に$U$を$V$で微分して
+\[ P=\frac{1}{c\left(V-bN\right)}\left(U+a\frac{N^2}{V}\right) \]
+
+ここにさきほど求めた$U$を代入して
+\[ P=\frac{NRT}{V-bN}-a\frac{N^2}{V^2} \]
+
+\subsection{偏微分の性質}
+
+1.反転公式
+
+$A=A\left(B,C\right)$と見て$C$を固定したと考えれば、$A$は$B$の一変数関数なので逆関数の微分法より
+\[ \left(\frac{\partial A}{\partial B}\right)_C=\left(\left(\frac{\partial B}{\partial A}\right)_C\right)^{-1} \]
+
+2.チェーンルール
+
+$A=A\left(D\left(B,C\right),C\right)$とおき、$C$を固定すると合成関数の微分法より
+\[ \left(\frac{\partial A}{\partial B}\right)_C=\left(\frac{\partial A}{\partial D}\right)_C\left(\frac{\partial D}{\partial B}\right)_C \]
+
+3.変数変換の公式
+
+$A=A\left(B,C\left(B,D\right)\right)$として
+
+\[ \Delta A=\left(\frac{\partial A}{\partial B}\right)_C \Delta B+\left(\frac{\partial A}{\partial C}\right)_B\Delta C \]
+\[ ∴\frac{\Delta A}{\Delta B}=\left(\frac{\partial A}{\partial B}\right)_C+\left(\frac{\partial A}{\partial C}\right)_B\frac{\Delta C}{\Delta B} \]
+
+ここで、Dを固定した状態で$\Delta B→0$の極限をとると
+\[ \left(\frac{\partial A}{\partial B}\right)_D=\left(\frac{\partial A}{\partial B}\right)_C+\left(\frac{\partial A}{\partial C}\right)_B\left(\frac{\partial C}{\partial B}\right)_D \]
+
+
+\end{document}

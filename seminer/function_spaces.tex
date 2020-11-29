@@ -1,0 +1,224 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{MAstandard}
+\DeclareMathOperator{\Int}{Int}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\setinverse}[2]{#1 ^{-1}(#2)}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Real}{Re}
+\renewcommand{\qedsymbol}{$({}^\ast \scalebox{.8}{>}\raisebox{-.1ex}{\scalebox{.8}{$\triangle$}} \scalebox{.8}{<} )$}
+
+
+\title{関数空間の定理}
+\author{みつば(@mittlear1)}
+\date{2020年10月1日}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  \begin{center}
+		関数空間についての重要な定理2つの証明を記した．
+	\end{center}
+\end{abstract}
+
+\section{Ascoli-Arzel\`{a}の定理}
+本節では$K$を空でない位相空間，$(X,d)$を空でない距離空間とする．$C(K,X)$を$K$から$X$への連続写像全体の集合とする．
+\subsection{Ascoli-Arzel\`{a}その1}
+\begin{definition}
+$\mscrA\subset C(K,X)$が同程度連続であるとは，すべての$y\in K$と$\varepsilon > 0$に対して$y$の開近傍$U$が存在し，
+\[ \sup_{(f,y^\prime)\in \mscrA\times U} d(f(y),f(y^\prime)) < \varepsilon \]
+が成立することをいう．
+\end{definition}
+
+\begin{definition}
+$\mscrA\subset C(K,X)$が各点相対コンパクトであるとは，すべての$y\in K$で
+\[ \mscrA_y = \set{f(y)}{f\in \mscrA} \]
+が$X$の相対コンパクト集合であることをいう．
+\end{definition}
+
+\begin{theorem}[Ascoli-Arzel\`{a}の定理]\label{AA1}
+$K$がコンパクト空間であるとする．このとき$C(K,X)$に距離$\rho$を
+\[ \rho(f,g) = \max_{y\in K} d(f(y),g(y)) \]
+で定めることができる．これによって$C(K,X)$を距離空間と考えたとき，$\mscrA\subset C(K,X)$について以下は同値である．
+\begin{enumarabicp}
+\item $\mscrA$は相対コンパクトである．
+\item $\mscrA$は同程度連続かつ各点相対コンパクトである．
+\end{enumarabicp}
+\end{theorem}
+\begin{proof}
+\begin{subproof}{\IMPLIES{(1)}{(2)}}
+$\mscrA$が相対コンパクトであるとする．まず$\mscrA$が同程度連続であることを示す．$\varepsilon>0$を任意にとる．$\mscrA$の全有界性より$f_1,\dots ,f_k\in \mscrA$をうまくとって
+\[ \mscrA \subset \bigcup_{i=1}^k B_{\varepsilon/4} (f_i) \]
+をみたすようにできる．$y\in K$を任意にとる．$f_i$たちの連続性から，$y$の開近傍$U$を，$y^\prime\in U$ならすべての$1\leq i \leq k$で$d(f_i(y),f_i(y^\prime))<\varepsilon/4$となるようにとることができる．このとき任意に$f\in \mscrA$をとると$f\in B_{\varepsilon/4}(f_i)$となる$i$が存在するので，任意の$y^\prime\in U$に対して
+\begin{align*}
+    d(f(y),f(y^\prime))&\leq d(f(y),f_i(y)) + d(f_i(y),f_i(y^\prime)) + d(f_i(y^\prime),f(y)) \\
+    &\leq \frac{\varepsilon}{4} + \frac{\varepsilon}{4} + \frac{\varepsilon}{4} = \frac{3\varepsilon}{4}
+\end{align*}
+である．したがって，
+\[ \sup_{(f,y^\prime)\in \mscrA\times U} d(f(y),f(y^\prime))\leq \frac{3\varepsilon}{4} < \varepsilon \]
+が成立し，これは$\mscrA$が同程度連続であることを示している．
+
+次に$\mscrA$が各点相対コンパクトであることを示す．$y\in K$を任意にとる．$\mscrA_y$内の任意の点列$\{x_n\}_n$が収束部分列を持つことを示せばよい．$\mscrA$の定義から，各$x_n$について$f_n\in \mscrA$を$f_n(y)=x_n$となるようにとれる．こうしてできる$\mscrA$内の点列$\{f_n\}_n$は収束部分列$\{f_{n_k}\}_k$を持つ．この収束先を$f\in C(K,X)$と書くと，$\{x_n\}_n$の部分列$\{x_{n_k}\}_k$は$f(y)$に収束する．
+\end{subproof}
+
+\begin{subproof}{\IMPLIES{(2)}{(1)}}
+$\mscrA$が同程度連続かつ各点相対コンパクトであるとする．$\mscrA$内の任意の点列$\{f_n\}_n$について収束部分列が存在することを示せばよい．$\mscrA$の同程度連続性から，任意の$y\in K$についてその近傍$U_y$を，$y^\prime\in U_y$ならすべての$g\in \mscrA$で
+\[ d(g(y),g(y^\prime)) < \frac{1}{6} \]
+になるようにとれる．$K$はコンパクトだから開被覆$\{U_y\}_{y\in K}$の有限部分被覆$\{U_{y_i}\}_{1\leq i\leq l}$がとれる．各$\mscrA_{y_i}$は相対コンパクトだから，$\{f_n\}_n$の部分列$\{f_{n_k}\}_k$をすべての$1\leq i\leq l$で$\{f_{n_k}(y_i)\}_k$が収束するようにとれる．さらにその部分列$\{f_{1,n}\}_n$をとることによって，$m,n\in \setZ_{>0}$ならすべての$1\leq i\leq l$で
+\[ d(f_{1,m}(y_i),f_{1,n}(y_i)) < \frac{1}{6} \]
+となるようにできる．このとき任意の$y\in K$について$y\in U_{y_i}$となる$i$をとることによって
+\begin{align*}
+d(f_{1,m}(y),f_{1,n}(y)) &\leq d(f_{1,m}(y),f_{1,m}(y_i)) + d(f_{1,m}(y_i),f_{1,n}(y_i)) + d(f_{1,n}(y_i),f(y)) < \frac{1}{2}
+\end{align*}
+すなわち
+\[ \rho(f_{1,m},f_{1,n}) \leq \frac{1}{2} \]
+が分かる．この操作を続けることによって，$k\in \setZ_{>0}$に対して$\{f_{k-1,n}\}_n$の部分列$\{f_{k,n}\}_n$を
+\[ \rho(f_{k,m},f_{k,n})\leq 2^{-k} \]
+となるようにとれる．$g_n=f_{n,n}$とおくとこれは$C(K,X)$のCauchy列で，$\mscrA$の各点相対コンパクト性から各点収束極限$\map{g}{K}{X}$が存在する．$\{g_n\}_n$がCauchy列であったことから，$g$は$\{g_n\}_n$の一様収束極限であることが分かる．したがって$g\in C(K,X)$であり，$\{g_n\}_n$は$C(K,X)$の中で$g$に収束することが分かる．
+\end{subproof}
+\end{proof}
+
+\subsection{Ascoli-Arzer\`{a}その2}
+
+\begin{theorem}[Ascoli-Arzel\`{a}の定理]
+$S$を$K$の可算稠密部分集合，$X$を完備距離空間とする．同程度連続な$C(K,X)$の部分集合$\mscrA$について，任意の$y\in S$で$\mscrA_{y}$が相対コンパクトであると仮定する．このとき，任意の$\mscrA$内の点列$\{f_n\}_n$は$K$上広義一様収束する部分列を持つ．
+\end{theorem}
+\begin{proof}
+$S$の元を$y_1,y_2,\dots$と番号づけしておく．$\{f_n(y_1)\}_n$が相対コンパクトであることから，$\{f_n\}_n$の部分列$\{f_{1,n}\}_n$を$\{f_{1,n}(y_1)\}_n$が収束するようにとれる．この操作を続けることで，任意の正整数$k$について$\{f_{k,n}\}_n$の部分列$\{f_{k+1,n}\}_n$を$\{f_{k+1,n}(y_{k+1})\}_n$が収束するようにとれる．そこで$g_n=f_{n,n}$とおくと$\{g_n\}_n$は$\{f_n\}_n$の部分列であり，任意の$y\in S$で$\{g_n(z)\}_n$は収束する．
+
+この$\{g_n\}_n$が$K$上広義一様収束することを示す．$L$を任意の$K$のコンパクト集合とする．任意に$\varepsilon>0$をとる．$\mscrA$の同程度連続性より，各$x\in L$の開近傍$U_x$を
+\[ \sup_{(f,x^\prime)\in \mscrA\times U_x} d(f(x),f(x^\prime)) < \frac{\varepsilon}{6} \]
+が成立するようにとれる．$L$はコンパクトだから，有限個の点$x_1,x_2\dots,x_N$をうまく選んで，$\{U_{x_i}\}_{1\leq i\leq N}$が$L$を被覆するようにできる．$S\cap U_{x_i}$は空でないから，この中から一つ元を選んで$z_i$と名づける．
+
+このとき$N^\prime\in \setZ_{>0}$を十分大きくとると，任意の$m,n>N^\prime$と$1\leq i\leq N$に対して
+\[ d(g_m(z_i),g_n(z_i)) < \frac{\varepsilon}{3} \]
+となる．したがって$m,n>N^\prime$のとき，$y\in L$ならば$y\in U_{x_i}$となる$1\leq i \leq N$を選ぶことができて
+\begin{align*}
+    d(g_m(y),g_n(y)) \leq d(g_m(y),g_m(x_i)) + d(g_m(x_i)&,g_m(z_i))+ d(g_m(z_i),g_n(z_i)) \\
+    &+ d(g_n(z_i),g_n(x_i)) + d(g_n(x_i),g_n(y)) < \varepsilon
+\end{align*}
+が成立する．よって$\{g_n\}_n$は$L$上の一様Cauchy列であり，$X$は完備だったからある関数に一様収束する．
+\end{proof}
+
+\section{Stone-Weierstrassの定理}
+$\setK$で$\setR$または$\setC$を表すことにする．$X$をコンパクト空間とし，$C(X,\setK)$は$\sup$ノルム$\norm{\dot}$でBanach空間になっていると考える．
+
+\begin{definition}
+$\mscrA\subset C(X,\setK)$が$C(X,\setK)$の非単位的部分代数であるとは，次の条件が成り立つことをいう．
+\begin{enumarabicp}
+\item $f,g\in \mscrA$ならば$f+g\in \mscrA.$
+\item $f\in \mscrA,\alpha\in \setK$ならば$\alpha f\in \mscrA.$
+\end{enumarabicp}
+さらに$1\in \mscrA$ならば$\mscrA$は$C(X,\setK)$の部分代数であるという．
+\end{definition}
+
+\begin{theorem}[Stone-Weierstrassの定理]\label{SWR}
+$C(X,\setR)$の非単位的部分代数$\mscrA$が$C(X,\setR)$の中で稠密であるための必要十分条件は次が成立することである．
+\begin{enumarabicp}
+\item 任意の$x,y\in X$に対して，ある$f\in \mscrA$で$f(x)\neq f(y)$となるものが存在する．
+\item 任意の$x\in X$に対して，$g(x)\neq 0$となる$g\in \mscrA$が存在する．
+\end{enumarabicp}
+特に部分代数$\mscrA$が(1)をみたせば，$\mscrA$は$C(X,\setR)$の中で稠密である．
+\end{theorem}
+
+\begin{theorem}[Stone-Weierstrassの定理]\label{SWC}
+$C(X,\setC)$の非単位的部分代数$\mscrA$が$C(X,\setC)$の中で稠密であるための必要十分条件は次が成立することである．
+\begin{enumarabicp}
+\item 任意の$x,y\in X$に対して，ある$f\in \mscrA$で$f(x)\neq f(y)$となるものが存在する．
+\item 任意の$x\in X$に対して，$g(x)\neq 0$となる$g\in \mscrA$が存在する．
+\item $f\in \mscrA$ならば$\Bar{f}\in \mscrA$である．
+\end{enumarabicp}
+ここで，$f\in C(X,\setC)$について，$\Bar{f}$は
+\[ \Bar{f}(x) = \overline{f(x)} \]
+で定まる$C(X,\setC)$の元である．
+
+特に部分代数$\mscrA$が(1)と(3)をみたせば，$\mscrA$は$C(X,\setC)$の中で稠密である．
+\end{theorem}
+
+\begin{remark}
+文献によっては上の定理で$X$がHausdorff空間であることを仮定している場合があるが，実はHausdorff性の仮定は$\mscrA$の条件に内包されている．実際，上の定理の仮定(1)をみたす$\mscrA$がとれるためには$X$はHausdorff空間でなければならないことが分かる．
+\end{remark}
+
+\begin{lemma}
+$\mscrA\subset C(X,\setK)$が非単位的部分代数であるとき，その閉包$\overline{\mscrA}$は非単位的部分代数である．
+\end{lemma}
+\begin{proof}
+明らかである．
+\end{proof}
+
+\begin{proposition}[Diniの定理]
+$Y$をコンパクト空間とする．$C(Y,\setR)$の点列$\{f_n\}_n$について，任意の$y\in Y$で$\{f_n(y)\}_n$は広義単調増加で上に有界であるとする．このとき，$\{f_n\}_n$はある関数$f$に一様収束する．
+\end{proposition}
+\begin{proof}
+	$\{f_n\}_n$が各点で広義単調増加かつ上に有界であることから，この関数列には各点収束する．その収束先を$f$とおく．
+	$\{f_n\}_n$が$f$に一様収束することを示す．$\varepsilon>0$を任意にとる．この$\varepsilon$に対して
+		\[A_n=\set{y\in Y}{\abs{f_n(y)-f(y)} < \varepsilon} \]
+	と定めると，$f$は$\{f_n\}_n$の各点収束先だから$\{A_n\}_n$は$Y$の開被覆となる．よって$Y$のコンパクト性から
+	$Y$は有限個の$A_n$たちで覆える．$\{f_n\}_n$が各点で広義単調増加であることから任意の$n\in \setN$で
+	$A_n\subset A_{n+1}$が成立することと合わせると，ある$N\in \setN$が存在して$A_N=Y$となる．
+	$\{f_n\}_n$が各点で広義単調増加であることから，これは
+		\[\forall n\geq N\ \forall y\in Y\quad \abs{f_n(y)-f(y)} < \varepsilon\]
+	を意味している．
+\end{proof}
+
+\begin{lemma}\label{root}
+$\sqrt{t}\in C([0,1],\setR)$に収束する$t$の多項式の列$\{h_n\}_n$が存在する．
+\end{lemma}
+\begin{proof}
+$\{h_n\}_n$を次の漸化式で定める．
+\[ h_{n+1}(t) = h_n(t) + \frac{t-h_n(t)^2}{2},\ h_0=0. \]
+この関数列について
+\[ h_n(t)\leq \sqrt{t},\  h_n(t)\leq h_{n+1}(t) \]
+が成立することが帰納法で示せる．したがってDiniの定理によって$\{h_n\}_n$はある関数に一様収束する．さらにその収束先が$\sqrt{t}$であることが分かる．
+\end{proof}
+
+\begin{lemma}
+$\mscrA$が$C(X,\setR)$の非単位的部分代数であるとき，$f\in \mscrA$に対して
+\[ \abs{f}(x) = \abs{f(x)} \]
+で定まる関数$\map{\abs{f}}{X}{\setR}$は$\overline{\mscrA}$の元である．また，$f_1,f_2,\dots,f_n\in \mscrA$ならば$\max\{f_1,f_2\dots,f_n\}$および$\min\{f_1,f_2,\dots f_n\}$は$\overline{\mscrA}$の元である．
+\end{lemma}
+\begin{proof}
+補題\ref{root}の条件をみたす$\{h_n\}_n$をとる．$f\in \mscrA$について$\abs{f}\in\overline{\mscrA}$を示す．$f=0$なら$\abs{f}=0\in\mscrA$だから，$f\neq 0$の場合を考えればよい．このとき$\norm{f}\neq 0$だから
+\[ f_n(x) = h_n(\norm{f}^{-2}f(x)^2) \]
+はwell-definedな連続関数で，$\mscrA$が非単位的部分代数であることからすべての$n\in \setZ_{>0}$で$f_n\in \mscrA$である．さらに$\{h_n\}_n$が$\sqrt{t}$に一様収束することから$\{f_n\}_n$は$\abs{f}/\norm{f}$に一様収束する．このことと$\overline{\mscrA}$が非単位的部分代数であることから
+\[ f = \norm{f}\cdot f/\norm{f}\in \overline{\mscrA} \]
+であることが分かる．
+
+後半を示す．$f_1,f_2\in \mscrA$について$\max\{f_1,f_2\},\min\{f_1,f_2\}\in \overline{\mscrA}$であることを示せば十分である．これは
+\[ \max\{f_1,f_2\} = \frac{(f_1,f_2)+\abs{f_1-f_2}}{2},\ \min\{f_1,f_2\} = \frac{(f_1+f_2)-\abs{f_1-f_2}}{2} \]
+であることと前半の結果から分かる．
+\end{proof}
+
+\begin{proof}[定理\ref{SWR}の証明]
+まず，任意の異なる2点$x,y\in X$と任意の$a,b\in \setR$について$f(x)=a,f(y)=b$となる$f\in \overline{\mscrA}$が存在することを示す．(1)，(2)より$u,v\in \mscrA$を
+\[ u(x)\neq u(y),\ v(x)\neq 0 \]
+をみたすようにとれる．$\lambda\in \setR$をうまくとると，$h_1=u+\lambda v$について
+\[ h_1(x)\neq h_1(y),\ h_1(x)\neq 0 \]
+をみたすようにできる．このとき$\alpha = h_1(x)^2-h_1(x)h_1(y)\neq 0$であり，$f_1\in \mscrA$を$f_1=\alpha^{-1}(h_1^2-h_1(y)h_1)$で定義すると
+$f_1(x)=1,f_1(y)=0$をみたす．同様に$f_2\in \mscrA$を$f_2(x)=0,f_2(y)=1$となるようにとれるから，$f=af_1+bf_2$と定めればこれが求める関数である．
+
+$f\in C(X,\setR)$を任意にとる．任意の$\varepsilon>0,\ x_0\in X$に対して，$h\in \overline{\mscrA}$を$h(x_0)=f(x_0)$かつすべての$x\in X$で$h(x)>f(x)-\varepsilon$となるようにとれることを示す．$\mscrA(x_0)$を，$g(x_0)=f(x_0)$をみたす$g\in \mscrA$全体の集合とする．各$g\in \mscrA(x_0)$について
+\[ M_\varepsilon(g) = \set{x\in X}{g(x)>f(x)-\varepsilon} \]
+とおく．初めに示したことから任意の$x\in X$について$g(x)=f(x)$をみたす$g\in \mscrA(x_0)$が存在し，このとき$x\in M_\varepsilon(g)$であるから，$\{M_\varepsilon(g)\}_{g\in\mscrA(x_0)}$は$X$の開被覆である．$X$のコンパクト性から$g_1,g_2,\dots,g_k$をうまく選んで$X=\cup_{i=1}^k M_\varepsilon(g_i)$となるようにできる．$h=\max\{g_1,g_2\dots,g_k\}\in\mscrA$とおけばこれが求めるものである．
+
+$\overline{\mscrA}$の元$h$で，すべての$x\in X$に対して$h(x)>f(x)-\varepsilon$をみたすもの全体を$\overline{\mscrA}(\varepsilon)$と書く．$h\in \overline{\mscrA}(\varepsilon)$に対して
+\[ N_\varepsilon(h) = \set{x\in X}{h(x)<f(x)+\varepsilon} \]
+とおく．前段落で示したことから，任意に与えられた$x\in X$に対して$\overline{\mscrA}(\varepsilon)$の元$h$を$h(x)=f(x)$が成り立つようにとれる．このことは$\{N_\varepsilon(h)\}_{h\in \overline{\mscrA}(\varepsilon)}$が$X$の開被覆であることを示しており，再び$X$のコンパクト性から$h_1,h_2,\dots,h_l\in \overline{\mscrA}(\varepsilon)$を$X=\cup_{i=1}^l N_\varepsilon(h_i)$が成り立つようにとれる．そこで$f_0=\min\{h_1,h_2,\dots,h_l\}\in \overline{\mscrA}(\varepsilon)$とおくと，とり方から$\norm{f-f_0}\leq \varepsilon$であることが分かる．したがって$f$は$\overline{\mscrA}$の元の一様収束極限として書けるが，$\overline{\mscrA}$は$C(X,\setR)$の閉集合であるから$f\in \overline{\mscrA}$であることが分かる．
+\end{proof}
+
+\begin{proof}[定理\ref{SWC}の証明]
+$\mscrA$が定理の仮定をみたすとき，
+\[ \Real \mscrA  = \set{\Real f}{f\in \mscrA}, \Image \mscrA = \set{\Image f}{f\in \mscrA} \]
+について$\Real \mscrA = \Image \mscrA \subset  \mscrA$が成立し，しかも$\Real f\subset C(X,\setR)$は定理\ref{SWR}の仮定をみたす．したがって，任意の$f\in C(X,\setC)$と$\varepsilon>0$について$\Real \mscrA=\Image \mscrA$の元$u,v$をうまくとって
+\[ \norm{\Real f-u}<\varepsilon/2,\ \norm{\Image f-v}<\varepsilon/2 \]
+が成り立つようにできる．このとき
+\[ \norm{(f-(u+iv)} < \varepsilon \]
+かつ$u+iv\in \mscrA$である．したがって$\mscrA$は$C(X,\setC)$の中で稠密である．
+\end{proof}
+
+\begin{thebibliography}{10}
+	\item 内田伏一，『集合と位相』，裳華房，1986．
+	\item Rudin, W., \textit{Real and Complex Analysis}, McGraw-Hill Co., New York, 1973.
+\end{thebibliography}
+\end{document}
+
+2019/10/30 誤植訂正

@@ -1,0 +1,151 @@
+\documentclass{jsarticle}
+\usepackage{latexsym,amsmath,amsthm,amssymb,enumitem,color}
+\usepackage{type1cm}
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定義}
+\newtheorem{corollary}[theorem]{系}
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{example}[theorem]{例}
+\newtheorem{remark}[theorem]{注}
+\renewcommand{\proofname}{\textgt{証明}}
+\newcommand\triv{\varepsilon_B}
+
+\title{計算数学Ⅰ課題　幾何学XCノート}
+\author{安達　充慶}
+
+\begin{document}
+\maketitle
+\section{ベクトル束の定義}
+\begin{definition}\label{vbdl}
+$B$を位相空間，$n$を非負整数とする．$B$上の次元$n$のベクトル束とは，
+\begin{enumerate}
+\item 位相空間$E$
+\item 連続写像$\pi \colon E \to B$
+\item 各$b \in B$に対する$E_b := \pi^{-1}(b)$上のベクトル空間の構造
+\end{enumerate}
+の組($E$,$\pi$)であって次の条件(局所自明性)を満たすもののことをいう．すなわち，すべての$b \in B$に対して$b$の開近傍$U$と同相写像$h \colon U \times \mathbb{R}^n \to \pi^{-1}(U)$の組$(U,h)$が存在し，次を満たす．
+\begin{enumerate}[label=(\arabic*)]
+\item $p \colon U \times \mathbb{R}^n \to U$を$U$への射影とするとき$\pi \circ h = p$である．
+\item 各$u \in U$に対して$h_u \colon \mathbb{R}^n \to E_b$を$h_u(x) = h(u,x)$で定めると，これは線型同型写像である．
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}[label=(\arabic*)]
+\item 上の定義において，$E$を全空間，$B$を底空間，$\pi$を射影，$E_b$を$b$上のファイバーという．また，$(U,h)$を局所自明化という．
+\item $\mathbb{R}$を$\mathbb{C}$にとりかえたものを複素ベクトル束という．
+\item $1 \leq r \leq \infty$に対して$E$，$B$を$C^r$級多様体，$\pi$を$C^r$級写像，$h$を$C^r$級微分同相写像にしたものを$C^r$級ベクトル束という．
+\item しばしばベクトル束を一つのギリシャ文字$\xi$などで表し，その全空間を$E(\xi)$，射影を$\pi(\xi)$と書く．$\xi = (E(\xi),\pi(\xi))$である．
+\end{enumerate}
+\end{remark}
+
+以降は単にベクトル束といえば定義\ref{vbdl}で定められたものを指すことにする．
+
+\begin{definition}
+$\xi_1$，$\xi_2$を$B$上のベクトル束とする．$\xi_1$から$\xi_2$への同型写像とは，同相写像$f \colon E(\xi_1) \to E(\xi_2)$であって次の二つの条件を満たすもののことである．
+\begin{enumerate}[label=(\arabic*)]
+\item $\pi(\xi_2) \circ f = \pi(\xi_1)$.
+\item すべての$b \in B$で$\left.f\right|_{E(\xi_1)_b} \colon E(\xi_1) \to E(\xi_2)$は線型同型写像である．
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+$B$上のベクトル束$\triv^n$を次で定める．
+\begin{enumerate}[label=(\arabic*)]
+\item $E(\triv^n) = B \times \mathbb{R}^n$.
+\item $\pi(\triv^n) \colon B \times \mathbb{R}^n \to B$,\ $\pi(\triv^n)(b,x) = b$.
+\item $E(\triv^n)_b = \{b\} \times \mathbb{R}^n$上のベクトル空間の構造を次で定める．
+\[ (b,x) + (b,y) = (b,x+y),\ r(b,x) = (b,rx). \]
+ただし，$r \in \mathbb{R}$である．
+\end{enumerate}
+$\triv^n$を$B$上の$n$次元積束という．$\triv^n$と同型なベクトル束を自明束という．
+\end{example}
+
+以下，自明なベクトル束の特徴づけを与える．
+
+\begin{definition}
+$\xi$を$B$上のベクトル束とする．
+\[ \Gamma(\xi) = \{s \colon B \to E(\xi) \mid s \mbox{は連続写像かつ} \pi \circ s = \operatorname{id}_B \} \]
+の元を$\xi$の切断という．また，$s_0 \colon B \to E(\xi)$を
+\[ s_0(B) = 0_{E(\xi)_b} \]
+で定義するとこれは連続である．$s_0$を$\xi$の零切断という．
+\end{definition}
+
+\begin{proposition}\label{chartriv}
+$\xi$を$B$上のベクトル束とする．$\xi$が自明であることの必要十分条件は，切断の族$s_1,s_2,\dots s_n \in \Gamma(\xi)$が存在し，各$b \in B$に対して$s_1(b),s_2(b),\dots s_n(b)$が$E(\xi)_b$の基底になることである．
+\end{proposition}
+
+証明の前に補題を用意する．
+
+\begin{lemma}
+$\xi_1=(E_1,\pi_1)$，$\xi_2=(E_2,\pi_2)$を$B$上のベクトル束とする．$f \colon E_1 \to E_2$が
+\begin{enumerate}[label=(\arabic*)]
+\item $\pi_2 \circ f = \pi_1$,
+\item すべての$b \in B$に対して$\left.f\right|_{(E_1)_b} \colon (E_1)_b \to (E_2)_b$は線型同型写像
+\end{enumerate}
+を満たせば$f$は同相写像であり，したがって同型写像である．
+\end{lemma}
+
+\begin{proof}
+すべての$b \in B$に対して$b$の開近傍$U$が存在し，$\left.f\right|_{\pi_1^{-1}(U)} \colon \pi_1^{-1}(U) \to \pi_2^{-1}(U)$が同相写像であることを示せばよい．$b$を含む$\xi_1$，$\xi_2$の局所自明化$(U,h_1)$，$(U,h_2)$をとり，$U=U_1 \cap U_2$とおく．$g=h_2^{-1} \circ f \circ h_1 \colon U \times \mathbb{R}^n \to U \times \mathbb{R}^n$とおくとこれは連続写像で，さらにこれは連続写像$A \colon U \to GL_n(\mathbb{R})$を用いて
+\[ g(u,x) = (u,A(u)x) \]
+と書ける．$g$の逆写像が連続であればよい．ところで，$F \colon GL_n(\mathbb{R}) \to GL_n(\mathbb{R})$を$F(X)=X^{-1}$で定めるとこれは連続写像である．したがって
+\[ g^{-1}(u,x) = (u,F(A(u))x) \]
+は連続写像である．
+\end{proof}
+
+\begin{proof}[命題\ref{chartriv}の証明]
+補題から，連続写像$f \colon B \times \mathbb{R}^n \to E（\xi)$で$\pi(\xi) \circ f = \pi(\triv^n)$かつすべての$b \in B$について$\left.f\right|_{\{b\} \times \mathbb{R}^n} \colon \{b\} \times \mathbb{R}^n \to E(\xi)_b$が同型であるものの存在との同値性をいえばよい．
+
+$\xi$が自明なら，$f \colon B \times \mathbb{R}^n \to E(\xi)$を同型写像として，$1 \leq i \leq n$に対して$s_i(b)=f(b,e_i)$とおけばよい．ただし$e_1,e_2,\dots e_n$は$\mathbb{R}^n$の標準基底である．
+
+逆に題意の$n$個の切断があるとき，
+\[ f\biggl( b,\sum_{i=1}^n t_ie_i\biggl) = \sum_{i=1}^n t_is_i(b) \]
+とおけばよい．
+\end{proof}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

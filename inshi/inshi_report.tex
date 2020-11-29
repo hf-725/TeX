@@ -1,0 +1,196 @@
+\documentclass[dvipdfmx,uplatex]{jsarticle}
+\usepackage{tosuustd2019, appendix, cleveref}
+\DeclareMathOperator{\Int}{Int}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\setinverse}[2]{#1 ^{-1}(#2)}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\ind}{ind}
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注意}{注意}
+
+\begin{document}
+私が興味を持って勉強したテーマの一つに写像度の理論がある．ここでは写像度の理論を多様体に限って記述する．
+なお，このレポートで多様体といったら第二可算で$C^\infty$級なものだけを指すことにする．
+
+以下では特に断らない限り$M$をコンパクトな向きづけられた$n$次元多様体，$N$をコンパクトで連結な
+向きづけられた$n$次元多様体とし，さらに$C^\infty$級写像$\map{f}{M}{N}$が与えられているとする．
+
+\begin{definition}
+\begin{enumarabicp}
+\item $f$の正則点$p\in M$に対し，同型写像$\map{df_p}{T_pM}{T_{f(p)}N}$が向きを保つとき$\sign _p f=1$とおき， 
+そうでないとき$\sign _pf=-1$とおく．
+\item $q\in N$を$f$の正則値とする．このとき$M$のコンパクト性から$f^{-1}(q)$は有限集合である．そこで
+\[ \deg_qf=\sum_{p\in f^{-1}(q)} \sign_p f \]
+とおく．
+\end{enumarabicp}
+\end{definition}
+
+このとき，実は次の定理が成立する．
+
+\begin{theorem}\label{degree theorem}
+$\deg_q f$は正則値$q$のとり方によらない．すなわち，$q^\prime\in N$を別の正則値とするとき，
+\[ \deg_q f = \deg_{q^\prime} f \]
+が成立する．
+\end{theorem}
+
+この定理によって$\deg_q f$は$f$にしかよらない値であることが分かる．そこで$\deg_q f$のことを単に
+$\deg f$と書き，$f$の写像度という．
+
+\cref{degree theorem}の証明の概略を説明する前に，写像度の定義からすぐに分かる系を挙げる．
+\begin{corollary}
+$\deg f \neq 0$ならば$f$は全射である．
+\end{corollary}
+
+この系の意味について考えてみる．仮に$C^\infty$級写像$f$が与えられたとして，これが全射であるかどうかを
+知りたいとする．普通に考えれば$N$の点すべてについて対応する$M$の点を探さなければならないことになるが，
+この定理は場合によってはその作業を大幅にショートカットすることができるということを主張している．
+すなわち，一つ正則値をとってきて，その逆像の点の数を(符号つきで)数え上げた結果が0でなければ他の点は
+一切見ることなく$f$が全射であると断言できるのである．この系は局所的な情報から大域的な情報を得られる
+ということの好例であると思う．
+
+\vspace{\baselineskip}
+\cref{degree theorem}の証明を概観する．はじめに次の補題を用意する．
+
+\begin{lemma}\label{zerosum}
+$W$を$n+1$次元のコンパクトで向きづけられた境界つき多様体，$\map{F}{W}{N}$を$C^\infty$級写像とする．
+$q\in N$を$F$および$\restr{F}{\partial W}$の正則値とすると，$\deg _q \restr{F}{\partial W}=0$である．
+\end{lemma}
+
+\begin{proof}[略証]
+$q$が$F$の正則値であることから$F^{-1}(q)$は1次元コンパクト境界つき多様体であり，
+$\partial F^{-1}(q)=F^{-1}(q)\cap \partial W$である．$W$と$N$が向きづけられている
+ことから$F^{-1}(q)$にも自然に向きが入る．さらにここから各$p\in \partial F^{-1}(q)$にも向きが入るが，
+この向きは$\sign_p \restr{F}{\partial W}$と整合的であることが確かめられる．1次元多様体の分類定理から
+$F^{-1}(q)$は$S^1$および$[0,1]$と微分同相な多様体いくつかの和集合であり，$\partial [0,1]$の2点には
+必ず異なる向きが入っているので$\sign _p \restr{F}{\partial W}$をすべて足し上げるとちょうど0になる．
+\end{proof}
+
+符号の問題を除けば，この証明で一番大事なところはコンパクトな1次元境界つき多様体の境界上の点の数が
+偶数であることである．この補題から次の補題が証明できる．
+
+\begin{lemma}
+$f,\ g$を$M$から$N$への$C^\infty$級写像とし，$q\in N$を$f,\ g$共通の正則値とする．
+ある$C^\infty$級写像$\map{F}{[0,1]\times M}{N}$が存在して，すべての$p\in M$に対して
+\[ F(0,p)=f(p),\ F(1,p)=g(p) \]
+をみたすと仮定する．このとき$\deg_q f=\deg_q g$である．
+\end{lemma}
+
+このような$F$が存在するとき$f$と$g$はホモトピックであるという．
+
+\begin{proof}[略証]
+まず$q$が$F$についての正則値でもあるとする．$[0,1]\times M$には$[0,1]$および$M$から誘導される自然な向き
+があるので，$W=[0,1]\times M$とおいて\cref{zerosum}を使うことによって
+\[ \deg_q \restr{F}{\partial ([0,1]\times M)} =0 \]
+となる．$[0,1]\times M$から誘導される向きとして$\{1\}\times M$には正しい向きが，$\{0\}\times M$には
+逆の向きが入っているのでこの等式は$\deg_q f= \deg_q g$を意味している．
+
+$q$が$F$の正則値ではないとき，$\deg_q f$と$\deg_q g$が$q$の関数として局所定数であることおよび
+Sardの定理を用いると，$q$に十分近い$F$の正則値$q^\prime$をとることによって
+\[ \deg_q f =\deg_{q^\prime}f = \deg_{q^\prime} g =\deg_q g\]
+となることが分かる．
+\end{proof}
+
+以上の準備のもとで\cref{degree theorem}の略証を与える．
+
+\begin{proof}[\cref{degree theorem}の略証]
+$q,\ q^\prime\in N$を$f$の異なる正則値とする．アイソトピー$\map{h_t}{N}{N}\ (t\in[0,1])$であって
+$h_0=\id_N $かつ$h_1(q)=q^\prime$であるようなものが存在することを利用する．このとき$h_0\circ f$と
+$h_1\circ f$はホモトピックであり，$q^\prime$は両方の写像共通の正則値である．したがって
+\[ \deg_{q^\prime} (h_0 \circ f) = \deg_{q^\prime} (h_1\circ f) \]
+となる．左辺は$\deg_{q^\prime} f$と等しく，後者は$\deg_q f$と等しい．
+\end{proof}
+
+これまでの結果を用いることで次の定理がすぐに証明できる．
+
+\begin{theorem}
+$f,\ g$を$M$から$N$へのホモトピックな$C^\infty$級写像であるとすると，$\deg f = \deg g$である．
+\end{theorem}
+
+以上が\cref{degree theorem}の証明の概要であるが，ここで現れた証明のアイデアは別の場面でも出てくることが
+あり，これも写像度の理論が面白いと思う理由の一つである．
+
+その一例としてMorseホモロジーの話をする．$M$をコンパクト多様体，$\map{f}{M}{\setR}$をMorse関数とする．
+
+\begin{definition}
+$M$上のベクトル場$X$が$f$についてのpseudo-gradientであるとは次の2条件をみたすことである．
+\begin{enumarabicp}
+\item $Xf \leq 0$かつ等号は$f$の臨界点に限る．
+\item $f$の各臨界点について，その点を中心とするMorseチャートであって，そのチャート内で$X$が$f$の
+negative gradientに一致するようなものが存在する．
+\end{enumarabicp}
+\end{definition}
+
+Morseホモロジー論とは，Morse関数$f$とpseudo-gradient$X$を用いて$M$のホモロジーを構成する理論である．
+実際には任意のpseudo-gradientが使えるわけではなく，追加の条件を考える必要がある．
+
+\begin{definition}
+$X$を$f$についてのpseudo-gradientとし，$\varphi^t$を$X$の生成する1パラメータ変換群とする．
+$f$の臨界点$p\in M$について
+\[
+    W^u(p)=\set{x\in M}{\lim _{t\to -\infty}\varphi^t(x)=p},\ W^s(p)=\set{x\in M}{\lim _{t\to \infty}\varphi^t(x)=p}
+\]
+とおく．
+\end{definition}
+
+$f$の$p$での指数のことを$\ind (p)$と書くことにすれば，$W^u(p)$は$M$の$\ind (p)$次元部分多様体であり，
+$W^s(p)$は$M$の$(\dim M-\ind (p))$次元部分多様体であることが証明できる．pseudo-gradientに必要な追加の
+条件を記述する．
+
+\begin{definition}
+$f$についてのpseudo-gradient$X$がSmale条件をみたすとは，任意の$f$の臨界点$p,\ q\in M$について
+$W^u(p)とW^s(q)$が横断的に交わることをいう．
+\end{definition}
+
+任意のMorse関数$f$についてSmale条件をみたすpseudo-gradientが存在することが知られている．
+$X$がSmale条件をみたす$f$についてのpseudo-gradientであるとき，任意の$f$の臨界点$p,\ q\in M$について
+$W^u(p)\cap W^s(q)$は$\ind(p)-\ind(q)$次元の多様体であり，$\varphi^t$によって$\setR$がなめらかに作用
+している．この作用で割った空間のことを$\mscrL(p,q)$と書くことにすると，これが$\ind(p)-\ind(q)-1$次元
+多様体になることが証明できる．
+
+このような
+$f$と$X$を用いて$\setZ/2$係数の複体$(C_\ast(f),\partial_X)$を構成する．まず，$0\leq k\leq \dim M$
+について$C_k(f)$は指数$k$の臨界点全体で形式的に生成される$Z/2$上のベクトル空間とする．この範囲にない
+$k$に関しては$C_k(f)=0$とおく．次に境界作用素$\partial_X$を定義したい．$p,\ q\in M$を$f$の臨界点と
+するとき，上で見たように$\mscrL(p,q)$は多様体の構造を持つ．ここでさらに$\ind (p)-\ind (q)=1$である
+とき，$\mscrL(p,q)$はコンパクトであることが知られている．$\mscrL(p,q)$が0次元多様体であることと合わせる
+と，結局$\mscrL(p,q)$は有限集合であることが分かるので，
+\[ n(p,q) = \# \mscrL(p,q) \pmod 2 \]
+が定義できる．そこで，指数$k$の臨界点$p\in M$に対して
+\[ \partial_X p = \sum_q n(p,q)q \]
+と定める．ただし，右辺は指数$k-1$の臨界点$q$にわたる和をとる．
+
+ここで問題になるのが，果たして$\partial_X^2=0$となるかどうかである．実際に指数$k$の臨界点$p$について
+$\partial_X^2p$を計算してみると指数$k-2$の臨界点$r$たちに関する形式和になるが，ここで$r$の
+係数は
+\begin{quote}
+    $p$を出発し，途中で指数が$k-1$の臨界点を経由して$r$にたどりつく$X$の軌跡(以下では$p$から
+    $r$へのbroken trajectoryとよぶことにする)の本数
+\end{quote}
+を$\setZ/2$で考えたものになる．これが0になることは全く自明なことではない．前置きが長くなってしまったが，
+これが0になることを証明するのに\cref{zerosum}と同じ発想を使うのである．すなわち，あるコンパクトで1次元の
+境界つき多様体を用意し，その境界上の点が$p$から$q$へのbroken trajectoryたちと
+1対1に対応するようにできればよい．実際，$\mscrL(p,r)$にbroken trajectoryをすべて付け加えた集合に適切に
+位相を導入することでコンパクトな境界つき多様体を構成することができる．
+
+\newpage
+写像度の定義は素朴であるが，そこに出てくる手法は上記のように深い応用を持っている．点の数え上げのような
+単純な操作が写像のホモトピー不変量になっているという事実は興味深いことだと思う．実は写像度はこのレポート
+での定義の他にde Rhamコホモロジーを用いて特徴づけることもできる．
+
+\begin{theorem}
+$M$をコンパクトな向きづけられた$n$次元多様体，$N$をコンパクトで連結な
+向きづけられた$n$次元多様体とし，$C^\infty$級写像$\map{f}{M}{N}$とする．
+$H^n(N)\cong \setR$の正の生成元の代表元$\omega$をとる．このとき
+\[ \deg f = \int_M f^\ast \omega \]
+である．
+\end{theorem}
+議論の順番によっては，この定理の証明が\cref{degree theorem}の別証明になる．また，この表式を見ると，
+写像度のホモトピー不変性は$C^\infty$級写像がde Rhamコホモロジーの間に誘導する線型写像がホモトピー不変で
+あることから直ちに分かることである．de Rhamコホモロジーの基本的な理論を構築するのはそう簡単なことでは
+ないが，一度作ってしまえば今回のようにその威力をいかんなく発揮する．この例からも，トポロジーにおいて
+代数的な手法が強力であることが分かる．以上で筆をおくことにする．
+\end{document}

@@ -1,0 +1,148 @@
+\documentclass[uplatex]{jsarticle}
+\usepackage{latexsym,amsmath,amsthm,amssymb,enumitem}
+\usepackage{type1cm}
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定義}
+\newtheorem{corollary}[theorem]{系}
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{example}[theorem]{例}
+\newtheorem{remark}[theorem]{注}
+
+\begin{document}
+
+\title{関数の近似とテイラー展開}
+\author{みつば(@mittlear1)}
+\date{2020年10月1日}
+\maketitle
+
+\section{関数の近似}
+微分可能な関数にはたくさんの種類がある．代表例としては多項式関数や三角関数，指数関数などがある．多項式関数については$x \to \infty$や$x \to 0$のときの様子がかなり分かりやすい，すなわち(多項式)/(多項式)型の関数の極限値を求めるのは容易であるが，多項式関数でない場合にはこれを判定するのは一見困難である．例えば
+\[\lim_{x\to 0} \frac{\sin x}{\tan x} \]
+を求めよ，という問題は多項式のときほど簡単に解けるわけではない．
+
+このような問題に対処するために，一般には複雑な形をしている関数を多項式によって近似するという手法がある．つまり，第一義的には上のような極限値の問題を解くために関数の近似をすることを考えるのである．我々はすでに
+\[ \lim_{x\to 0} \frac{\sin x}{x}=\lim_{x\to 0} \frac{\tan x}{x}=1 \]
+であることを知っているが，これは$\sin x$と$\tan x$を$x=0$のまわりで一次近似(接線近似)した結果を表している．次節以降での目標は，この近似を$n$次の精度で行うことである．
+
+\section{$n$次近似式}
+$f(x)$を無限回微分可能な関数とする．この関数の$x=a$のまわりでの$n$次近似式を作ろう．ただし，現時点では$n$次近似式という言葉の意味が不明瞭であるから，まずはそれを考えるべきである．
+
+0次近似式については$f(a)$を採用すればよいだろう．次に1次近似式を考える．これは通常接線の方程式と呼ばれているものを考えれば良さそうである．すなわち，
+\[ f(x)=a_0+a_1(x-a) \]
+と置いたとき，
+\[ a_0=f(a),\ a_1=\lim_{x\to a} \frac{f(x)-a_0}{x-a} \]
+として係数を定めればよい．$a_1$の定義式をあえて書き直すと
+\begin{equation} \lim_{x\to a} \frac{f(x)-a_0}{a_1(x-a)}=1 \end{equation}
+となる．これは，「$x\approx a$のとき$f(x)-a_0$と$a_1(x-a)$はほとんど一致」することを意味している．
+
+さて，(1)の式を見ると，近似式の1次の項は「((もとの関数)$-$(0次近似式)) $\div$ (1次の項)$\approx$ 1」という形を想定して定義されていることが分かる．そこで2次近似式の2次の項を次のように定義するのは自然であろう．
+\begin{equation} \lim_{x\to a} \frac{f(x)-(a_0+a_1(x-a))}{a_2(x-a)^2}=1 \end{equation}
+
+以上の考察から，$n$次近似式を定義する．
+\begin{definition}
+関数$f(x)$の$x=a$のまわりでの$n$次近似式
+\begin{equation} f_n(x)=\sum_{i=0}^n a_i(x-a)^i \end{equation}
+を次のように定義する．まず，$a_0=f(a)$とする．$n-1$次近似式$f_{n-1}(x)$が得られたとき
+\begin{equation} \lim_{x\to a} \frac{f(x)-f_{n-1}(x)}{a_n(x-a)^n}=1 \end{equation}
+が成立するように$a_n$を定める．
+\end{definition}
+$a_n$を別の方法で求めるための式を導こう．そのために次の定理を認めることにする．
+\begin{theorem}[ロピタルの定理]
+$f(x),g(x)$を微分可能な関数で$x\to a$のとき$f(x),g(x)\to 0$を満たすものとする．このとき，
+\[ \lim_{x\to a} \frac{f'(x)}{g'(x)}=l \ (有限確定値) \]
+なら，
+\[ \lim_{x\to a} \frac{f(x)}{g(x)}=l \]
+が成立する．
+\end{theorem}
+この定理の簡単な解説は高校の参考書にも書いてあるはずである(覚える必要はない)．
+この定理を用いて$a_n$を計算する．
+\begin{theorem}
+(3)で定義された$a_n$について，
+\begin{equation} a_n=\frac{f^{(n)}(a)}{n!} \end{equation}
+が成立する．
+\end{theorem}
+\begin{proof}[証明]
+$n$に関する帰納法で示す．$n=0$のときは明らかに成立する．
+$n=k-1$で(5)が成立するとき，(4)に繰り返しロピタルの定理を用いて
+\begin{align}
+ 1&=\lim_{x\to a} \frac{f(x)-\sum_{i=0}^{k-1}a_i(x-a)^i}{a_k(x-a)^k} \nonumber \\ 
+&=\lim_{x\to a} \frac{f'(x)-\sum_{i=1}^{k-1}ia_i(x-a)^{i-1}}{ka_k(x-a)^{k-1}}  \nonumber \\
+&=\lim_{x\to a} \frac{f''(x)-\sum_{i=2}^{k-1} i(i-1)a_i(x-a)^{i-2}}{k(k-1)a_k(x-a)^{k-2}} \nonumber \\
+&=…=\lim_{x\to a} \frac{f^{(k-1)}(x)-(k-1)!a_{k-1}}{k!a_k(x-a)} \nonumber \\
+&=\lim_{x\to a} \frac{f^{(k-1)}(x)-f^{(k-1)}(a)}{k!a_k(x-a)} \nonumber.
+\end{align}
+したがって
+\[a_k=\frac{1}{k!}\lim_{x\to a} \frac{f^{(k-1)}(x)-f^{(k-1)}(a)}{x-a}=\frac{f^{(k)}(a)}{k!} \]
+となる．
+\end{proof}
+\begin{corollary}
+$f(x)$の$x=a$のまわりでの$n$次近似式$f_n(x)$は
+\begin{equation}
+f_n(x)=\sum_{i=0}^n \frac{f^{(i)}(a)}{i!}(x-a)^i
+\end{equation}
+で得られる．
+\end{corollary}
+\begin{example}
+\begin{equation} \lim_{x\to 0} \frac{x-\sin x}{x^3}=\frac{1}{6} \end{equation}
+を示そう．$f(x)=\sin(x)$とし，系2.4
+から$x=0$のまわりでの3次近似式を求めると
+\[ f_3(x)=x-\frac{1}{6}x^3 \]
+となる(実際に計算してみよ)．したがって，近似式の定義から
+\[ \lim_{x\to 0} \frac{\sin x-x}{-\frac{1}{6}x^3}=1. \]
+したがって(7)が成立する．
+\end{example}
+\section{テイラーの定理}
+2節では$n$次近似式を定義し，その性質を調べた．次に述べるテイラーの定理は実際の関数と$n$次近似式の間の誤差がどの程度なのかを定量的に述べた定理である．
+\begin{theorem}[テイラーの定理]
+$f(x)$を無限回微分可能な関数とし，$x=a$のまわりでの$n$次近似式を$f_n(x)$とする．このとき，
+\begin{equation}
+R_n(x)=f(x)-f_n(x)
+\end{equation}
+とおくと，$a$と$x$の間にある実数cであって
+\begin{equation}
+R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}x^{n+1}
+\end{equation}
+を満たすものが存在する．
+\end{theorem}
+\begin{remark}
+$R_n(x)$のことを剰余項という．剰余項はまさしく「誤差」だが，テイラーの定理はこの「誤差」が$n+1$次の微小量であること($n$次の微小量より真に小さいこと)を主張しており，$f_n(x)$が「$n$次近似式」と呼ばれるにふさわしいものであることを保証している．
+\end{remark}
+ここではテイラーの定理は証明しないが，応用例を一つ挙げよう．
+\begin{example}
+$f(x)=e^x$とする．このときの剰余項$R_n(x)$は
+\[ R_n(x)=\frac{e^c}{(n+1)!}x^{(n+1)} \]
+と書ける．よって，$n\to \infty$としたとき$R_n(x)\to 0$となるので
+\begin{equation}
+e^x=\sum_{i=0}^{\infty} \frac{1}{n!}x^n
+\end{equation}
+と書けることが分かる．このように，関数を，$x^n$たちを用いて級数展開することをテイラー展開という．(10)から，指数関数は$x\to \infty$でどんな多項式関数よりも「強い」ことが分かる．
+
+同様に$\sin x，\cos x$もテイラー展開できて
+\begin{equation}
+\sin x=\sum_{n=1}^{\infty} \frac{(-1)^{n-1}}{(2n-1)!}x^{2n-1},
+\end{equation}
+\begin{equation}
+\cos x=\sum_{n=0}^{\infty} \frac{(-1)^n}{2n!}x^{2n}
+\end{equation}
+となることが分かる．
+
+$i$を虚数単位とする．(10)の$x$に$i\theta$を代入し，$i$を含む項と含まない項に分けると(11)，(12)から
+\begin{equation}
+e^{i\theta}=\cos \theta+i\sin \theta
+\end{equation}
+となる(厳密に言うと，この議論には不備がある)．この式をオイラーの公式という．特に$\theta=\pi$と置くと
+\[ e^{i\pi}=-1 \]
+を得る．
+\end{example}
+\begin{remark}
+例3.3ではテイラー展開可能な関数を扱ったが，一般には無限回微分可能であってもテイラー展開可能とは限らない．例えば
+\[f(x)=
+\begin{cases}
+e^{-1/x} \ (x>0) \\
+0 \      (x\le 0)
+\end{cases} \]
+は任意の点$x$で無限回微分可能だが，$x=0$まわりでテイラー展開可能ではない(証明は省略する)．
+\end{remark}
+\end{document}

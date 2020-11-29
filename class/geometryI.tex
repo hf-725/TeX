@@ -1,0 +1,152 @@
+﻿\documentclass{jsarticle}
+\usepackage{latexsym,amsmath,amsthm,enumitem,amssymb,color}
+\usepackage{type1cm}
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定義}
+\newtheorem{corollary}[theorem]{系}
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{example}[theorem]{例}
+\newtheorem{remark}[theorem]{注}
+\renewcommand{\proofname}{\textgt{証明}}
+\newcommand{\euclid}[1]{\mathbb{R}^{#1}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+
+
+\begin{document}
+\title{計算数学I課題　幾何学I講義ノート}
+\author{安達　充慶}
+\date{}
+\maketitle
+
+\section{逆写像定理とEuclid空間の部分多様体}
+まず，微分同相について復習する．$n,m,l \in \mathbb{Z}_{\geq 0}$とする．この講義では$\mathbb{R}^n$は原則として縦ベクトルの空間とし，Euclidノルム
+\[ \| x\|=\sqrt{\sum_{i=1}^n x_i^2} \]
+によって位相が定まっているものとする．$M(n,m;\mathbb{R})$で$(m,n)$型の行列全体の集合を表すことにする．
+これを$\mathbb{R}^{mn}$と同一視することにより$M(n,m;\mathbb{R})$にノルム空間の構造を与える．このとき，$A\in M(n,m;\mathbb{R})$と$x\in \mathbb{R}^n$について
+\[ \| Ax\| \leq \| A\|\| x\| \]
+が成立する．
+
+\begin{definition}
+$r=0,1,2,\dots \infty$とする．$O^in \mathbb{R}^n$を開集合とする．$F\colon O \to \mathbb{R}^m$が$C^r$級写像であるとは，$F$を成分表示して
+\[ F(p)=(f_1(p),\dots,f_m(p) \]
+と書いたとき，各$f_i\colon O\to \mathbb{R}$が$C^r$級関数であることと定める．
+\end{definition}
+以下，$r\geq 1$であるとする．$C^r$級写像$F$に対してそのJacobi行列$JF\colon O\to M(n,m;\mathbb{R})$を
+\[ (JF)_p=(\frac{\partial f_i}{\partial x_j}(p))_{1\leq i\leq m,1\leq j\leq n} \]
+で定める．$u\in \mathbb{R}^n$に対して
+\[ (JF)_p u=\left.{\frac{d}{dt}}\right|_{t=0} F(p+tu) \]
+であることに注意する．
+
+\begin{lemma}\label{chain}
+\begin{enumerate}[label=(\arabic*)]
+\item $A\in M(n,m;\mathbb{R})$を自然に$\mathbb{R}^n$から$\mathbb{R}^m$への線型写像とみなすと，すべての$p\in \euclid{n}$で$(JF)_p=A$が成立する．特に，$(J1_{\euclid{n}})_p=I$である．
+\item $O$を$\euclid{n}$の，$O'$を$\euclid{m}$の開集合とする．さらに$F\colon O\to \euclid{m}$，$F'\colon O'\to \euclid{s}$を$C^r$級写像とすると$F'\circ F\colon F^{-1}(O')\to \euclid{s}$は$C^r$級写像であって，すべての$p\in F^{-1}(O)$に対して
+\[ (JF'\circ JF)_p=(JF')_{F(p)}(JF)_p \]
+が成立する．
+\end{enumerate}
+\end{lemma}
+
+\begin{definition}\label{diffeo}
+$O$を$\euclid{n}$の，$O'$を$\euclid{m}$の開集合とする．$F\colon O\to O'$が$C^r$級微分同相写像であるとは，$F$が$C^r$級の全単射であり，さらに逆写像$G\colon O'\to O$が$C^r$級写像であることである．また，このとき$O$と$O'$は微分同相であるという．
+\end{definition}
+
+\begin{example}
+恒等写像，Euclid空間における平行移動や線型変換は微分同相写像である．
+\end{example}
+
+\begin{lemma}
+定義\ref{diffeo}の状況で，$(JF)_p$は$(JG)_{F(p)}$を逆行列に持つ．特に$O$が空集合でないとき，$n=m$である．
+\end{lemma}
+
+\begin{proof}
+補題\ref{chain}より
+\[ (JG)_{F(p)}(JF)_p=I_n,\  (JF)_p(JG)_{F(p)}=I_m \]
+が成立する．
+\end{proof}
+
+この補題は大域的には成立しない(複素数に拡張された指数関数を考えよ）．しかし，局所的には逆が成立する．
+
+\begin{theorem}[逆写像定理]\label{inverse}
+$O$を$\euclid{n}$の開集合とする．$C^r$級写像$F\colon O\to \euclid{n}$の$p_0\in O$でのJacobi 行列が正則ならば，$O$に含まれる$p$の近傍$U$と$F(p)$の近傍$V$が存在して，$F(U)=V$かつ$F\colon U\to V$は微分同相写像となる．
+\end{theorem}
+
+この定理を認めていくつかの結果を証明する．以下では$r=\infty$であるとする．$O$を$\euclid{n}$の開集合，$F\colon O\to \euclid{m}$を$C^\infty$写像とする．
+
+\begin{definition}
+$n=m$とする．任意の$p\in O$に対してその開近傍$U_p$と$F(p)$の開近傍$V_p$が存在して$F(U_p)=V_p$かつ$F\colon U_p\to V_p$が微分同相写像であるとき，$F$は局所微分同相であるという．
+\end{definition}
+
+\begin{theorem}[陰関数定理]\label{implicit}
+$0\leq m\leq n$，$0\in O$とする．さらに$F(0)=0$で$(JF)_0$の階数は$m$であるとする．このとき，$0$の開近傍$U\in O$と$V$および微分同相写像$\varphi\colon U\to V$が存在して，
+$\varphi(0)=0$，$F\circ \varphi^{-1}(y_1,y_2,\dots, y_n)=(y_1,y_2,\dots y_m)$をみたす．
+\end{theorem}
+
+\begin{proof}
+$F$を成分表示して
+\[ F=\begin{pmatrix} f_1 \\ \vdots \\ f_m \end{pmatrix} \]
+と表示する．仮定より，$1\leq k_1 < k_2 < \dots < k_m \leq n$が存在して，
+\[ \mathrm{det}\left(\frac{\partial f_i}{\partial x_{k_j}}\right) \neq 0 \]
+をみたす．適当な線型変換により，$k_1=1$，$k_2=2$，$k_m=m$であるとしてよい．$\hat{F}\colon O\to \euclid{n}$を
+\[ \hat{F}\begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix} = \begin{pmatrix} F(x) \\ x_{m+1} \\ \vdots \\ x_n \end{pmatrix} \]
+とおくと，$(J\hat{F})_0$は正則行列である．したがって逆写像定理により0の開近傍$U\in O$と$V$が存在して$\hat{F}\colon U\to V$は微分同相写像になる．そこで$\varphi=$を$\hat{F}$の$U$への制限とする．あとは$F\circ \varphi^{-1}$を計算すればよいが，
+\[ \begin{pmatrix} y_1 \\ \vdots　\\ y_m \\ y_{m+1} \\ \vdots \\ y_n \end{pmatrix} = \hat{F}\circ \varphi^{-1} \begin{pmatrix} y_1  \\ \vdots \\ y_n \end{pmatrix} 
+= \begin{pmatrix} F\circ \varphi^{-1}\begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix} \\ \\ \ast \\ \  \end{pmatrix} \]
+ なので$F\circ \varphi^{-1}(y_1, \dots, y_n)=(y_1, \dots y_m)$である．
+\end{proof}
+
+\begin{definition}
+$0\leq l \leq m$，$M\subset \euclid{n}$とする．各$p\in M$について開近傍$U$と$0\in \euclid{n}$の開近傍$V$，微分同相写像$\varphi\colon U\to V$が存在して
+\[ M\cap U=\varphi^{-1}(\{0\}\times \euclid{l}) \]
+が成立するとき，$M$は$\euclid{n}$の$l$次元$C^\infty$級部分多様体であるという．
+\end{definition}
+
+\begin{corollary}\label{submfd}
+$0\leq m \leq n$，$O\subset \euclid{n}$を開集合，$q_0\in\euclid{m}$とする．$f\colon O\to \euclid{m}$について，すべての$p\in F^{-1}(q_0)$で$(JF)_p$の階数が$m$ならば$F^{-1}(q_0)$は$\euclid{n}$の$(n-m)$次元$C^\infty$級部分多様体である．
+\end{corollary}
+
+\begin{example}
+$n$次元球面
+\[ S^n=\{x\in \euclid{n+1} \mid \|x\|=1 \} \]
+は$\euclid{n+1}$の$n$次元$C^\infty$級部分多様体である．実際，$f\colon \euclid{n+1}\to \mathbb{R}$を
+\[ f(x) = \|x\| \]
+で定めると$S^n=f^{-1}(1)$であり，$(JF)_x$の階数が1にならないのは$x=0$のときだけなので系\ref{submfd}が使える．
+\end{example}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
