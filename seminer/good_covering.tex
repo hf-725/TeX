@@ -17,7 +17,7 @@
 \end{abstract}
 
 \section{good coveringの存在}
-以下，多様体は第二可算で$C^\infty$なものを考える．
+以下，多様体は第二可算で$C^\infty$級なものを考える．
 
 
 \begin{definition}
@@ -49,7 +49,7 @@
   $0\in T_pM$の近傍$V$を小さくとって，$\map{\exp=\exp_p}{V}{M}$が像への微分同相になり，かつ
   任意の$V$の2点についてそれらを結ぶ最短測地線が$M$内でただ一つ存在するようにする．
   さらに$\setR^n$と$T_p M$との間の線型同型写像を一つとることで$p$まわりのチャート$(\exp(V), \varphi)$
-  ができる．$\exp(V)$に含まれ，$p$を含む測地的に凸な開集合を構成する．
+  ができる．以下では、$\exp(V)$に含まれ，$p$を含む測地的に凸な開集合を構成する．
   $x^i(p)\Gamma_{ij}^k(p) = 0$であり，$i, j, k$の動く範囲は有限だから，$V$に含まれる
   0の近傍$V^\prime$が存在して，任意の$i, j, k$に対して$\exp(V^\prime)$上
     \[\abs{x^k\Gamma_{ij}^k} < 1 / n^2 \]
@@ -163,7 +163,7 @@ $U$を$\setR^n$の開集合とすると，$C^\infty$級関数$\map{h}{\setR^n}{\
     =\frac{1}{ct}\log\frac{A(x)}{A(x)-t}\xrightarrow{t\to A(x)} \infty
   \end{align*}
   なので
-    \[\lim_{t\to A(X)} \norm{f(tx)}=\infty \]
+    \[\lim_{t\to A(x)} \norm{f(tx)}=\infty \]
   となる．以上より$f$が全単射であることが分かった．
 
   最後に$f$の微分がどの点でも正則であることを示す．もしそうでないとすると，$x\in U$と
@@ -254,7 +254,7 @@ $\mfrakB$としてgood coverをとる．この時点でbootstrap lemmaの$\mfrak
 
 \begin{theorem}[de RhamコホモロジーのPoincar\'{e}双対]
   向きづけられた$n$次元多様体$M$と非負整数$k$について，
-    \[([\omega],\eta)=\int_M \omega\wedge \eta\]
+    \[([\omega],[\eta])=\int_M \omega\wedge \eta\]
   で定まるペアリング$\map{(\ ,\ )}{H^{n-k}(M)\times H^k_c(M)}{\setR}$は同型である．
   ただし，$H^\ast_c(M)$はコンパクト台のde Rhamコホモロジーを表す．
 \end{theorem}
@@ -263,27 +263,23 @@ $\mfrakB$としてgood coverをとる．この時点でbootstrap lemmaの$\mfrak
   $M,\ N$を多様体とし，さらに$N$のde Rhamコホモロジー$H^\ast(N)$が有限生成であるとする．
   このとき
     \[H^\ast(M\times N)=H^\ast(M)\otimes H^\ast(N)\]
-  である．  
+  が成立する。
 \end{theorem}
 
-これらの定理の証明は，有限個の元からなるgood coveringをもつ場合には\cite{Bott-Tu}で証明されている．
+これらの定理の証明は，有限個の元からなるgood coveringをもつ場合には\cite{Bott--Tu}で証明されている．
 実際にはその仮定は上で書いたように弱められるのであるが，2節の最後に書いた手法を用いれば
-\cite{Bott-Tu}の証明で実質的な部分の証明はほぼ終了している．
+\cite{Bott--Tu}の証明で実質的な部分の証明はほぼ終了している．
 
 \begin{theorem}
   $H_{dR}^\ast$をde Rhamコホモロジーを与える関手，$H_{sing}^\ast$を特異コホモロジーを与える関手
   とする．このとき，$H_{dR}^\ast$と$H_{sing}^\ast$は自然同値である．
 \end{theorem}
 
-この定理は\cite{Lee}に証明がある．
+この定理は\cite{LeeSmooth}に証明がある．
 
-\begin{thebibliography}{10}
-  \bibitem{Bott-Tu} Bott, R. and Tu, L., 
-    \textit{Differential Forms in Algebraic Topology}, Springer, 1982.
-  \bibitem{Lee} Lee, J. M., 
-    \textit{Introduction to Topological Manifolds}, Springer, 2000.
-  
-\end{thebibliography}
+\bibliographystyle{MA}
+
+\bibliography{data}
 
 \end{document}
 good cover全体が開被覆全体のなす有向集合上共終であること
