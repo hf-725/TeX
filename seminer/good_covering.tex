@@ -46,15 +46,19 @@
 
 \begin{proof}
   $p\in M$を任意にとる．
-  $0\in T_pM$の近傍$V$を小さくとって，$\map{\exp=\exp_p}{V}{M}$が像への微分同相になり，かつ
+  $0\in T_pM$の近傍$V$を小さくとって，$\map{\exp_p}{V}{M}$が像への微分同相になり，かつ
   任意の$V$の2点についてそれらを結ぶ最短測地線が$M$内でただ一つ存在するようにする．
-  さらに$\setR^n$と$T_p M$との間の線型同型写像を一つとることで$p$まわりのチャート$(\exp(V), \varphi)$
-  ができる．以下では，$\exp(V)$に含まれ，$p$を含む測地的に凸な開集合を構成する．
-  $x^i(p)\Gamma_{ij}^k(p) = 0$であり，$i, j, k$の動く範囲は有限だから，$V$に含まれる
-  0の近傍$V^\prime$が存在して，任意の$i, j, k$に対して$\exp(V^\prime)$上
+  さらに$\setR^n$と$T_p M$との間の線型同型写像を一つとることで$p$まわりのチャート$(\exp_p(V), \varphi)$
+  ができる．
+  
+  以下，$\exp_p(V)$に含まれ，$p$を含むような測地的に凸な開集合を構成する．
+  $x^i$を$\exp_p(V)$上$\varphi$によって定義された座標関数とし、$\Gamma_{ij}^k$をChristoffel記号とする。
+  チャートのとり方から$x^i(p)\Gamma_{ij}^k(p) = 0$であり，$i, j, k$の動く範囲は有限だから，$V$に含まれる
+  0の近傍$V^\prime$が存在して任意の$i, j, k$に対して$\exp(V^\prime)$上
     \[\abs{x^k\Gamma_{ij}^k} < 1 / n^2 \]
   となる．
-  $\gamma$を$\exp(V^\prime)$内の測地線とする．$(\exp(V),\varphi)$を使って$\gamma$を
+
+  $\gamma$を$\exp_p(V^\prime)$内の任意の測地線とする．$(\exp_p(V),\varphi)$を使って$\gamma$を
   局所表示したときの第$i$成分を$\gamma^i$と書くことにすると，
   相加・相乗平均の不等式から
   \begin{align*}
@@ -75,7 +79,7 @@
       - \sum_{i,j,k} \frac{1}{n^2}\frac{d\gamma^i}{dt}\frac{d\gamma^j}{dt} \\
     &\geq \sum_k \parenlr{\frac{d\gamma^k}{dt}}^2 - n^2\sum_k\frac{1}{n^2}\parenlr{\frac{d\gamma^k}{dt}}^2  = 0
   \end{align*}
-  となる．したがって$r\circ \gamma$は極大値を持たないことが分かった．
+  となる．したがって$r\circ \gamma$は下に凸な関数である．
   
   $a>0$に対して
     \[B_a = \set{v\in T_p M}{\norm{v} < a} \]
@@ -101,15 +105,16 @@
   (1)は明らかである．(2)を示す．$0\in T_p M$の$TM$での近傍$\mscrV$と$p$の開近傍$W$を，
   $\map{\exp}{\mscrV}{W\times W}$が微分同相写像になるようにとる．この$W$が条件をみたすことを示す．
   $W$に含まれる空でない測地的に凸な開集合$U$を任意にとる．
-  $q\in U$を一つ選んでおく．$\map{\exp_q}{T_q M}{M}$を考える．$0\in T_q M$の開近傍$V$を
+  $q\in U$を一つ選んで、$\map{\exp_q}{T_q M}{M}$を考える．$0\in T_q M$の開近傍$V$を
   \[V = \set{v\in T_q M}{\exp_q v \in U\text{かつ}\exp_q tv\text{は$q$と$\exp_q v$を結ぶ最短測地線}} \]
-  で定める．$\restr{\exp_q}{V}$が$V$から$U$への微分同相写像であることを示す．
-  まず，$q$と$U$の点を結ぶ最短測地線はただ一つしかないので単射であり，全射性も明らかである．
-  また，$W$のとり方から$\restr{\exp_q}{V}$は各点で微分が正則である．したがってこれは微分同相である．
+  で定めたとき、$\restr{\exp_q}{V}$が$V$から$U$への微分同相写像であることを示す．
+  まず，$q$と$U$の点を結ぶ最短測地線はただ一つしかないので単射であり，全射性は明らかである．
+  あとは$\restr{\exp_q}{V}$の各点での微分が正則であることを確かめればよいが、
+  これは$W$のとり方から明らかである．
   $V$は星型領域なので命題の主張が分かる．
 \end{proof}
 
-あとは星型領域が$\setR^n$と微分同相であることを示せばよい．
+以上より、\cref{main}を示すには星型領域が$\setR^n$と微分同相であることを示せばよい．
 
 \begin{lemma}\label{function}
 $U$を$\setR^n$の開集合とすると，$C^\infty$級関数$\map{h}{\setR^n}{\setR}$が存在して次をみたす．
