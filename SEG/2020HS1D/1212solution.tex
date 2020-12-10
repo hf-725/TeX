@@ -1,0 +1,49 @@
+\documentclass[dvipdfmx,uplatex,b5paper]{jsarticle}
+\usepackage{MAstandard}
+\usepackage[top=10mm,bottom=10mm]{geometry}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\sign}{sign}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\Vector}[1]{\overrightarrow{\text{#1}}}
+
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注}{注}
+
+\begin{document}
+
+\section*{高1D冬期第1週 宿題解答}
+\subsection*{(104)}
+\begin{enumarabicp}
+  \item \begin{align*}
+    I_1&= \int_1^2 (x^3+x^2)dx 
+        = \bracketlr{\frac{1}{4}x^4+\frac{1}{3}x^3}_1^2 
+        = \parenlr{4+\frac{8}{3}}-\parenlr{\frac{1}{4}+\frac{1}{3}} 
+        = \boxed{\frac{73}{12}}
+  \end{align*}
+
+  \item \begin{align*}
+    I_2&= \int_0^1 (2x+1)^2dx
+       = \int _0^1(4x^2+4x+1)dx \\
+       &= \bracketlr{\frac{4}{3}x^3+2x^2+x}_0^1
+       = \frac{4}{3}+2+1=\boxed{\frac{13}{3}}
+  \end{align*}
+
+  \item \begin{align*}
+    I_3 = \int_0^1 (x^3-x^2)dx
+        = \bracketlr{\frac{1}{4}x^4-\frac{1}{3}x^3}_0^1
+        = \frac{1}{4}-\frac{1}{3} = \boxed{-\frac{1}{12}}
+  \end{align*}
+\end{enumarabicp}
+
+\subsection*{(105)}
+$\dfrac{x^3}{2}+1$が$1\leq x\leq 2$で正であることに注意して立式すると
+\begin{align*}
+  \int_1^2 \parenlr{\frac{x^3}{2}+1}dx = \bracketlr{\frac{x^4}{8}+x}_1^2
+  = (2+2)-\parenlr{\frac{1}{8}+1}= \boxed{\frac{23}{8}}
+\end{align*}
+\end{document}
