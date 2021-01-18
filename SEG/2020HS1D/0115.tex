@@ -1,0 +1,67 @@
+\documentclass[dvipdfmx,uplatex,b5paper]{jsarticle}
+\usepackage{MAstandard}
+\usepackage[top=10mm,bottom=10mm]{geometry}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\sign}{sign}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\Vector}[1]{\overrightarrow{\text{#1}}}
+\newcommand{\innerprod}[2]{\overrightarrow{#1}\cdot\overrightarrow{#2}}
+\newcommand{\Innerprod}[2]{\Vector{#1}\cdot\Vector{#2}}
+
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注}{注}
+
+\begin{document}
+
+\section*{高1D第一週 宿題(平面ベクトルにおける内積の復習)}
+
+\begin{enumarabicp}
+  \item 平面ベクトル$\overrightarrow{a}$と$\overrightarrow{b}$の内積
+  $\overrightarrow{a}\cdot \overrightarrow{b}$を正射影を使って定義し、$\overrightarrow{a}\cdot \overrightarrow{b}$
+  を$\abs{\overrightarrow{a}}, \abs{\overrightarrow{b}}$および$\overrightarrow{a}$と
+  $\overrightarrow{b}$のなす角$\theta$を用いて表せ。
+
+  \item 三角形OABについて、$\text{OA}=8,\ \text{OB}=5,\ \angle\text{AOB}=60^\circ$であるとする。
+  また、ABの中点をMとし、$\overrightarrow{a}=\Vector{OA},\ \overrightarrow{b}=\Vector{OB}$とおく。
+  \begin{enumromanp}
+    \item $\Vector{OA}\cdot \Vector{OM}$および$\abs{\Vector{OM}}$を求めよ。
+    \item $\theta=\angle\text{AOM}$とおくとき、$\cos \theta$の値を求めよ。
+  \end{enumromanp}
+\end{enumarabicp}
+
+\newpage
+
+\section*{解答}
+\begin{enumarabicp}
+  \item 自分のとったノートを見返して確認してください。
+  \item \begin{enumromanp}
+    \item まず、
+    \[ \overrightarrow{a}\cdot\overrightarrow{b} = 8\cdot 5\cdot \cos 60^\circ = 20 \]
+    である。$\Vector{OM}=\dfrac{1}{2}\overrightarrow{a}+\dfrac{1}{2}\overrightarrow{b}$なので
+    \begin{align*}
+      \Vector{OA}\cdot\Vector{OM}=\frac{1}{2}\abs{a}^2+\frac{1}{2}\overrightarrow{a}\cdot \overrightarrow{b}
+      = \frac{1}{2}\times 64+\frac{1}{2}\times 20 = \boxed{42}
+    \end{align*}
+    となる。また
+    \begin{align*}
+      \abs{\text{OM}}^2 &= \frac{1}{4}(\overrightarrow{a}+\overrightarrow{b})\cdot (\overrightarrow{a}+\overrightarrow{b}) \\
+      &= \frac{1}{4}(\abs{\overrightarrow{a}}^2+2\innerprod{a}{b}+\abs{\overrightarrow{b}}^2) \\
+      &= \frac{1}{4}(64+40+25) \\
+      &= \frac{129}{4}
+    \end{align*}
+    なので\[ \abs{\Vector{OM}}=\boxed{\dfrac{\sqrt{129}}{2}} \]である。
+
+    \item $\Innerprod{OA}{OM}=\abs{\Vector{OA}}\abs{\Vector{OM}}\cos\theta$なので
+    \[ 42 = 8\times \frac{\sqrt{129}}{2}\times \cos\theta \]
+    となる。よって
+    \[ \cos \theta = \boxed{\frac{21}{2\sqrt{129}}} \]
+    である。
+  \end{enumromanp}
+\end{enumarabicp}
+
+\end{document}
