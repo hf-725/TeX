@@ -1,0 +1,75 @@
+\documentclass[dvipdfmx,uplatex,b5paper]{jsarticle}
+\usepackage{MAstandard}
+\usepackage[top=10mm,bottom=10mm]{geometry}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\sign}{sign}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\Vector}[1]{\overrightarrow{\text{#1}}}
+\newcommand{\innerprod}[2]{\overrightarrow{#1}\cdot\overrightarrow{#2}}
+\newcommand{\Innerprod}[2]{\Vector{#1}\cdot\Vector{#2}}
+
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注}{注}
+
+
+\begin{document}
+
+\section*{高1D 第3週宿題解答}
+
+\begin{enumarabicp}
+  \item \[ \Vector{OA}=\begin{pmatrix}
+    4 \\ 4 \\ 4
+  \end{pmatrix},\ 
+  \Vector{OB}= \begin{pmatrix}
+    7 \\ -2 \\ -2
+  \end{pmatrix} \]
+  なので
+  \begin{align*}
+    \abs{\Vector{OA}}^2&=48,\ \abs{\Vector{OB}}^2=57,\ \Innerprod{OA}{OB} = 12
+  \end{align*}
+  となる。したがって
+  \begin{align*}
+    \triangle\text{OAB} = \frac{1}{2}\sqrt{\abs{\Vector{OA}}^2\abs{\Vector{OB}}^2-(\Innerprod{OA}{OB})^2} = \boxed{18\sqrt{2}}
+  \end{align*}
+  である。
+  \item \[ \overrightarrow{n} = \begin{pmatrix}
+    p \\ q \\ r
+  \end{pmatrix} \]
+  とおくと、$\overrightarrow{n}$は$\Vector{OA}$および$\Vector{OB}$と垂直だから
+  \begin{align*}
+    4p+4q+4r &= 0, \\
+    7p-2q-2r &= 0
+  \end{align*}
+  が成立する。これを$p,\ q$について解くと
+  \[ p=0,\ q=-r\]
+  となる。したがって
+  \[\overrightarrow{n}= r\begin{pmatrix}
+    0 \\ -1 \\ 1
+  \end{pmatrix} \]
+  だが、長さが1になるように$r$を決めると
+  \[ r=\pm \frac{1}{\sqrt{2}} \]
+  となる。よって$\overrightarrow{n}$としては
+  \[ \pm \frac{1}{\sqrt{2}}\begin{pmatrix}
+    0 \\ 1 \\ -1
+  \end{pmatrix} \]
+  がとれる(どちらでも正解)。
+  以下では
+  \[ \overrightarrow{n}= \frac{1}{\sqrt{2}}\begin{pmatrix}
+    0 \\ 1 \\ -1
+  \end{pmatrix}\]
+  であるとする。
+  \item \[\Vector{CO} = \begin{pmatrix}
+    -6 \\ -3 \\ 3
+  \end{pmatrix} \]
+  の$\overrightarrow{n}$方向への正射影が$\Vector{CH}$なので、
+  \[ (\Vector{CH}\text{の符号付長さ}) = \Vector{CO}\cdot \overrightarrow{n}=-3\sqrt{2} \]
+  である。したがってCHの長さは$\boxed{3\sqrt{2}}$である。
+  \item \[ \frac{1}{3}\times 18\sqrt{2}\times 3\sqrt{2} = \boxed{36} \]
+\end{enumarabicp}
+
+\end{document}
