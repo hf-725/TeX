@@ -1,0 +1,51 @@
+\documentclass[dvipdfmx,uplatex,b5paper]{jsarticle}
+\usepackage{MAstandard}
+\usepackage[top=10mm,bottom=10mm]{geometry}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\sign}{sign}
+\newcommand{\smooth}{C^{\infty}}
+\newcommand{\Vector}[1]{\overrightarrow{\text{#1}}}
+
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注}{注}
+\pagestyle{empty}
+
+\begin{document}
+\section*{高1D 第5週復習問題}
+$(6,2,5)$を通り方向ベクトルが$\begin{pmatrix} 2 \\ 1 \\-2 \end{pmatrix}$の直線$l$と、
+$(8,2,8)$と$(-4,-1,5)$を通る直線$m$がある。
+\begin{enumarabicp}
+  \item $l$と$m$が交わるかを調べ、交わる場合は交点の座標を求めよ。
+  \item $(8,1,5)$から$l$に下した垂線の足の座標を求めよ。
+\end{enumarabicp}
+
+\newpage
+\section*{平面の式まとめ}
+\vspace{\baselineskip}
+\begin{enumarabicp}
+  \item 一般に
+    \[ \overrightarrow{n} = \begin{pmatrix}
+    a \\ b \\ c
+  \end{pmatrix} \]
+  に垂直で$(x_0,y_0,z_0)$を通る平面は
+  \begin{center}
+    \framebox[6cm]{\rule[-1zw]{0pt}{3zw}}
+  \end{center}
+  で表される。
+  \vspace{\baselineskip}
+  \item 逆に$a,\ b,\ c$の少なくとも1つが0でないとき、
+  のとき、
+  \[ ax+by+cz+d=0 \]
+  の表す図形は
+  \begin{center}
+    \framebox[3cm][l]{\rule[-3zw]{0pt}{7zw}$\overrightarrow{n}=$}
+  \end{center}
+  を法線ベクトルとする平面である。
+\end{enumarabicp}
+
+\end{document}
