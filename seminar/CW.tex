@@ -119,7 +119,7 @@ $F$が$X$の閉集合であれば$F\cap B$は必ず$B$の閉集合であるか�
 
 \begin{definition}
   $X$をHausdorff空間とする．$X$の胞体分割$\mscrE$が\textbf{CW分割(CW decomposition)}あるいは
-  \textbf{CW構造(CWstructure)}であるとは，次の2条件をみたすことである．
+  \textbf{CW構造(CW structure)}であるとは，次の2条件をみたすことである．
   \begin{enumarabicp}
     \item
     すべての$e\in \mscrE$について，その閉包$\Bar{e}$は有限個の胞体としか交わらない．
@@ -195,10 +195,14 @@ $Y$に含まれる胞体全体のを$\restr{\mscrE}{Y}$と書くことにする�
   $Y$が閉集合であることは，上の$G$を$Y$にとりかえて同じ議論をすればわかる．
 \end{proof}
 
-\begin{lemma}\label{subcomplex union}
+\begin{corollary}
+  $X$をCW複体とすると、任意の$n\in \setN$に対して$X^n$は閉集合である．
+\end{corollary}
+
+\begin{proposition}\label{subcomplex union}
   $X$をCW複体とする．$\mscrY$を$X$の部分複体からなる族とすると，$\bigcup_{Y\in \mscrY} Y$は$X$の
   部分複体である．
-\end{lemma}
+\end{proposition}
 
 \begin{proof}
   $\bigcup_{Y\in \mscrY} Y$のどの胞体もどれか一つの$Y\in \mscrY$に含まれている．
