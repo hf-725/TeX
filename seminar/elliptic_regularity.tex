@@ -1,0 +1,178 @@
+
+%持つ，分かる，
+%対して，すべて
+
+\documentclass[uplatex,dvipdfmx]{jsarticle}
+\usepackage{MAstandard,appendix}
+
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\sign}{sign}
+\newcommand{\smooth}{$C^{\infty}$級}
+\newcommand{\sobolev}[1]{L^{2}_{#1}}
+\newcommand{\sobolevlocal}[3]{\sobolev{#1}(\setR^{#2},\setC^{#3})}
+\newcommand{\smoothfct}{C^{\infty}}
+\newcommand{\cptsmoothfct}[2]{C^{\infty}_{c}(\setR^{#1},\setC^{#2})}
+\newcommand{\schwartz}[2]{\mcalS(\setR^{#1},\setC^{#2})}
+\newcommand{\dd}{d} %本当はバー付きにしたい
+
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注}{注}
+
+\title{楕円型正則性}
+\author{みつば(@mittlear1)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\section*{記法}
+$\setN$：0以上の整数全体．
+
+$\smoothfct(M,N)$：$M$から$N$への\smooth 写像全体．
+
+$C^{\infty}_c(M)$：コンパクト台を持つ$M$上の\smooth 関数全体．
+
+$\mcalS(\setR^n,C^m)$：$\setR^n$上の$\setC^m$値のSchwartzの急減少関数全体．
+
+
+
+\newpage
+\section{微分作用素}
+
+\subsection{微分作用素の定義}
+
+\subsection{主表象}
+
+\subsection{形式的随伴作用素}
+
+\newpage
+\section{Sobolev空間}
+
+\subsection{Euclid空間上のSobolev空間}
+
+$(\cdot,\cdot)$を$\setC^m$上の標準的なHermite計量とする．
+
+\begin{definition}
+  $f, g\in \schwartz{n}{m}$および$s\in \setR$に対して
+  \[ \abracket{f,g}_s=\int_\setR^n (\hat{f}(\xi),\hat{g}(\xi))(1+\abs{\xi})^{2s}\dd \xi \]
+\end{definition}
+で内積$\abracket{\cdot,\cdot}_s$を定め，ここからできるノルム$\norm{\cdot}$による
+$\schwartz{n}{m}$の完備化を$\sobolevlocal{s}{n}{m}$と書き，$s$次の\textbf{Sobolev空間}という．
+
+\begin{lemma}
+  $f$に対して$\hat{f}(\xi)(1+\abs{\xi})^s$を対応させることでできる$\schwartz{n}{m}$から
+  $L^2(\setR^n,\setC^m)$への線型写像は$\sobolevlocal{s}{n}{m}$から$L^2(\setR^n,\setC^m)$
+  へのHilbert空間としての同型写像に一意的に延長される．
+\end{lemma}
+
+\begin{proposition}
+  $\cptsmoothfct{n}{m}$は$\sobolevlocal{s}{n}{m}$の中で稠密である．
+\end{proposition}
+
+\begin{proposition}\label{Sobolev space injective}
+  $s>t\in \setR$とする．$\schwartz{n}{m}$からそれ自身への恒等写像は有界線型写像
+  \[ \map{\iota_{st}}{\sobolevlocal{s}{n}{m}}{\sobolevlocal{t}{n}{m}} \]
+  を誘導し，$\iota_{st}$は単射である．
+\end{proposition}
+
+\begin{definition}
+  位相線形空間$\sobolevlocal{\infty}{n}{m}$を
+  \[ \sobolevlocal{\infty}{n}{m} = \varprojlim_{s\in\setR} \sobolevlocal{s}{n}{m} \]
+  で定める．\cref{Sobolev space injective}より，自然な写像
+  $\map{\iota_{s}}{\sobolevlocal{\infty}{n}{m}}{\sobolevlocal{s}{n}{m}}$は単射である．
+\end{definition}
+
+\begin{definition}
+  $s\in \setN$のとき，$f\in\schwartz{n}{m}$に対して$\norm{f}_{W^{s,2}}$を
+  \[ \norm{f}^2_{W^{s,2}} = \sum_{\abs{\alpha}\leq s} \norm{\partial^\alpha f}_{L^2}^2 \]
+  で定める．これは$\schwartz{n}{m}$上のノルムである．
+\end{definition}
+
+\begin{proposition}
+  $s\in \setN$のとき，$\schwartz{n}{m}$上のノルムとして$\norm{\cdot}_s$と$\norm{\cdot}_{W^{s,2}}$
+  は同値である．
+\end{proposition}
+
+\begin{proposition}
+  $\phi\in \schwartz{n}{}$に対して$\map{M_\phi}{\schwartz{n}{m}}{\schwartz{n}{m}}$
+  を
+  \[ M_\phi f = \phi f \]
+  で定めると，これは$\sobolevlocal{s}{n}{m}$からそれ自身への有界線型写像に延長される．
+\end{proposition}
+
+\begin{proposition}
+  $\map{(\cdot,\cdot)_{L^2}}{\schwartz{n}{m}\times\schwartz{n}{m}}{\setC}$を
+  \[(f,g)_{L^2} = \int_{\setR^n} (f(x),g(x)) \dd x \]
+  で定めると，$(\cdot,\cdot)_{L^2}$は任意の$s\in \setR$で連続なsesqui-linear form
+  \[ \map{(\cdot,\cdot)^s_{L^2}}{\sobolevlocal{s}{n}{m}\times\sobolevlocal{s}{n}{m}}{\setC} \]
+  を定める．また，任意の$f\in \sobolevlocal{s}{n}{m}$について
+  \[ \norm{f}_s = \sup_{g\in \schwartz{n}{m}\setminus 0} \frac{\abs{(f,g)_{L^2}^s}}{\norm{g}_{-s}} \]
+  が成立する．
+\end{proposition}
+
+\begin{definition}
+  \begin{enumarabicp}
+    \item $k\in \setN$に対して$C^k_0(\setR^n,\setC^m)$を，$C^k$級関数$\map{f}{\setR^n}{\setC^m}$であって
+    \[ \abs{\alpha}\leq k \Rightarrow \lim_{\abs{x}\to \infty} \abs{\partial^\alpha f} = 0 \]
+    をみたすもの全体のなすベクトル空間とする．また，$C^k_0(\setR^n,\setC^m)$上のノルム
+    $\norm{\cdot}_{C^k_0}$を
+    \[ \norm{f}_{C^k_0} = \sum_{\abs{\alpha}\leq k} \sup_{x\in \setR^n} \abs{\partial^\alpha f} \]
+    で定める．
+    \item $C^\infty_0(\setR^n,\setC^m)$を
+    \[C^\infty_0(\setR^n,\setC^m) = \bigcap_{k\in \setN} C^k_0(\setR^n,\setC^m) \]
+    で定め，すべての$k\in \setN$で$C^\infty_0(\setR^n,\setC^m)\to C^k_0(\setR^n,\setC^m)$が連続となる
+    最弱の位相を入れる．
+  \end{enumarabicp}
+\end{definition}
+
+\begin{proposition}
+  $C^k_0(\setR^n,\setC^m)$は$\norm{\cdot}_{C^k_0}$によってBanach空間になる．
+\end{proposition}
+
+\begin{theorem}[Sobolevの埋め込み定理]\label{Sobolev embedding}
+  $k\in \setN,\ s>k+n/2$のとき，自然な包含$\schwartz{n}{m}\to C^k_0(\setR^n,\setC^m)$は
+  単射有界線型写像
+  \[ \map{\eta_{sk}}{\sobolevlocal{s}{n}{m}}{C^k_0(\setR^n,\setC^m)}\]
+  へと一意的に延長される．
+\end{theorem}
+
+\begin{corollary}
+  $\sobolevlocal{\infty}{n}{m}$から$C^\infty_0(\setR^n,\setC^m)$への単射連続線型写像$\eta$であって，
+  $\eta_{sk}$と整合的なものがただ一つ存在する．
+\end{corollary}
+
+\subsection{コンパクト多様体上のSobolev空間}
+
+\newpage
+\section{擬微分作用素}
+
+\subsection{擬微分作用素の定義}
+
+\subsection{表象の漸近展開}
+
+\subsection{楕円性}
+
+\newpage
+\section{楕円型正則性}
+
+\subsection{局所正則性}
+
+\subsection{大域正則性}
+
+\newpage
+\section{Hodge分解}
+
+\bibliographystyle{MA}
+\nocite{*}
+\bibliography{data}
+
+\end{document}
+
+te
