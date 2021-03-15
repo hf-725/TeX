@@ -1,6 +1,7 @@
 
-%持つ，分かる，
+%持つ，分かる，みなす
 %対して，すべて
+%本節，
 
 \documentclass[uplatex,dvipdfmx]{jsarticle}
 \usepackage{MAstandard,appendix}
@@ -10,7 +11,7 @@
 \newcommand{\smooth}{$C^{\infty}$級}
 \newcommand{\sobolev}[1]{L^{2}_{#1}}
 \newcommand{\sobolevlocal}[3]{\sobolev{#1}(\setR^{#2},\setC^{#3})}
-\newcommand{\smoothfct}{C^{\infty}}
+\newcommand{\smoothfct}[2]{C^{\infty}(\setR^{#1},\setC^{#2})}
 \newcommand{\cptsmoothfct}[2]{C^{\infty}_{c}(\setR^{#1},\setC^{#2})}
 \newcommand{\schwartz}[2]{\mcalS(\setR^{#1},\setC^{#2})}
 \newcommand{\dd}{d} %本当はバー付きにしたい
@@ -35,7 +36,7 @@
 \section*{記法}
 $\setN$：0以上の整数全体．
 
-$\smoothfct(M,N)$：$M$から$N$への\smooth 写像全体．
+$C^\infty(M,N)$：$M$から$N$への\smooth 写像全体．
 
 $C^{\infty}_c(M)$：コンパクト台を持つ$M$上の\smooth 関数全体．
 
@@ -61,10 +62,13 @@ $(\cdot,\cdot)$を$\setC^m$上の標準的なHermite計量とする．
 
 \begin{definition}
   $f, g\in \schwartz{n}{m}$および$s\in \setR$に対して
-  \[ \abracket{f,g}_s=\int_\setR^n (\hat{f}(\xi),\hat{g}(\xi))(1+\abs{\xi})^{2s}\dd \xi \]
-\end{definition}
-で内積$\abracket{\cdot,\cdot}_s$を定め，ここからできるノルム$\norm{\cdot}$による
+  \[ \abracket{f,g}_s=\int_{\setR^n} (\hat{f}(\xi),\hat{g}(\xi))(1+\abs{\xi})^{2s}\dd \xi \]
+で内積$\abracket{\cdot,\cdot}_s$を定め，ここからできるノルム$\norm{\cdot}_s$による
 $\schwartz{n}{m}$の完備化を$\sobolevlocal{s}{n}{m}$と書き，$s$次の\textbf{Sobolev空間}という．
+\end{definition}
+
+各$s\in \setR$において$\schwartz{n}{m}$から$\sobolevlocal{s}{n}{m}$への自然な単射がある．
+これによって$\schwartz{n}{m}$を$\sobolevlocal{s}{n}{m}$の部分集合とみなす．
 
 \begin{lemma}
   $f$に対して$\hat{f}(\xi)(1+\abs{\xi})^s$を対応させることでできる$\schwartz{n}{m}$から
@@ -145,15 +149,103 @@ $\schwartz{n}{m}$の完備化を$\sobolevlocal{s}{n}{m}$と書き，$s$次の\te
 
 \begin{corollary}
   $\sobolevlocal{\infty}{n}{m}$から$C^\infty_0(\setR^n,\setC^m)$への単射連続線型写像$\eta$であって，
-  $\eta_{sk}$と整合的なものがただ一つ存在する．
+  $\eta_{sk}\ (s>k+n/2)$たちと整合的なものがただ一つ存在する．
 \end{corollary}
 
+\begin{definition}
+  $\setR^n$の開集合$U$に対して$\sobolev{s}(U,\setC^m)$を$C^\infty_c(U,\setC^m)$の
+  $\sobolevlocal{s}{n}{m}$での閉包で定義する．
+\end{definition}
+
+\begin{theorem}[Rellichの補題]\label{Rellich lemma}
+  $U$を$\setR^n$の相対コンパクト開集合とする．$s>t$のとき，包含
+  $\map{\iota_{st}}{\sobolev{s}(U,\setC^m)}{\sobolev{t}(U,\setC^m)}$はコンパクト作用素である．
+\end{theorem}
+
 \subsection{コンパクト多様体上のSobolev空間}
+
+本節では，$M$を$n$次元コンパクト多様体，$E$を$M$上の階数$m$の複素ベクトル束とする．
+2.1節で考察したことをコンパクト多様体上に拡張するのが本節の目的である．
+
+\begin{definition}
+  $(U,\kappa,\tau)$が$E$のtotal trivializationであるとは，$(U,\kappa)$が$M$のチャート
+  であり，$(U,\tau)$が$E$の局所自明化であることをいう．
+\end{definition}
+
+$E$上のSobolev空間を定義するため，まずは$\Gamma(E)$上の内積を定義する．$E$のtotal trivialization
+からなる有限族$\{(U_i,\kappa_i,\tau_i)\}_{1\leq i \leq N}$を$\{(U_i)\}$が$M$の開被覆となるようにとり，
+${U_i}$に従属する1の分割$\{\phi_i\}$をとる．さらに$\map{\sigma_i}{\Gamma(E)}{C^\infty{\kappa_i(U_i),\setC^m}}$
+を，$f\in \Gamma(E),\ x\in \kappa_i(U_i)$に対して
+\[ (x,\sigma_i(f)(x)) = \tau_i(f(\kappa_i^{-1}(x))) \in U_i\times \setC^m \]
+をみたすように定める．以上のデータを用いて，$s\in \setZ$に対して$\map{\abracket{\cdot,\cdot}_s^E}{\Gamma(E)\times\Gamma(E)}{\setC}$を
+\[ \abracket{f,g}^E_s=\sum_{1\leq i\leq N} \abracket{\sigma_i(\phi_i f),\sigma_i(\phi_i g)}_s \]
+で定め，この内積が定めるノルムを$\norm{\cdot}^E_s$と書く．
+
+\begin{proposition}
+  $s\in\setZ$のとき，$\norm{\cdot}_s^E$の同値類は${(U_i,\kappa_i,\tau_i)}$および${\phi_i}$のとり方によらない．
+\end{proposition}
+
+\begin{definition}
+  $s\in \setZ$について，$\Gamma(E)$の$\norm{\cdot}^E_s$(と同値なノルム)による完備化を$\sobolev{s}(E)$
+  と書き，$E$上の$s$次のSobolev空間という．
+\end{definition}
+
+2.1節のときと同様に，各$s\in\setZ$に対して$\Gamma(E)$は$\sobolev{s}(E)$の部分集合とみなすことにする．
+
+以下，本節では$\{U_i,\kappa_i,\tau_i\}$と$\{\phi_i\}$を1つ固定し，各$s\in\setZ$に対して$\abracket{\cdot,\cdot}_s$
+をこれらのデータからできる内積とする．
 
 \newpage
 \section{擬微分作用素}
 
 \subsection{擬微分作用素の定義}
+
+\begin{definition}
+  $d\in\setR$とする．$\map{p(x,\xi)}{\setR^n\times \setR^n}{\Hom(C^{m_1},\setC^{m_1})}$が次数$d$の
+  \textbf{表象(symbol)}であるとは，次の条件をすべてみたすことをいう．
+  \begin{enumarabicp}
+    \item $p$は\smooth である．
+    \item 任意の$\alpha,\beta\in\setN^n$に対して定数$C_{\alpha\beta}$が存在して
+    \[ \forall (x,\xi) \in \setR^n\times\setR^n\quad \norm{D^\alpha_x D^\beta_\xi p(s,\xi)} \leq C_{\alpha \beta}(1+\abs{\xi})^{d-\abs{\xi}} \]
+    をみたす．ここで$\norm{\cdot}$は$\Hom(\setC^{m_1},\setC^{m_2})$の作用素ノルムである．
+  \end{enumarabicp}
+  次数$d$の表象全体のなすベクトル空間を$S^d=S^d(m_1,m_2)$と書き，
+  \[ S^\infty = \bigcup_{d\in\setR} S^d,\ \quad S^{-\infty} = \bigcap_{d\in\setR} S^d \]
+  とおく．
+\end{definition}
+
+$p\in S^d$とする．このとき，$f\in \cptsmoothfct{n}{m_1}$に対して$\Psi_p f\in \smoothfct{n}{m_2}$
+が
+\[ \Psi_p f(x) = \int_\setR^n e^{ix\xi} p(x,\xi)\hat{f}(\xi)\dd xi \]
+で定まる．
+
+\begin{definition}
+  $\map{\Psi_p}{\cptsmoothfct{n}{m_1}}{\smoothfct{n}{m_1}}$を$p$の定める$d$次の\textbf{擬微分作用素(pseudo-diffirential operator)}
+  という．$d$次の擬微分作用素全体のなすベクトル空間を$\Psi^d$と書き，
+  \[ \Psi^\infty = \bigcup_{d\in \setR} \Psi^d,\quad \Psi^{-\infty} = \bigcap_{d\in \setR} \Psi^d \]
+  とおく．
+\end{definition}
+
+\begin{lemma}\label{symbol injectivity}
+  $p$に$\Psi_p$を対応させる線型写像$S^d\to \Psi^d$は全単射である．
+\end{lemma}
+
+\begin{definition}
+  $\map{\sigma}{\Psi^d}{S^d}$を\cref{symbol injectivity}の全単射の逆写像とし，全表象写像という．
+\end{definition}
+
+\begin{proposition}
+  $p\in S^d$を$x$方向の台がコンパクトな表象とする．このとき，任意の$s\in\setR$で$\Psi_p$は$\sobolevlocal{s}{n}{m_1}$
+  から$\sobolevlocal{s-d}{n}{m_2}$への有界線型写像に一意的に延長できる．
+\end{proposition}
+
+証明のため，今後繰り返し使うことになる基本的な不等式を導入する．
+
+\begin{lemma}[Peetreの不等式]\label{Pettre inequality}
+  任意の$x,y\in \setR^n$,\ $s\in\setR$に対して
+  \[ (1+\abs{x+y})^s\leq(1+\abs{x})^{\abs{s}}(1+\abs{y})^s \]
+  が成立する．
+\end{lemma}
 
 \subsection{表象の漸近展開}
 
@@ -169,6 +261,7 @@ $\schwartz{n}{m}$の完備化を$\sobolevlocal{s}{n}{m}$と書き，$s$次の\te
 \newpage
 \section{Hodge分解}
 
+\newpage
 \bibliographystyle{MA}
 \nocite{*}
 \bibliography{data}

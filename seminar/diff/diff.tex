@@ -1,18 +1,44 @@
-\documentclass[uplatex]{jsarticle}
+
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL diff/./good_covering.tex   Wed Dec  2 23:28:53 2020
-%DIF ADD ./good_covering.tex        Wed Dec  2 23:27:38 2020
-\usepackage{MAstandard, appendix, cleveref}
-\DeclareMathOperator{\Int}{Int}
-\newcommand{\smooth}{C^{\infty}}
-\newcommand{\setinverse}[2]{#1 ^{-1}(#2)}
+%DIF DEL diff/./elliptic_regularity.tex   Mon Mar 15 21:38:58 2021
+%DIF ADD ./elliptic_regularity.tex        Mon Mar 15 21:33:14 2021
+%DIF 2c2
+%DIF < %持つ，分かる，
+%DIF -------
+%持つ，分かる，みなす %DIF > 
+%DIF -------
+%対して，すべて
+%DIF 4a4
+%本節， %DIF > 
+%DIF -------
+
+\documentclass[uplatex,dvipdfmx]{jsarticle}
+\usepackage{MAstandard,appendix}
+
+\DeclareMathOperator{\Int}{int}
 \DeclareMathOperator{\sign}{sign}
-\DeclareMathOperator{\Real}{Re}
+\newcommand{\smooth}{$C^{\infty}$級}
+\newcommand{\sobolev}[1]{L^{2}_{#1}}
+\newcommand{\sobolevlocal}[3]{\sobolev{#1}(\setR^{#2},\setC^{#3})}
+%DIF 13c14
+%DIF < \newcommand{\smoothfct}{C^{\infty}}
+%DIF -------
+\newcommand{\smoothfct}[2]{C^{\infty}(\setR^{#1},\setC^{#2})} %DIF > 
+%DIF -------
+\newcommand{\cptsmoothfct}[2]{C^{\infty}_{c}(\setR^{#1},\setC^{#2})}
+\newcommand{\schwartz}[2]{\mcalS(\setR^{#1},\setC^{#2})}
+\newcommand{\dd}{d} %本当はバー付きにしたい
 
+\crefname{theorem}{定理}{定理}
+\crefname{proposition}{命題}{命題}
+\crefname{lemma}{補題}{補題}
+\crefname{definition}{定義}{定義}
+\crefname{example}{例}{例}
+\crefname{remark}{注}{注}
 
-\title{good coveringについて}
+\title{楕円型正則性}
 \author{みつば(@mittlear1)}
-\date{2020年9月24日}
+\date{\today}
 %DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
 %DIF UNDERLINE PREAMBLE %DIF PREAMBLE
 \RequirePackage[normalem]{ulem} %DIF PREAMBLE
@@ -52,288 +78,254 @@
 %DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
+
 \maketitle
-\begin{abstract}
-    何かと必要になる(気がする)多様体のgood coveringの存在を示す．その周辺の話題なども多少書く．
-\end{abstract}
+\tableofcontents
 
-\section{good coveringの存在}
-以下，多様体は第二可算で$C^\infty$級なものを考える．
+\newpage
+\section*{記法}
+$\setN$：0以上の整数全体．
 
+\DIFdelbegin \DIFdel{$\smoothfct(M,N)$}\DIFdelend \DIFaddbegin \DIFadd{$C^\infty(M,N)$}\DIFaddend ：$M$から$N$への\smooth 写像全体．
+
+$C^{\infty}_c(M)$：コンパクト台を持つ$M$上の\smooth 関数全体．
+
+$\mcalS(\setR^n,C^m)$：$\setR^n$上の$\setC^m$値のSchwartzの急減少関数全体．
+
+
+
+\newpage
+\section{微分作用素}
+
+\subsection{微分作用素の定義}
+
+\subsection{主表象}
+
+\subsection{形式的随伴作用素}
+
+\newpage
+\section{Sobolev空間}
+
+\subsection{Euclid空間上のSobolev空間}
+
+$(\cdot,\cdot)$を$\setC^m$上の標準的なHermite計量とする．
 
 \begin{definition}
-  $M$を多様体とする．$M$の開被覆$\mscrU$がgood coveringであるとは，
-  任意の有限個の$\mscrU$の元$U_1,U_2,\dots,U_k$に対して，その共通部分が空でなければ
-  $\setR^n$と微分同相であることをいう．
-\end{definition}
+  $f, g\in \schwartz{n}{m}$および$s\in \setR$に対して
+  \[ \abracket{f,g}_s=\int\DIFdelbegin \DIFdel{_\setR^n }\DIFdelend \DIFaddbegin \DIFadd{_{\setR^n} }\DIFaddend (\hat{f}(\xi),\hat{g}(\xi))(1+\abs{\xi})^{2s}\dd \xi \]
+\DIFdelbegin %DIFDELCMD < \end{definition}
+%DIFDELCMD < %%%
+\DIFdelend で内積$\abracket{\cdot,\cdot}_s$を定め，ここからできるノルム\DIFdelbegin \DIFdel{$\norm{\cdot}$}\DIFdelend \DIFaddbegin \DIFadd{$\norm{\cdot}_s$}\DIFaddend による
+$\schwartz{n}{m}$の完備化を$\sobolevlocal{s}{n}{m}$と書き，$s$次の\textbf{Sobolev空間}という．
+\DIFaddbegin \end{definition}
+\DIFaddend 
 
-本稿の目標は次の定理である．
+\DIFaddbegin \DIFadd{各$s\in \setR$において$\schwartz{n}{m}$から$\sobolevlocal{s}{n}{m}$への自然な単射がある．
+これによって$\schwartz{n}{m}$を$\sobolevlocal{s}{n}{m}$の部分集合とみなす．
+}
 
-\begin{theorem}\label{main}
-  任意の多様体$M$についてgood coveringは存在する．
-\end{theorem}
-
-以下，$\dim M = n$とする．また，$M$は連結であるとしてよい．
-証明のため，$M$上のRiemann計量$g$を一つとって固定する．
-
-\begin{definition}
-  $M$の開集合$U$が測地的に凸であるとは，任意の$p, q \in M$に対して$p$と$q$を結ぶ最短測地線がただ一つ
-  存在し，それが$U$に含まれることをいう．
-\end{definition}
-
-\begin{proposition}\label{existence}
-  測地的に凸な開集合全体の集合は$M$の位相の開基をなす．
-\end{proposition}
-
-\begin{proof}
-  $p\in M$を任意にとる．
-  $0\in T_pM$の近傍$V$を小さくとって，\DIFdelbegin \DIFdel{$\map{\exp=\exp_p}{V}{M}$}\DIFdelend \DIFaddbegin \DIFadd{$\map{\exp_p}{V}{M}$}\DIFaddend が像への微分同相になり，かつ
-  任意の$V$の2点についてそれらを結ぶ最短測地線が$M$内でただ一つ存在するようにする．
-  さらに$\setR^n$と$T_p M$との間の線型同型写像を一つとることで$p$まわりのチャート\DIFdelbegin \DIFdel{$(\exp(V), \varphi)$
-  }\DIFdelend \DIFaddbegin \DIFadd{$(\exp_p(V), \varphi)$
-  }\DIFaddend ができる．
-  \DIFaddbegin 
-
-  \DIFaddend 以下\DIFdelbegin \DIFdel{では}\DIFdelend ，\DIFdelbegin \DIFdel{$\exp(V)$}\DIFdelend \DIFaddbegin \DIFadd{$\exp_p(V)$}\DIFaddend に含まれ，$p$を含\DIFdelbegin \DIFdel{む}\DIFdelend \DIFaddbegin \DIFadd{むような}\DIFaddend 測地的に凸な開集合を構成する．
-  \DIFaddbegin \DIFadd{$x^i$を$\exp_p(V)$上$\varphi$によって定義された座標関数とし、$\Gamma_{ij}^k$をChristoffel記号とする。
-  チャートのとり方から}\DIFaddend $x^i(p)\Gamma_{ij}^k(p) = 0$であり，$i, j, k$の動く範囲は有限だから，$V$に含まれる
-  0の近傍$V^\prime$が存在して\DIFdelbegin \DIFdel{，}\DIFdelend 任意の$i, j, k$に対して$\exp(V^\prime)$上
-    \[\abs{x^k\Gamma_{ij}^k} < 1 / n^2 \]
-  となる．
-\DIFaddbegin 
-
-  \DIFaddend $\gamma$を\DIFdelbegin \DIFdel{$\exp(V^\prime)$}\DIFdelend \DIFaddbegin \DIFadd{$\exp_p(V^\prime)$}\DIFaddend 内の\DIFaddbegin \DIFadd{任意の}\DIFaddend 測地線とする．\DIFdelbegin \DIFdel{$(\exp(V),\varphi)$}\DIFdelend \DIFaddbegin \DIFadd{$(\exp_p(V),\varphi)$}\DIFaddend を使って$\gamma$を
-  局所表示したときの第$i$成分を$\gamma^i$と書くことにすると，
-  相加・相乗平均の不等式から
-  \begin{align*}
-    \sum_{i, j} \frac{d\gamma^i}{dt} \frac{d\gamma^j}{dt} 
-      &\leq \sum_{i, j} \frac{1}{2} \bracelr{\parenlr{\frac{d\gamma^i}{dt}}^2 + 
-      \parenlr{\frac{d\gamma^j}{dt}}^2} = n\sum_k \parenlr{\frac{d\gamma^k}{dt}}^2
-  \end{align*}
-  となる．$\map{r}{\exp(V^\prime)}{\setR}$を
-    \[r(q) = (d(p,q))^2 \]
-  で定める．ただし，$d$はRiemann計量から定まる$M$上の距離を表す．このとき
-  \[(r\circ \gamma)(t) = \sum_k (\gamma^k(t))^2\]
-  なので，
-  \begin{align*}
-    \frac{1}{2}\frac{d^2}{dt^2}(r\circ \gamma)(t)
-      &= \sum_k \parenlr{\frac{d\gamma^k}{dt}}^2 + \sum_k \gamma^k \frac{d^2\gamma^k}{dt^2} 
-      = \parenlr{\sum_k\frac{d\gamma^k}{dt}}^2 - \sum_{i, j, k} \gamma^k \Gamma_{ij}^k\frac{d\gamma^i}{dt}\frac{d\gamma^j}{dt} \\
-    &> \sum_k \parenlr{\frac{d\gamma^k}{dt}}^2 
-      - \sum_{i,j,k} \frac{1}{n^2}\frac{d\gamma^i}{dt}\frac{d\gamma^j}{dt} \\
-    &\geq \sum_k \parenlr{\frac{d\gamma^k}{dt}}^2 - n^2\sum_k\frac{1}{n^2}\parenlr{\frac{d\gamma^k}{dt}}^2  = 0
-  \end{align*}
-  となる．したがって$r\circ \gamma$は\DIFdelbegin \DIFdel{極大値を持たないことが分かった}\DIFdelend \DIFaddbegin \DIFadd{下に凸な関数である}\DIFaddend ．
-
-  $a>0$に対して
-    \[B_a = \set{v\in T_p M}{\norm{v} < a} \]
-  と書くことにする．$\varepsilon>0$を$B_{3\varepsilon} \subset V^\prime$となるようにとり，
-  $U = \exp(B_\varepsilon)$とおく．$U$上の2点$q, q^\prime$を任意にとり，これらを結ぶ最短測地線を
-  $\eta$とするとき，任意の$t$で$\eta(t)\in \exp(B_{3\varepsilon})\subset \exp(V^\prime)$である．
-  したがって，上で調べたことから
-  $\eta(t)$と$p$との間の距離は$q$または$q^\prime$で最大となる．以上より$\eta(t)$は常に
-  $U$に含まれることが分かったので，$U$は測地的に凸である．
-
-  初めの$V$はいくらでも小さくとれるので，命題の主張が正しいことが分かる．
-\end{proof}
-
-\begin{proposition}
-  \begin{enumarabicp}
-    \item 測地的に凸な開集合の有限個の共通部分は空でなければ測地的に凸である．
-    \item 任意の$p\in M$に対してある開近傍$W$を十分小さくとることで，
-    $W$に含まれる測地的に凸な開集合$U$は$\setR^n$の星型領域と微分同相であるようにできる．
-  \end{enumarabicp}
-\end{proposition}
-
-\begin{proof}
-  (1)は明らかである．(2)を示す．$0\in T_p M$の$TM$での近傍$\mscrV$と$p$の開近傍$W$を，
-  $\map{\exp}{\mscrV}{W\times W}$が微分同相写像になるようにとる．この$W$が条件をみたすことを示す．
-  $W$に含まれる空でない測地的に凸な開集合$U$を任意にとる．
-  $q\in U$を一つ選\DIFdelbegin \DIFdel{んでおく．}\DIFdelend \DIFaddbegin \DIFadd{んで、}\DIFaddend $\map{\exp_q}{T_q M}{M}$を考える．$0\in T_q M$の開近傍$V$を
-  \[V = \set{v\in T_q M}{\exp_q v \in U\text{かつ}\exp_q tv\text{は$q$と$\exp_q v$を結ぶ最短測地線}} \]
-  で定\DIFdelbegin \DIFdel{める．}\DIFdelend \DIFaddbegin \DIFadd{めたとき、}\DIFaddend $\restr{\exp_q}{V}$が$V$から$U$への微分同相写像であることを示す．
-  まず，$q$と$U$の点を結ぶ最短測地線はただ一つしかないので単射であり，全射性\DIFdelbegin \DIFdel{も}\DIFdelend \DIFaddbegin \DIFadd{は}\DIFaddend 明らかである．
-  \DIFdelbegin \DIFdel{また，$W$のとり方から}\DIFdelend \DIFaddbegin \DIFadd{あとは}\DIFaddend $\restr{\exp_q}{V}$\DIFdelbegin \DIFdel{は}\DIFdelend \DIFaddbegin \DIFadd{の}\DIFaddend 各点\DIFdelbegin \DIFdel{で}\DIFdelend \DIFaddbegin \DIFadd{での}\DIFaddend 微分が正則\DIFdelbegin \DIFdel{である}\DIFdelend \DIFaddbegin \DIFadd{であることを確かめればよいが、
-  これは$W$のとり方から明らかである}\DIFaddend ．
-  \DIFdelbegin \DIFdel{したがってこれは微分同相である．
-  }\DIFdelend $V$は星型領域なので命題の主張が分かる．
-\end{proof}
-
-\DIFdelbegin \DIFdel{あとは}\DIFdelend \DIFaddbegin \DIFadd{以上より、}\cref{main}\DIFadd{を示すには}\DIFaddend 星型領域が$\setR^n$と微分同相であることを示せばよい．
-
-\begin{lemma}\label{function}
-$U$を$\setR^n$の開集合とすると，$C^\infty$級関数$\map{h}{\setR^n}{\setR}$が存在して次をみたす．
-\begin{enumarabicp}
-  \item $h\geq 0,$
-  \item $U=h^{-1}((0,\infty)),$
-  \item $\setR^n\setminus U = h^{-1}(0).$
-\end{enumarabicp}
+\DIFaddend \begin{lemma}
+  $f$に対して$\hat{f}(\xi)(1+\abs{\xi})^s$を対応させることでできる$\schwartz{n}{m}$から
+  $L^2(\setR^n,\setC^m)$への線型写像は$\sobolevlocal{s}{n}{m}$から$L^2(\setR^n,\setC^m)$
+  へのHilbert空間としての同型写像に一意的に延長される．
 \end{lemma}
 
-\begin{proof}
-  $U$がLidel\"{o}fなので，開球の族$\{B_{x_n}(r_n)\}_{n\in \setN}$が存在して
-    \[U = \bigcup_n B_{x_n}(r_n)\]
-  が成立する．$C^\infty$級関数$\map{\varphi_n}{\setR^n}{\setR}$を
-  \begin{enumarabicp}
-    \item $0\leq \varphi_n \leq 1,$
-    \item $\varphi^{-1}((0,1])=B_{x_n}(r_n),$
-    \item $\varphi^{-1}(0)=\setR^n\setminus B_{x_n}(r_n)$
-  \end{enumarabicp}
-  となるようにとる．各$\varphi_n$はコンパクト台をもつ関数なので，$C_n>0$を，$\varphi_n$の
-  $n$階までのすべての導関数の上界となるようにとれる．そこで$h$を
-    \[h(x)=\sum_{n=0}^\infty \frac{1}{2^n} C_n \varphi_n(x)\]
-  とおくと，これは確かにすべての$x\in \setR^n$で収束し，$\setR^n$上の関数を定める．
-  また，項別微分定理を繰り返し適用することにより，$h$が$C^\infty$級関数であることも分かる．
-  これが補題の条件をみたすことは明らかである．
-\end{proof}
-
 \begin{proposition}
-  $U$を$\setR^n$の中の星型領域とする．このとき$U$は$\setR^n$と微分同相である．
+  $\cptsmoothfct{n}{m}$は$\sobolevlocal{s}{n}{m}$の中で稠密である．
 \end{proposition}
 
-\begin{proof}
-  $0\in U$であり，しかも0と$U$の任意の点が線分で結べるとしてよい．\cref{function}の$h$をとり，
-  $\map{f}{U}{\setR^n}$を
-    \[f(x)=\parenlr{1+\parenlr{\int_0^1 \frac{1}{h(vx)}dv}^2\norm{x}^2}x
-    =\parenlr{1+\parenlr{\int_0^{\norm{x}}\frac{1}{h(wx/\norm{x})}dw }^2 }x \]
-  で定める．1つ目の表記より$f$は$C^\infty$級である．次に$f$が全単射であることを示す．
-  そのためには，$x\in \setR^n$で$\norm{x}=1$であるものを任意にとって
-    \[A(x)=\sup\set{t\in \setR_{\geq0}}{tx\in U}\]
-  とおいたとき，$f$が$[0, A(x))x$と$[0,\infty)x$の間の全単射になることを示せばよい．
-  $f$の2つ目の表記よりこれは確かに単射である．次に全射性を示す．これには
-    \[\lim_{t\to A(x)} \norm{f(tx)} = \infty \]
-  であることを示せばよい．まず$A(x)=\infty$のとき，
-    \[\norm{f(tx)} \geq \norm{tx} \xrightarrow{t\to \infty} \infty \]
-  である．また$A(x)< \infty$のとき，平均値の定理より
-    \[h(A(x)x)-h(tx)=\restrlr{\frac{dh(tx)}{dt}}{t=t_0} (A(x)-t) \]
-  となる$t_0\in (t, A(x))$が存在する．$[0,A(x)]$のコンパクト性から微分の絶対値は
-  ある定数$C$で上からおさえられる．$h(A(x)x)=0$であることに注意すると
-  \begin{align*}
-    \int_0^1 \frac{1}{h(vtx)}dv&\geq \int_0^1 \frac{1}{C(A(x)-tv)}dv
-    =\frac{1}{ct}\log\frac{A(x)}{A(x)-t}\xrightarrow{t\to A(x)} \infty
-  \end{align*}
-  なので
-    \[\lim_{t\to A(x)} \norm{f(tx)}=\infty \]
-  となる．以上より$f$が全単射であることが分かった．
+\begin{proposition}\label{Sobolev space injective}
+  $s>t\in \setR$とする．$\schwartz{n}{m}$からそれ自身への恒等写像は有界線型写像
+  \[ \map{\iota_{st}}{\sobolevlocal{s}{n}{m}}{\sobolevlocal{t}{n}{m}} \]
+  を誘導し，$\iota_{st}$は単射である．
+\end{proposition}
 
-  最後に$f$の微分がどの点でも正則であることを示す．もしそうでないとすると，$x\in U$と
-  $v\in \setR^n\setminus\{0\}$で
-    \[df_x(v) = 0\]
-  となるものが存在することになる．
-  $\lambda(x) = \norm{f(x)}/\norm{x}$とおくと，これは
-    \[d\lambda_x(v)x+\lambda(x)v = 0 \]
-  と書ける．よってある$\mu \in \setR\setminus\{0\}$を用いて$v = \mu x$と書ける．
-  $v\neq 0$より$x\neq 0$である．したがって
-  \begin{align*}
-    d\lambda_x(\mu x)x+\lambda(x)\mu x=0 \iff d\lambda_x(x)+\lambda(x)=0
-  \end{align*}
-  となる．しかし，$\lambda$の定義から$\lambda(x)>0$で，
-    \[d\lambda_x(x)=\restrlr{\frac{d}{dt}}{t=1}\lambda(tx)\geq 0\]
-  なので矛盾する．
-\end{proof}
+\begin{definition}
+  位相線形空間$\sobolevlocal{\infty}{n}{m}$を
+  \[ \sobolevlocal{\infty}{n}{m} = \varprojlim_{s\in\setR} \sobolevlocal{s}{n}{m} \]
+  で定める．\cref{Sobolev space injective}より，自然な写像
+  $\map{\iota_{s}}{\sobolevlocal{\infty}{n}{m}}{\sobolevlocal{s}{n}{m}}$は単射である．
+\end{definition}
 
-十分小さい測地的に凸な開集合で作った開被覆は必ずgood coveringになるので，次の系が分かる．
+\begin{definition}
+  $s\in \setN$のとき，$f\in\schwartz{n}{m}$に対して$\norm{f}_{W^{s,2}}$を
+  \[ \norm{f}^2_{W^{s,2}} = \sum_{\abs{\alpha}\leq s} \norm{\partial^\alpha f}_{L^2}^2 \]
+  で定める．これは$\schwartz{n}{m}$上のノルムである．
+\end{definition}
+
+\begin{proposition}
+  $s\in \setN$のとき，$\schwartz{n}{m}$上のノルムとして$\norm{\cdot}_s$と$\norm{\cdot}_{W^{s,2}}$
+  は同値である．
+\end{proposition}
+
+\begin{proposition}
+  $\phi\in \schwartz{n}{}$に対して$\map{M_\phi}{\schwartz{n}{m}}{\schwartz{n}{m}}$
+  を
+  \[ M_\phi f = \phi f \]
+  で定めると，これは$\sobolevlocal{s}{n}{m}$からそれ自身への有界線型写像に延長される．
+\end{proposition}
+
+\begin{proposition}
+  $\map{(\cdot,\cdot)_{L^2}}{\schwartz{n}{m}\times\schwartz{n}{m}}{\setC}$を
+  \[(f,g)_{L^2} = \int_{\setR^n} (f(x),g(x)) \dd x \]
+  で定めると，$(\cdot,\cdot)_{L^2}$は任意の$s\in \setR$で連続なsesqui-linear form
+  \[ \map{(\cdot,\cdot)^s_{L^2}}{\sobolevlocal{s}{n}{m}\times\sobolevlocal{s}{n}{m}}{\setC} \]
+  を定める．また，任意の$f\in \sobolevlocal{s}{n}{m}$について
+  \[ \norm{f}_s = \sup_{g\in \schwartz{n}{m}\setminus 0} \frac{\abs{(f,g)_{L^2}^s}}{\norm{g}_{-s}} \]
+  が成立する．
+\end{proposition}
+
+\begin{definition}
+  \begin{enumarabicp}
+    \item $k\in \setN$に対して$C^k_0(\setR^n,\setC^m)$を，$C^k$級関数$\map{f}{\setR^n}{\setC^m}$であって
+    \[ \abs{\alpha}\leq k \Rightarrow \lim_{\abs{x}\to \infty} \abs{\partial^\alpha f} = 0 \]
+    をみたすもの全体のなすベクトル空間とする．また，$C^k_0(\setR^n,\setC^m)$上のノルム
+    $\norm{\cdot}_{C^k_0}$を
+    \[ \norm{f}_{C^k_0} = \sum_{\abs{\alpha}\leq k} \sup_{x\in \setR^n} \abs{\partial^\alpha f} \]
+    で定める．
+    \item $C^\infty_0(\setR^n,\setC^m)$を
+    \[C^\infty_0(\setR^n,\setC^m) = \bigcap_{k\in \setN} C^k_0(\setR^n,\setC^m) \]
+    で定め，すべての$k\in \setN$で$C^\infty_0(\setR^n,\setC^m)\to C^k_0(\setR^n,\setC^m)$が連続となる
+    最弱の位相を入れる．
+  \end{enumarabicp}
+\end{definition}
+
+\begin{proposition}
+  $C^k_0(\setR^n,\setC^m)$は$\norm{\cdot}_{C^k_0}$によってBanach空間になる．
+\end{proposition}
+
+\begin{theorem}[Sobolevの埋め込み定理]\label{Sobolev embedding}
+  $k\in \setN,\ s>k+n/2$のとき，自然な包含$\schwartz{n}{m}\to C^k_0(\setR^n,\setC^m)$は
+  単射有界線型写像
+  \[ \map{\eta_{sk}}{\sobolevlocal{s}{n}{m}}{C^k_0(\setR^n,\setC^m)}\]
+  へと一意的に延長される．
+\end{theorem}
 
 \begin{corollary}
-  任意の$M$の開被覆に対して，それの細分になっているようなgood coveringが存在する．
+  $\sobolevlocal{\infty}{n}{m}$から$C^\infty_0(\setR^n,\setC^m)$への単射連続線型写像$\eta$であって，
+  \DIFdelbegin \DIFdel{$\eta_{sk}$と}\DIFdelend \DIFaddbegin \DIFadd{$\eta_{sk}\ (s>k+n/2)$たちと}\DIFaddend 整合的なものがただ一つ存在する．
 \end{corollary}
 
-\section{bootsrap lemma}
+\DIFaddbegin \begin{definition}
+  \DIFadd{$\setR^n$の開集合$U$に対して$\sobolev{s}(U,\setC^m)$を$C^\infty_c(U,\setC^m)$の
+  $\sobolevlocal{s}{n}{m}$での閉包で定義する．
+}\end{definition}
 
-good coveringの存在定理は，次のbootstap lemmaと組み合わせることで威力を発揮する．
+\begin{theorem}[Rellichの補題]\label{Rellich lemma}
+  \DIFadd{$U$を$\setR^n$の相対コンパクト開集合とする．$s>t$のとき，包含
+  $\map{\iota_{st}}{\sobolev{s}(U,\setC^m)}{\sobolev{t}(U,\setC^m)}$はコンパクト作用素である．
+}\end{theorem}
 
-\begin{theorem}[bootsrap lemma]
-  $M$を位相多様体とする．$\mfrakB$を$M$の開基であって
-  \begin{enumromanp}
-    \item $\emptyset\in \mfrakB$,
-    \item $U, V\in \mfrakB$ならば$U\cap V \in \mfrakB$
-  \end{enumromanp}
-  をみたすものとする．$M$の開集合からなる集合$\mfrakA$が次の性質をみたすとする．
-  \begin{enumarabicp}
-    \item $\mfrakB\subset \mfrakA$.
-    \item $\mfrakA$の任意の元$U, V$について$U\cap V\in \mfrakA$が成立するなら$U\cup V\in \mfrakA$.
-    \item 互いに交わらない可算個の$\mfrakA$の元$U_1, U_2, \dots$について
-    $\cup_{n=1}^\infty U_n\in \mfrakA$.
-  \end{enumarabicp}
-  このとき，$M\in \mfrakA$である．
-\end{theorem}
+\DIFaddend \subsection{コンパクト多様体上のSobolev空間}
 
-\begin{proof}
-  まず，$\mfrakB$の$k$個の元$V_1, \dots, V_k$に対して$\bigcup_{i=1}^k V_i\in \mfrakA$であることを$k$
-  についての帰納法で示す．$k=1$のときは明らかである．$k-1$まで正しいことが示されているとき，
-  帰納法の仮定と(ii)から
-  $V_1\cup\dots\cup V_{k-1},\ V_k$および$(V_1\cap V_k)\cup\dots \cup (V_{k-1}\cap V_k)$
-  は$\mfrakA$の元である．したがって$(2)$より$\bigcup_{i=1}^k V_i\in\mfrakA$である．
+\DIFaddbegin \DIFadd{本節では，$M$を$n$次元コンパクト多様体，$E$を$M$上の階数$m$の複素ベクトル束とする．
+2.1節で考察したことをコンパクト多様体上に拡張するのが本節の目的である．
+}
 
-  $M$は局所コンパクトHausdorff空間だから，コンパクト集合の増大列$\{K_n\}_{n\in \setN}$
-  であって
-  \begin{enumerate}
-    \item すべての$n\in\setN$で$K_n\subset \Int K_{n+1}$,
-    \item $\bigcup_{n\in\setN} K_n = M$
-  \end{enumerate}
-  となるものがとれる．$U_{n}=\Int K_{n+1}\setminus K_{n-2},\ L_n=K_n\setminus \Int K_{n-1}$とおく．
-  ただし，$K_{-2}=K_{-1}=\emptyset$と約束する．$\mfrakB$は開基であることと$L_n$のコンパクト性から，
-  $\set{V\in\mfrakB}{V\subset U_{n+1}}$の有限個の元$V_{n,1},\dots, V_{n,k_n}$で$L_n$を被覆できる．
-  このとき$W_n=\bigcup_{i=1}^{k_n} V_i$は$\mfrakA$の元であり，$W_n\subset U_{n+1}$をみたす．
-  そこで
-    \[W^\prime_0=\bigcup_{i=0}^\infty W_{3i},\  W^\prime_1=\bigcup_{i=0}^\infty W_{3i+1},\ 
-      W^\prime_2=\bigcup_{i=0}^\infty W_{3i+2}\]
-  とおくと，(3)より$W^\prime_0,\ W^\prime_1,\ W^\prime_2\in\mfrakA$である．したがって
-    \[M=W^\prime_0\cup W^\prime_1\cup W^\prime_2\in\mfrakA\]
-  となる．
-\end{proof}
+\begin{definition}
+  \DIFadd{$(U,\kappa,\tau)$が$E$のtotal trivializationであるとは，$(U,\kappa)$が$M$のチャート
+  であり，$(U,\tau)$が$E$の局所自明化であることをいう．
+}\end{definition}
 
-good coverの存在とbootstrap lemmaをどのように使うかを簡単に説明する．
-一般の多様体$M$について何か示したい命題$P$が与えられているとする(Poincar\'{e}双対などの
-(コ)ホモロジーについての定理を念頭において考えるとよい)．
-まず，bootstrap lemmaにおける$\mfrakA$として$P$を真にする開集合全体をとり，
-$\mfrakB$としてgood coverをとる．この時点でbootstrap lemmaの$\mfrakB$についての仮定は
-($\mfrakB$に空集合を含めることにすれば)みたされているので，あとは後半の$\mfrakA$についての
-性質を確かめればよい．
+\DIFadd{$E$上のSobolev空間を定義するため，まずは$\Gamma(E)$上の内積を定義する．$E$のtotal trivialization
+からなる有限族$\{(U_i,\kappa_i,\tau_i)\}_{1\leq i \leq N}$を$\{(U_i)\}$が$M$の開被覆となるようにとり，
+${U_i}$に従属する1の分割$\{\phi_i\}$をとる．さらに$\map{\sigma_i}{\Gamma(E)}{C^\infty{\kappa_i(U_i),\setC^m}}$
+を，$f\in \Gamma(E),\ x\in \kappa_i(U_i)$に対して
+}\[ \DIFadd{(x,\sigma_i(f)(x)) = \tau_i(f(\kappa_i^{-1}(x))) \in U_i\times \setC^m }\]
+\DIFadd{をみたすように定める．以上のデータを用いて，$s\in \setZ$に対して$\map{\abracket{\cdot,\cdot}_s^E}{\Gamma(E)\times\Gamma(E)}{\setC}$を
+}\[ \DIFadd{\abracket{f,g}^E_s=\sum_{1\leq i\leq N} \abracket{\sigma_i(\phi_i f),\sigma_i(\phi_i g)}_s }\]
+\DIFadd{で定め，この内積が定めるノルムを$\norm{\cdot}^E_s$と書く．
+}
 
-(1)は結局$\setR^n$の場合に$P$を示すということなので一番簡単な
-場合であるはずである．(2)と(3)についてはもはやgood coverは関係のない，命題$P$のもつ形式的な
-性質の証明である．(2)はその形から分かる通り，Mayer-Vietoris完全列を意識した条件である．
-(3)も(コ)ホモロジーが連結成分ごとに分解することを反映した条件である．
+\begin{proposition}
+  \DIFadd{$s\in\setZ$のとき，$\norm{\cdot}_s^E$の同値類は${(U_i,\kappa_i,\tau_i)}$および${\phi_i}$のとり方によらない．
+}\end{proposition}
 
-多くの場合，一番骨が折れるところは(2)のMayer-Vietoris完全列に関する図式の可換性などのチェック
-であるが，これも単なるdiagram chasingで終わることもしばしばである．
+\begin{definition}
+  \DIFadd{$s\in \setZ$について，$\Gamma(E)$の$\norm{\cdot}^E_s$(と同値なノルム)による完備化を$\sobolev{s}(E)$
+  と書き，$E$上の$s$次のSobolev空間という．
+}\end{definition}
 
-\section{応用}
-2節の最後で述べた手法で証明できる命題をいくつか列挙する．
+\DIFadd{2.1節のときと同様に，各$s\in\setZ$に対して$\Gamma(E)$は$\sobolev{s}(E)$の部分集合とみなすことにする．
+}
 
-\begin{theorem}[de RhamコホモロジーのPoincar\'{e}双対]
-  向きづけられた$n$次元多様体$M$と非負整数$k$について，
-    \[([\omega],[\eta])=\int_M \omega\wedge \eta\]
-  で定まるペアリング$\map{(\ ,\ )}{H^{n-k}(M)\times H^k_c(M)}{\setR}$は同型である．
-  ただし，$H^\ast_c(M)$はコンパクト台のde Rhamコホモロジーを表す．
-\end{theorem}
+\DIFadd{以下，本節では$\{U_i,\kappa_i,\tau_i\}$と$\{\phi_i\}$を1つ固定し，各$s\in\setZ$に対して$\abracket{\cdot,\cdot}_s$
+をこれらのデータからできる内積とする．
+}
 
-\begin{theorem}[de RhamコホモロジーのK\"{u}nneth公式]
-  $M,\ N$を多様体とし，さらに$N$のde Rhamコホモロジー$H^\ast(N)$が有限生成であるとする．
-  このとき
-    \[H^\ast(M\times N)=H^\ast(M)\otimes H^\ast(N)\]
-  が成立する．
-\end{theorem}
+\DIFaddend \newpage
+\section{擬微分作用素}
 
-これらの定理の証明は，有限個の元からなるgood coveringをもつ場合には\cite{Bott--Tu}で証明されている．
-実際にはその仮定は上で書いたように弱められるのであるが，2節の最後に書いた手法を用いれば
-\cite{Bott--Tu}の証明で実質的な部分の証明はほぼ終了している．
+\subsection{擬微分作用素の定義}
 
-\begin{theorem}
-  $H_{dR}^\ast$をde Rhamコホモロジーを与える関手，$H_{sing}^\ast$を特異コホモロジーを与える関手
-  とする．このとき，$H_{dR}^\ast$と$H_{sing}^\ast$は自然同値である．
-\end{theorem}
+\DIFaddbegin \begin{definition}
+  \DIFadd{$d\in\setR$とする．$\map{p(x,\xi)}{\setR^n\times \setR^n}{\Hom(C^{m_1},\setC^{m_1})}$が次数$d$の
+  }\textbf{\DIFadd{表象(symbol)}}\DIFadd{であるとは，次の条件をすべてみたすことをいう．
+  }\begin{enumarabicp}
+    \item \DIFadd{$p$は\smooth である．
+    }\item \DIFadd{任意の$\alpha,\beta\in\setN^n$に対して定数$C_{\alpha\beta}$が存在して
+    }\[ \DIFadd{\forall (x,\xi) \in \setR^n\times\setR^n\quad \norm{D^\alpha_x D^\beta_\xi p(s,\xi)} \leq C_{\alpha \beta}(1+\abs{\xi})^{d-\abs{\xi}} }\]
+    \DIFadd{をみたす．ここで$\norm{\cdot}$は$\Hom(\setC^{m_1},\setC^{m_2})$の作用素ノルムである．
+  }\end{enumarabicp}
+  \DIFadd{次数$d$の表象全体のなすベクトル空間を$S^d=S^d(m_1,m_2)$と書き，
+  }\[ \DIFadd{S^\infty = \bigcup_{d\in\setR} S^d,\ \quad S^{-\infty} = \bigcap_{d\in\setR} S^d }\]
+  \DIFadd{とおく．
+}\end{definition}
 
-この定理は\cite{LeeSmooth}に証明がある．
+\DIFadd{$p\in S^d$とする．このとき，$f\in \cptsmoothfct{n}{m_1}$に対して$\Psi_p f\in \smoothfct{n}{m_2}$
+が
+}\[ \DIFadd{\Psi_p f(x) = \int_\setR^n e^{ix\xi} p(x,\xi)\hat{f}(\xi)\dd xi }\]
+\DIFadd{で定まる．
+}
 
-\bibliographystyle{MA}
+\begin{definition}
+  \DIFadd{$\map{\Psi_p}{\cptsmoothfct{n}{m_1}}{\smoothfct{n}{m_1}}$を$p$の定める$d$次の}\textbf{\DIFadd{擬微分作用素(pseudo-diffirential operator)}}
+  \DIFadd{という．$d$次の擬微分作用素全体のなすベクトル空間を$\Psi^d$と書き，
+  }\[ \DIFadd{\Psi^\infty = \bigcup_{d\in \setR} \Psi^d,\quad \Psi^{-\infty} = \bigcap_{d\in \setR} \Psi^d }\]
+  \DIFadd{とおく．
+}\end{definition}
 
+\begin{lemma}\label{symbol injectivity}
+  \DIFadd{$p$に$\Psi_p$を対応させる線型写像$S^d\to \Psi^d$は全単射である．
+}\end{lemma}
+
+\begin{definition}
+  \DIFadd{$\map{\sigma}{\Psi^d}{S^d}$を}\cref{symbol injectivity}\DIFadd{の全単射の逆写像とし，全表象写像という．
+}\end{definition}
+
+\begin{proposition}
+  \DIFadd{$p\in S^d$を$x$方向の台がコンパクトな表象とする．このとき，任意の$s\in\setR$で$\Psi_p$は$\sobolevlocal{s}{n}{m_1}$
+  から$\sobolevlocal{s-d}{n}{m_2}$への有界線型写像に一意的に延長できる．
+}\end{proposition}
+
+\DIFadd{証明のため，今後繰り返し使うことになる基本的な不等式を導入する．
+}
+
+\begin{lemma}[Peetreの不等式]\label{Pettre inequality}
+  \DIFadd{任意の$x,y\in \setR^n$,\ $s\in\setR$に対して
+  }\[ \DIFadd{(1+\abs{x+y})^s\leq(1+\abs{x})^{\abs{s}}(1+\abs{y})^s }\]
+  \DIFadd{が成立する．
+}\end{lemma}
+
+\DIFaddend \subsection{表象の漸近展開}
+
+\subsection{楕円性}
+
+\newpage
+\section{楕円型正則性}
+
+\subsection{局所正則性}
+
+\subsection{大域正則性}
+
+\newpage
+\section{Hodge分解}
+
+\DIFaddbegin \newpage
+\DIFaddend \bibliographystyle{MA}
+\nocite{*}
 \bibliography{data}
 
 \end{document}
-good cover全体が開被覆全体のなす有向集合上共終であること
 
-2020/9/21 1節の執筆
-2020/9/22 1節の執筆およびbootstrap lemmaの主張
-2020/9/24 bootstrap lemmaの証明，3節
+te
